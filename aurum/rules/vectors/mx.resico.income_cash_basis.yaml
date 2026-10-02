@@ -1,0 +1,94 @@
+rule: mx.resico.income_cash_basis
+version: "2026.1"
+source: "SAT prefill cash-basis rules (PUE, REP, PPD); see docs/SPEC.md"
+_docs: &docs
+  - uuid: PUE-AUG
+    tipo: I
+    direction: emitido
+    metodo_pago: PUE
+    fecha: "2026-08-05"
+    subtotal: "20000.00"
+    total: "23200.00"
+    iva: "3200.00"
+  - uuid: PPD-AUG-NOREP
+    tipo: I
+    direction: emitido
+    metodo_pago: PPD
+    fecha: "2026-08-10"
+    subtotal: "10000.00"
+    total: "11600.00"
+    iva: "1600.00"
+  - uuid: PPD-JUL
+    tipo: I
+    direction: emitido
+    metodo_pago: PPD
+    fecha: "2026-07-10"
+    subtotal: "30000.00"
+    total: "34800.00"
+    iva: "4800.00"
+  - uuid: PUE-JUL
+    tipo: I
+    direction: emitido
+    metodo_pago: PUE
+    fecha: "2026-07-05"
+    subtotal: "5000.00"
+    total: "5800.00"
+    iva: "800.00"
+  - uuid: REP-AUG
+    tipo: P
+    direction: emitido
+    fecha: "2026-08-20"
+    subtotal: "0"
+    total: "0"
+    pagos:
+      - fecha_pago: "2026-08-20"
+        monto: "34800.00"
+        uuid_relacionado: PPD-JUL
+cases:
+  - name: august counts the PUE issued and the REP paid, not the unpaid PPD
+    inputs:
+      period: "2026-08"
+      documents: *docs
+    expect: {amount: "50000.00", currency: "MXN"}
+    steps_contain: "PUE-AUG"
+  - name: july counts only the PUE issued in july
+    inputs:
+      period: "2026-07"
+      documents: *docs
+    expect: {amount: "5000.00", currency: "MXN"}
+  - name: a month with nothing collected
+    inputs:
+      period: "2026-09"
+      documents: *docs
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: received CFDIs are never income
+    inputs:
+      period: "2026-08"
+      documents:
+        - uuid: REC-1
+          tipo: I
+          direction: recibido
+          metodo_pago: PUE
+          fecha: "2026-08-03"
+          subtotal: "1000.00"
+          total: "1160.00"
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: a credit note (tipo E) reduces the month's collected income
+    inputs:
+      period: "2026-08"
+      documents:
+        - uuid: PUE-AUG
+          tipo: I
+          direction: emitido
+          metodo_pago: PUE
+          fecha: "2026-08-05"
+          subtotal: "20000.00"
+          total: "23200.00"
+        - uuid: EGR-AUG
+          tipo: E
+          direction: emitido
+          metodo_pago: PUE
+          fecha: "2026-08-25"
+          subtotal: "2000.00"
+          total: "2320.00"
+    expect: {amount: "18000.00", currency: "MXN"}

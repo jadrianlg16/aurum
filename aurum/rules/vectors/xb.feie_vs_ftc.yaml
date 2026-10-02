@@ -1,0 +1,68 @@
+rule: xb.feie_vs_ftc
+version: '2026.1'
+source: IRC § 911 (2026 amount USD 132,900, Rev. Proc. 2025-32 § 4.39) and § 901
+cases:
+- name: income above the cap is excluded only up to the cap
+  inputs:
+    foreign_earned_income: '150000'
+    days_abroad: 340
+    foreign_tax_paid: '20000'
+    lang: en
+  expect:
+    amount: '132900.00'
+    currency: USD
+  steps_contain: '132900'
+- name: a bona fide resident qualifies without a day count
+  inputs:
+    foreign_earned_income: '90000'
+    bona_fide_resident: true
+    lang: en
+  expect:
+    amount: '90000.00'
+    currency: USD
+  steps_contain: bona fide residence test
+- name: neither test met, nothing to exclude
+  inputs:
+    foreign_earned_income: '90000'
+    days_abroad: 100
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+  steps_contain: neither test met
+- name: exactly 330 days abroad qualifies
+  inputs:
+    foreign_earned_income: '50000'
+    days_abroad: 330
+    lang: en
+  expect:
+    amount: '50000.00'
+    currency: USD
+- name: the credit option is priced from the foreign tax actually paid
+  inputs:
+    foreign_earned_income: '100000'
+    bona_fide_resident: true
+    foreign_tax_paid: '18000'
+    lang: en
+  expect:
+    amount: '100000.00'
+    currency: USD
+  steps_contain: Option · FTC
+- name: neither option reduces self-employment tax
+  inputs:
+    foreign_earned_income: '10000'
+    bona_fide_resident: true
+    lang: en
+  expect:
+    amount: '10000.00'
+    currency: USD
+  steps_contain: totalization
+- name: aurum never chooses
+  inputs:
+    foreign_earned_income: '10000'
+    days_abroad: 0
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+  explain_contains: Aurum does not choose

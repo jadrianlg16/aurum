@@ -1,0 +1,17 @@
+id: month-close-mx
+name: Month close (MX)
+description: Run the RESICO tax month close, refresh insights, archive the monthly review report, and produce a digest.
+schedule: null
+steps:
+  - id: tax_close
+    method: GET
+    path: /tax/mx/resico/{{ ws }}/{{ period }}
+  - id: insights
+    method: GET
+    path: /insights/{{ ws }}?period={{ period }}
+  - id: archive_report
+    method: POST
+    path: /reports/{{ ws }}/monthly-review/archive?period={{ period }}
+  - id: digest
+    method: GET
+    path: /insights/{{ ws }}/digest?period={{ period }}

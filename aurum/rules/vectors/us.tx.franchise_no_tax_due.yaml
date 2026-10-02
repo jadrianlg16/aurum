@@ -1,0 +1,77 @@
+rule: us.tx.franchise_no_tax_due
+version: '2026.1'
+source: Tex. Tax Code ch. 171; comptroller.texas.gov franchise page (2026 threshold
+  USD 2,650,000)
+cases:
+- name: a sole proprietorship is not a taxable entity
+  inputs:
+    total_revenue: '500000'
+    entity_type: sole_proprietorship
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+  steps_contain: '171.0002'
+- name: an LLC below the threshold owes nothing but still files an information report
+  inputs:
+    total_revenue: '2000000'
+    entity_type: llc
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+  steps_contain: Public Information Report
+- name: exactly at the 2026 threshold is still no tax due
+  inputs:
+    total_revenue: '2650000'
+    entity_type: llc
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+- name: one dollar over the threshold, margin is revenue minus one million
+  inputs:
+    total_revenue: '2650001'
+    entity_type: llc
+    lang: en
+  expect:
+    amount: '12375.01'
+    currency: USD
+- name: cost of goods sold gives the lowest margin
+  inputs:
+    total_revenue: '3000000'
+    entity_type: llc
+    cost_of_goods_sold: '1200000'
+    lang: en
+  expect:
+    amount: '13500.00'
+    currency: USD
+  steps_contain: cost of goods sold
+- name: retail and wholesale pay half the rate
+  inputs:
+    total_revenue: '3000000'
+    entity_type: llc
+    business_type: retail
+    lang: en
+  expect:
+    amount: '7500.00'
+    currency: USD
+- name: apportionment scales the margin
+  inputs:
+    total_revenue: '3000000'
+    entity_type: llc
+    business_type: retail
+    apportionment_factor: '0.5'
+    lang: en
+  expect:
+    amount: '3750.00'
+    currency: USD
+- name: the E-Z alternative is shown when revenue is under 20 million
+  inputs:
+    total_revenue: '3000000'
+    entity_type: llc
+    lang: en
+  expect:
+    amount: '15000.00'
+    currency: USD
+  steps_contain: E-Z computation

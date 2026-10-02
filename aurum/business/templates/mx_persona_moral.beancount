@@ -1,0 +1,82 @@
+; Chart of accounts — persona moral (MX), régimen general de ley, patrón en Nuevo León.
+; Applied with aurum.business.chart.apply_business_template(ws, "mx_persona_moral").
+; Dates are the 2000-01-01 floor; accounts used before being listed here are opened at first use.
+;
+; The expense tree is grouped so /api/business/{ws}/kpis can report COGS, operating expenses by group
+; and payroll cost without a per-workspace mapping: Expenses:COGS:*, Expenses:Payroll:*, Expenses:Opex:*.
+
+option "operating_currency" "MXN"
+
+; --- Assets ---------------------------------------------------------------
+2000-01-01 open Assets:Bank:BBVA
+2000-01-01 open Assets:Bank:Banorte
+2000-01-01 open Assets:Bank:Santander
+2000-01-01 open Assets:Cash
+2000-01-01 open Assets:Receivable:Clients
+2000-01-01 open Assets:Inventory
+2000-01-01 open Assets:FixedAssets:Equipo
+2000-01-01 open Assets:FixedAssets:Vehiculos
+2000-01-01 open Assets:FixedAssets:Depreciacion-Acumulada
+; IVA paid on purchases, creditable against IVA trasladado (LIVA art. 5).
+2000-01-01 open Assets:Taxes:IVA-Acreditable
+; IVA on PPD purchases not yet paid — creditable only once paid.
+2000-01-01 open Assets:Taxes:IVA-Pendiente
+2000-01-01 open Assets:Taxes:ISR-Retenido
+2000-01-01 open Assets:Taxes:IVA-Retenido
+2000-01-01 open Assets:Taxes:Pagos-Provisionales
+
+; --- Liabilities ----------------------------------------------------------
+2000-01-01 open Liabilities:Payable:Suppliers
+2000-01-01 open Liabilities:CreditCard:Empresa
+2000-01-01 open Liabilities:Loans:Bank
+; Payroll: what is owed to the worker and to each institution after a nómina run.
+2000-01-01 open Liabilities:Payroll:Net
+2000-01-01 open Liabilities:Payroll:ISR-Retenido
+2000-01-01 open Liabilities:Payroll:IMSS-Obrero
+2000-01-01 open Liabilities:Payroll:IMSS-Patronal
+2000-01-01 open Liabilities:Payroll:INFONAVIT
+2000-01-01 open Liabilities:Payroll:ISN
+; Federal taxes of the entity itself.
+2000-01-01 open Liabilities:Taxes:IVA-Trasladado
+2000-01-01 open Liabilities:Taxes:IVA-Trasladado-Pendiente
+2000-01-01 open Liabilities:Taxes:ISR-Payable
+2000-01-01 open Liabilities:Taxes:PTU
+
+; --- Equity ---------------------------------------------------------------
+2000-01-01 open Equity:Opening-Balances
+2000-01-01 open Equity:Capital-Social
+2000-01-01 open Equity:Resultados-Acumulados
+
+; --- Income ---------------------------------------------------------------
+2000-01-01 open Income:Sales:Products
+2000-01-01 open Income:Sales:Services
+2000-01-01 open Income:Other
+2000-01-01 open Income:Interest
+
+; --- Cost of goods sold ---------------------------------------------------
+2000-01-01 open Expenses:COGS:Materials
+2000-01-01 open Expenses:COGS:Subcontractors
+2000-01-01 open Expenses:COGS:Freight
+
+; --- Payroll cost ---------------------------------------------------------
+2000-01-01 open Expenses:Payroll:Sueldos
+2000-01-01 open Expenses:Payroll:Aguinaldo
+2000-01-01 open Expenses:Payroll:PrimaVacacional
+2000-01-01 open Expenses:Payroll:IMSS-Patronal
+2000-01-01 open Expenses:Payroll:INFONAVIT
+2000-01-01 open Expenses:Payroll:ISN
+
+; --- Operating expenses ---------------------------------------------------
+2000-01-01 open Expenses:Opex:Rent
+2000-01-01 open Expenses:Opex:Utilities
+2000-01-01 open Expenses:Opex:Software
+2000-01-01 open Expenses:Opex:Marketing
+2000-01-01 open Expenses:Opex:Professional
+2000-01-01 open Expenses:Opex:Travel
+2000-01-01 open Expenses:Opex:Office
+2000-01-01 open Expenses:Opex:Insurance
+2000-01-01 open Expenses:Opex:Depreciation
+2000-01-01 open Expenses:Opex:BankFees
+2000-01-01 open Expenses:Opex:Other
+2000-01-01 open Expenses:Financial:Interest
+2000-01-01 open Expenses:Taxes:ISR

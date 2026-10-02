@@ -1,0 +1,43 @@
+rule: mx.resico.isr_monthly
+version: "2026.1"
+source: "LISR art. 113-E monthly table (2026)"
+cases:
+  - name: zero income
+    inputs: {collected_income: "0"}
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: first bracket 1.00%
+    inputs: {collected_income: "18000.00"}
+    expect: {amount: "180.00", currency: "MXN"}
+  - name: upper edge of the 1.00% bracket
+    inputs: {collected_income: "25000.00"}
+    expect: {amount: "250.00", currency: "MXN"}
+  - name: one cent into the 1.10% bracket
+    inputs: {collected_income: "25000.01"}
+    expect: {amount: "275.00", currency: "MXN"}
+  - name: upper edge of the 1.10% bracket
+    inputs: {collected_income: "50000.00"}
+    expect: {amount: "550.00", currency: "MXN"}
+  - name: upper edge of the 1.50% bracket
+    inputs: {collected_income: "83333.33"}
+    expect: {amount: "1250.00", currency: "MXN"}
+  - name: into the 2.00% bracket
+    inputs: {collected_income: "83333.34"}
+    expect: {amount: "1666.67", currency: "MXN"}
+  - name: upper edge of the 2.00% bracket
+    inputs: {collected_income: "208333.33"}
+    expect: {amount: "4166.67", currency: "MXN"}
+  - name: into the 2.50% bracket
+    inputs: {collected_income: "208333.34"}
+    expect: {amount: "5208.33", currency: "MXN"}
+  - name: annual cap amount in a single month
+    inputs: {collected_income: "3500000.00"}
+    expect: {amount: "87500.00", currency: "MXN"}
+    explain_contains: "ISR RESICO del mes"
+  - name: above the annual cap warns
+    inputs: {collected_income: "3500000.01"}
+    expect: {amount: "87500.00", currency: "MXN"}
+    steps_contain: "tope anual"
+  - name: no deductions are ever applied
+    inputs: {collected_income: "40000.00", deductions: "35000.00"}
+    expect: {amount: "440.00", currency: "MXN"}
+    steps_contain: "ninguna"

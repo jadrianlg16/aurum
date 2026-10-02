@@ -1,0 +1,92 @@
+rule: us.fed.income_tax
+version: '2026.1'
+source: IRC § 1(j)(2) / § 63(c), Rev. Proc. 2025-32 §§ 4.01 and 4.14 (read in the
+  primary PDF)
+cases:
+- name: no income
+  inputs:
+    filing_status: single
+    taxable_income: '0'
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+- name: single, exactly the top of the 10% bracket
+  inputs:
+    filing_status: single
+    taxable_income: '12400'
+    lang: en
+  expect:
+    amount: '1240.00'
+    currency: USD
+- name: single, three brackets
+  inputs:
+    filing_status: single
+    taxable_income: '100000'
+    lang: en
+  expect:
+    amount: '16712.00'
+    currency: USD
+  steps_contain: Bracket at 22%
+- name: married filing jointly, same taxable income
+  inputs:
+    filing_status: mfj
+    taxable_income: '100000'
+    lang: en
+  expect:
+    amount: '11504.00'
+    currency: USD
+- name: head of household, same taxable income
+  inputs:
+    filing_status: hoh
+    taxable_income: '100000'
+    lang: en
+  expect:
+    amount: '14901.00'
+    currency: USD
+- name: married filing separately into the 37% bracket
+  inputs:
+    filing_status: mfs
+    taxable_income: '500000'
+    lang: en
+  expect:
+    amount: '146082.25'
+    currency: USD
+  steps_contain: Bracket at 37%
+- name: from Schedule C net with the SE-tax adjustment and the standard deduction
+  inputs:
+    filing_status: single
+    schedule_c_net: '100000'
+    se_tax_deduction: '7064.78'
+    lang: en
+  expect:
+    amount: '11615.75'
+    currency: USD
+  steps_contain: Standard deduction
+- name: the standard deduction wipes out a small profit
+  inputs:
+    filing_status: single
+    schedule_c_net: '10000'
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+- name: itemized deductions win when they are larger
+  inputs:
+    filing_status: single
+    schedule_c_net: '100000'
+    itemized_deductions: '30000'
+    lang: en
+  expect:
+    amount: '10112.00'
+    currency: USD
+  steps_contain: Itemized deduction
+- name: credits and QBI are explicitly not modelled
+  inputs:
+    filing_status: single
+    taxable_income: '50000'
+    lang: en
+  expect:
+    amount: '5752.00'
+    currency: USD
+  steps_contain: 199A

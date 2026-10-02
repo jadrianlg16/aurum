@@ -1,0 +1,25 @@
+rule: mx.infonavit.employer
+version: "2026.1"
+source: "Ley del INFONAVIT art. 29 fr. II (última reforma DOF 21-02-2025) — 5%; base y tope conforme a la LSS"
+cases:
+  - name: 5% of a 30-day base at 500 MXN daily SBC
+    inputs: {sbc_daily: "500", days: "30"}
+    expect: {amount: "750.00", currency: "MXN"}
+    steps_contain: "5%"
+  - name: an explicit base skips the SBC arithmetic
+    inputs: {base: "100000"}
+    expect: {amount: "5000.00", currency: "MXN"}
+  - name: the 25-UMA ceiling applies by remission to the LSS
+    inputs: {sbc_daily: "5000", days: "30"}
+    expect: {amount: "4399.13", currency: "MXN"}
+    steps_contain: "2932.75"
+  - name: zero base, zero contribution
+    inputs: {base: "0"}
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: a 31-day month
+    inputs: {sbc_daily: "400", days: "31"}
+    expect: {amount: "620.00", currency: "MXN"}
+  - name: not advice
+    inputs: {base: "1000"}
+    expect: {amount: "50.00", currency: "MXN"}
+    explain_contains: "not tax advice"

@@ -1,0 +1,20 @@
+# Text files are stored with LF and checked out with LF on every platform: the containers exec the
+# shell scripts and nginx templates as-is, and some UI tests parse source files line by line.
+* text=auto eol=lf
+
+# Executed inside the containers; a CRLF here breaks the shebang or the nginx config.
+*.sh text eol=lf
+*.envsh text eol=lf
+*.template text eol=lf
+Dockerfile* text eol=lf
+*.mjs text eol=lf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.woff binary
+*.woff2 binary

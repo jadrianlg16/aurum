@@ -1,0 +1,4 @@
+{
+  "_comment": "Cross-file duplicate keys tolerated by check-i18n. Empty: a new duplicate fails; this file only shrinks.",
+  "cross_file_duplicates": []
+}

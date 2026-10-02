@@ -1,0 +1,12 @@
+/*
+ * Selected state for the account-type tiles and income-source chips. The buttons stay
+ * `variant="secondary"` so a form keeps a single `.btn.primary` (its submit, design-system §6);
+ * selection reads like `.ui-chip[aria-pressed='true']` in globals.css: soft accent fill + accent
+ * border, tokens only.
+ */
+
+button.choice[aria-checked='true'] {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  font-weight: 600;
+}

@@ -1,0 +1,47 @@
+rule: mx.general.isr_provisional
+version: "2026.1"
+source: >
+  SAT, Anexo 8 de la RMF 2026, tabla A.V "Tarifa aplicable durante 2026 para el cálculo de los pagos
+  provisionales mensuales" (art. 96 LISR / 175 RLISR), DOF 28/12/2025. Verified 2026-09-06 by fetching
+  https://www.sat.gob.mx/minisitio/NormatividadRMFyRGCE/documentos2026/rmf/anexos/Anexo-8-RMF-2026_DOF-28122025.pdf
+  and reading table A.V directly (page 5). Cases computed independently in Python Decimal (see
+  tests/rules/test_vectors.py which runs every vector) and cross-checked by hand against the table.
+cases:
+  - name: zero income and deductions, month 1
+    inputs: {cumulative_income: "0", cumulative_deductions: "0", month_number: 1}
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: month 1, base in the third bracket (10.88%)
+    inputs: {cumulative_income: "10000", cumulative_deductions: "2000", month_number: 1}
+    expect: {amount: "511.42", currency: "MXN"}
+    explain_contains: "Pago provisional"
+  - name: month 1, base exactly at the first bracket's upper edge
+    inputs: {cumulative_income: "844.59", cumulative_deductions: "0", month_number: 1}
+    expect: {amount: "16.22", currency: "MXN"}
+  - name: month 1, no deductions, base 50000 (7th bracket, 23.52%)
+    inputs: {cumulative_income: "50000", cumulative_deductions: "0", month_number: 1}
+    expect: {amount: "9107.82", currency: "MXN"}
+  - name: month 3, cumulative income and deductions scale the table by 3
+    inputs: {cumulative_income: "120000", cumulative_deductions: "20000", month_number: 3}
+    expect: {amount: "15694.96", currency: "MXN"}
+  - name: month 3, same base but with a prior provisional payment already made
+    inputs:
+      cumulative_income: "120000"
+      cumulative_deductions: "20000"
+      month_number: 3
+      prior_provisional_payments: "8000"
+    expect: {amount: "7694.96", currency: "MXN"}
+    steps_contain: "Pagos provisionales anteriores"
+  - name: retentions reduce the payment due, never below zero
+    inputs:
+      cumulative_income: "10000"
+      cumulative_deductions: "2000"
+      month_number: 1
+      retentions: "1000"
+    expect: {amount: "0.00", currency: "MXN"}
+    steps_contain: "Retenciones de ISR del periodo"
+  - name: deductions exceeding income floor the base at zero, not negative
+    inputs: {cumulative_income: "5000", cumulative_deductions: "20000", month_number: 1}
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: top bracket "en adelante" applies the 35% marginal rate
+    inputs: {cumulative_income: "500000", cumulative_deductions: "0", month_number: 1}
+    expect: {amount: "159513.84", currency: "MXN"}

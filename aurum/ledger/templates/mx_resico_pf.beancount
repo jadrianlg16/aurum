@@ -1,0 +1,73 @@
+; Chart of accounts — persona física, RESICO (MX). Applied with
+; BeancountLedger.apply_template(ws, "mx_resico_pf"). Dates are the 2000-01-01 floor;
+; accounts used before being listed here are opened automatically at first use.
+;
+; Expense leaves mirror the default MX personal labels: users think in labels,
+; the engine thinks in accounts.
+
+option "operating_currency" "MXN"
+
+; --- Assets ---------------------------------------------------------------
+2000-01-01 open Assets:Bank:BBVA
+2000-01-01 open Assets:Bank:Banorte
+2000-01-01 open Assets:Bank:Santander
+2000-01-01 open Assets:Bank:Nu
+2000-01-01 open Assets:Cash
+2000-01-01 open Assets:Receivable:Clients
+2000-01-01 open Assets:Investments:Cetes
+2000-01-01 open Assets:FixedAssets:Equipo
+
+; IVA paid on purchases that is creditable against IVA trasladado (LIVA art. 5).
+2000-01-01 open Assets:Taxes:IVA-Acreditable
+; ISR withheld by personas morales on our invoices (LISR art. 113-J) — credits against ISR.
+2000-01-01 open Assets:Taxes:ISR-Retenido
+2000-01-01 open Assets:Taxes:IVA-Retenido
+
+; --- Liabilities ----------------------------------------------------------
+2000-01-01 open Liabilities:CreditCard:BBVA
+2000-01-01 open Liabilities:CreditCard:Amex
+2000-01-01 open Liabilities:Loans:Auto
+2000-01-01 open Liabilities:Loans:Personal
+2000-01-01 open Liabilities:Loans:Infonavit
+2000-01-01 open Liabilities:Payable:Suppliers
+; IVA charged to clients and owed to SAT.
+2000-01-01 open Liabilities:Taxes:IVA-Trasladado
+2000-01-01 open Liabilities:Taxes:ISR-Payable
+
+; --- Income ---------------------------------------------------------------
+2000-01-01 open Income:Freelance
+2000-01-01 open Income:Platform
+2000-01-01 open Income:Interest
+2000-01-01 open Income:Rent
+2000-01-01 open Income:Dividends
+2000-01-01 open Income:Other
+
+; --- Expenses (leaves = default personal labels) --------------------------
+2000-01-01 open Expenses:Food:Groceries
+2000-01-01 open Expenses:Food:Restaurants
+2000-01-01 open Expenses:Housing:Rent
+2000-01-01 open Expenses:Housing:Utilities
+2000-01-01 open Expenses:Housing:Internet
+2000-01-01 open Expenses:Transport:Fuel
+2000-01-01 open Expenses:Transport:Rideshare
+2000-01-01 open Expenses:Transport:Maintenance
+2000-01-01 open Expenses:Health:Medical
+2000-01-01 open Expenses:Health:Pharmacy
+2000-01-01 open Expenses:Health:Insurance
+2000-01-01 open Expenses:Education
+2000-01-01 open Expenses:Software
+2000-01-01 open Expenses:Office
+2000-01-01 open Expenses:Professional:Contador
+2000-01-01 open Expenses:Bank:Fees
+2000-01-01 open Expenses:Entertainment
+2000-01-01 open Expenses:Personal
+2000-01-01 open Expenses:Travel
+2000-01-01 open Expenses:Pets
+2000-01-01 open Expenses:Gifts
+2000-01-01 open Expenses:Uncategorized
+2000-01-01 open Expenses:Interest:CreditCard
+2000-01-01 open Expenses:Taxes:ISR
+2000-01-01 open Expenses:Taxes:IVA
+
+; --- Equity ---------------------------------------------------------------
+2000-01-01 open Equity:Opening

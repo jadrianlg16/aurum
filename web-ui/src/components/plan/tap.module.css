@@ -1,0 +1,28 @@
+/*
+ * Tap targets for the planning and settings screens (design-system §3):
+ * a radio/checkbox row is one clickable <label> at least 44px tall, and a <details> toggle
+ * (<summary>) is at least 44px tall. Tokens only. Shared by components/plan and
+ * components/settings; the global `.row` label is 21px and the `ui/**` primitives stay as
+ * they are.
+ */
+.choice {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--tap);
+  padding: var(--sp-1) 0;
+  cursor: pointer;
+}
+
+.choice input {
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+/* Keeps `display: list-item` so the disclosure marker stays. */
+.summary {
+  box-sizing: border-box;
+  min-height: var(--tap);
+  padding: var(--sp-3) 0;
+  cursor: pointer;
+}

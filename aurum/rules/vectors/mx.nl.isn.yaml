@@ -1,0 +1,39 @@
+rule: mx.nl.isn
+version: "2026.1"
+source: "Ley de Hacienda del Estado de Nuevo León, arts. 154-160 (tasa 3%, art. 157; exenciones art. 160)"
+cases:
+  - name: no payroll, no tax
+    inputs: {payroll: "0"}
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: flat 3% on a fully taxable payroll
+    inputs: {payroll: "100000"}
+    expect: {amount: "3000.00", currency: "MXN"}
+    steps_contain: "3%"
+  - name: art. 160 exempt concepts leave the base
+    inputs:
+      concepts: {sueldo: "90000", despensa: "5000", fondo_ahorro: "5000"}
+    expect: {amount: "2700.00", currency: "MXN"}
+    steps_contain: "art. 160 I g)"
+  - name: a lump-sum exemption is subtracted from the declared gross
+    inputs: {payroll: "100000", exempt_amount: "10000"}
+    expect: {amount: "2700.00", currency: "MXN"}
+  - name: taxable concepts add up when no gross is given
+    inputs:
+      concepts: {sueldo: "50000", aguinaldo: "10000", tiempo_extra: "5000"}
+    expect: {amount: "1950.00", currency: "MXN"}
+  - name: an art. 160 fr. II exempt employer owes nothing
+    inputs: {payroll: "100000", exempt_entity: true}
+    expect: {amount: "0.00", currency: "MXN"}
+    steps_contain: "asociaciones religiosas"
+  - name: viaticos are exempt under art. 160 I f)
+    inputs:
+      concepts: {sueldo: "40000", viaticos: "3000"}
+    expect: {amount: "1200.00", currency: "MXN"}
+  - name: the 17th-of-next-month deadline is explained
+    inputs: {payroll: "1000"}
+    expect: {amount: "30.00", currency: "MXN"}
+    steps_contain: "día 17 del mes siguiente"
+  - name: not advice
+    inputs: {payroll: "1000"}
+    expect: {amount: "30.00", currency: "MXN"}
+    explain_contains: "not tax advice"

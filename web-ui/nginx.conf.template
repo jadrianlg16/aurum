@@ -1,0 +1,107 @@
+# Rendered at container start by the nginx image's envsubst entrypoint.
+# Only ${WEB_PORT}, ${API_URL}, ${DNS_RESOLVER} and ${AURUM_MAX_UPLOAD_MB} are substituted - nginx's
+# own $uri, $host and friends are not environment variables, so envsubst leaves them alone.
+# NOTE: web-ui/Dockerfile must carry `ENV AURUM_MAX_UPLOAD_MB=25` so the template renders outside
+# compose too (compose passes it explicitly).
+
+# HTML is served with Cache-Control: no-cache (revalidate on every load, so a new deploy is picked up
+# immediately); hashed /_next/static assets are immutable below. An empty value means "no header".
+map $sent_http_content_type $aurum_cc {
+    ~text/html  "no-cache";
+    default     "";
+}
+
+server {
+    listen       ${WEB_PORT};
+    listen       [::]:${WEB_PORT};
+    server_name  _;
+
+    root  /usr/share/nginx/html;
+    index index.html;
+
+    # The public port (5024) differs from the container port (8080): redirects must be relative and
+    # must never carry :8080 (a slash-less /plan used to bounce the browser to localhost:8080/plan/).
+    absolute_redirect off;
+    port_in_redirect  off;
+
+    # Uploads (CFDI zips, statements) are capped here AND in the API (AURUM_MAX_UPLOAD_MB, same value).
+    client_max_body_size ${AURUM_MAX_UPLOAD_MB}m;
+
+    # The export is built with trailingSlash: true, so every route is a directory with its own
+    # index.html. $uri/index.html is tried before $uri/ so a directory hit serves the page directly
+    # (no redirect round-trip); anything unknown is a real 404 rendered by Next's not-found page.
+    location / {
+        try_files $uri $uri/index.html $uri/ =404;
+    }
+    error_page 404 /404.html;
+
+    # Hashed build output: safe to cache hard, and a miss must be a 404, not the SPA shell.
+    location /_next/static/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
+    }
+
+    # A `types` block replaces the whole inherited MIME map, so it is scoped to the manifest only.
+    location ~* \.webmanifest$ {
+        types { application/manifest+json webmanifest; }
+        try_files $uri =404;
+    }
+
+    # Liveness for compose's depends_on/healthcheck (no upstream involved).
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    # The UI calls the API at the same origin (NEXT_PUBLIC_API_URL defaults to /api), so this
+    # proxy is the only server-side piece the container needs. Compose passes
+    # API_URL=http://api:5041.
+    #
+    # proxy_pass takes a *variable* on purpose. With a literal host nginx resolves it once, at
+    # startup, and refuses to boot with "host not found in upstream" if the api container is
+    # not up yet - which makes web-ui depend on start order and crash-loop during an api
+    # restart. A variable defers the lookup to request time, so the worst case is a 502 on one
+    # request instead of a dead container. With no URI part on proxy_pass nginx forwards the raw
+    # $request_uri, so percent-encoded segments (e.g. /api/workspaces/a%20b) reach the API intact
+    # and are rejected there with a JSON 400, never re-decoded or rewritten here.
+    location /api/ {
+        # The API sets the same security headers; hide its copies so clients see each header once.
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header X-Frame-Options;
+        proxy_hide_header Referrer-Policy;
+        resolver           ${DNS_RESOLVER} valid=10s ipv6=off;
+        set $aurum_api     ${API_URL};
+        proxy_pass         $aurum_api;
+        proxy_http_version 1.1;
+        # $http_host keeps the port: the API's origin guard compares the browser's Origin
+        # (http://localhost:5024) with the Host it receives, and $host would drop ":5024" and
+        # turn every same-origin write into 403 origin_not_allowed.
+        proxy_set_header   Host              $http_host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_set_header   Connection        "";
+
+        # Descarga Masiva jobs are the slow ones, and the DRAFT PDF must stream rather than buffer.
+        proxy_read_timeout   300s;
+        proxy_send_timeout   300s;
+        proxy_buffering      off;
+    }
+
+    gzip              on;
+    gzip_min_length   1024;
+    gzip_types        text/plain text/css application/javascript application/json application/manifest+json image/svg+xml;
+    server_tokens     off;
+
+    # Hardening. CSP is conservative for a Next.js static export: 'self'
+    # for scripts plus 'unsafe-inline' for the pre-hydration theme script (hashes deferred - if the
+    # CSP is ever tightened that inline script must be hashed), 'unsafe-inline' for style-src because
+    # Next/React emit inline style attributes at runtime. connect-src 'self' covers same-origin /api.
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "no-referrer" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; base-uri 'self'; frame-ancestors 'none'" always;
+    add_header Cache-Control $aurum_cc always;
+}

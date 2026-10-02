@@ -1,0 +1,432 @@
+/*
+ * Layout-only styles for the movimientos screens (Agregar dialog, Movimientos list, Captura
+ * rápida). Tokens from globals.css only — no colours or sizes of its own. Anything a ui
+ * primitive already styles (.ui-tabs, .ui-chips, .cardlist, .badge, .ui-stat) is reused as is.
+ */
+
+/* stale-while-refresh: a thin bar under the toolbar while a later load runs */
+.progress {
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--accent-soft);
+  overflow: hidden;
+  margin: 0 0 var(--sp-2);
+}
+.progress::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 40%;
+  background: var(--accent);
+  animation: mov-progress var(--dur-2) linear infinite alternate;
+  animation-duration: 900ms;
+}
+@keyframes mov-progress {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(250%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .progress::after {
+    animation: none;
+    width: 100%;
+  }
+}
+.progressSpacer {
+  height: 3px;
+  margin: 0 0 var(--sp-2);
+}
+
+/* toolbar: search + filters + kind tabs */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: flex-end;
+}
+.toolbar > * {
+  min-width: 0;
+}
+.toolbarField {
+  flex: 1 1 200px;
+  margin-bottom: 0;
+}
+.toolbarSearch {
+  flex: 1 1 100%;
+  margin-bottom: 0;
+}
+@media (min-width: 768px) {
+  .toolbarSearch {
+    flex: 2 1 260px;
+  }
+}
+.toolbarTabs {
+  margin-bottom: 0;
+}
+.toolbarEnd {
+  display: flex;
+  gap: var(--sp-2);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.sheetBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+/* totals: two per row on a phone, four on a desktop */
+.stats {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+}
+
+/* day groups */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.list :global(.cardlist .cl-subtitle) > span + span::before {
+  content: ' · ';
+}
+.dayHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-2);
+}
+.dayHead h3 {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
+.daySubtotal {
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+.rowNote {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  font-weight: 400;
+}
+.rowLocked {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  font-weight: 400;
+  max-width: 28ch;
+}
+.check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.rowCheck {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0;
+}
+.selectAll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--tap);
+  font-size: var(--fs-sm);
+}
+
+/* The "Seleccionar varios" row, and fixed widths so the stacked day tables align
+   under the one visible header (DayGroup: first day only). */
+.selectRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--sp-3);
+}
+.dayTable {
+  table-layout: fixed;
+  width: 100%;
+}
+.colCheck {
+  width: 52px;
+}
+.colPayee {
+  width: 34%;
+}
+.colCategory {
+  width: 24%;
+}
+.colAccount {
+  width: 20%;
+}
+.colAmount {
+  width: 136px;
+}
+.colOrigin {
+  width: 18%;
+}
+
+/* Receipt photo in + Agregar */
+.receiptPick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+}
+.receiptCard {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface-2);
+}
+.receiptThumb {
+  display: block;
+  width: 72px;
+  height: 96px;
+  border-radius: var(--r-1);
+  overflow: hidden;
+  background: var(--line);
+}
+.receiptThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.receiptBody {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+.receiptFound {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-3);
+  margin: 0;
+  font-weight: 600;
+}
+.receiptWhy {
+  font-size: var(--fs-sm);
+}
+.receiptDup {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-1);
+  background: var(--warn-soft);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+}
+.receiptWhy > summary {
+  cursor: pointer;
+  color: var(--accent-text);
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+}
+@media (pointer: coarse), (max-width: 959px) {
+  .receiptWhy > summary {
+    min-height: var(--tap);
+  }
+}
+.receiptWhy ul {
+  margin: var(--sp-1) 0;
+  padding-left: var(--sp-5);
+}
+.receiptText {
+  white-space: pre-wrap;
+  font-size: var(--fs-xs);
+  max-height: 200px;
+  overflow: auto;
+  background: var(--surface);
+  padding: var(--sp-2);
+  border-radius: var(--r-1);
+}
+.rowClip {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-left: var(--sp-1);
+  color: var(--ink-3);
+}
+
+/* bulk bar */
+.bulkbar {
+  position: sticky;
+  bottom: calc(var(--safe-b) + var(--sp-2));
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-2);
+  box-shadow: var(--el-2);
+}
+@media (max-width: 959px) {
+  .bulkbar {
+    bottom: calc(var(--tabbar-h) + var(--safe-b) + var(--sp-2));
+  }
+}
+.bulkbar > .bulkField {
+  flex: 1 1 200px;
+  margin-bottom: 0;
+}
+
+/* list footer */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+}
+.emptyExtra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+
+/* Agregar dialog */
+.dialogBody {
+  display: flex;
+  flex-direction: column;
+}
+.kinds {
+  margin-bottom: var(--sp-3);
+}
+/*
+ * The <button>s of these screens (kind picker, Frecuentes) and the kind Tabs it wraps reuse
+ * .ui-tabs / .ui-chip, whose primitives stop at 36px /
+ * 28px on every viewport (globals.css). On a touch or narrow screen they get the 44px tap
+ * target here, same query as the primitives' own bump (globals.css `button.btn`).
+ */
+@media (pointer: coarse), (max-width: 959px) {
+  .kinds button,
+  .kindTabs button,
+  .chips :global(.ui-chip) {
+    min-height: var(--tap);
+  }
+  .kinds button,
+  .kindTabs button {
+    min-width: var(--tap);
+  }
+}
+.status {
+  margin: 0 0 var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-1);
+  background: var(--pos-soft);
+  color: var(--ink);
+  font-size: var(--fs-sm);
+}
+.more {
+  margin: var(--sp-2) 0 var(--sp-3);
+}
+.more > summary {
+  cursor: pointer;
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  font-size: var(--fs-sm);
+  color: var(--accent-text);
+}
+.more[open] > summary {
+  margin-bottom: var(--sp-2);
+}
+.splitRow {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+  gap: var(--sp-2);
+  align-items: start;
+}
+/* On a phone the amount needs typing room: category on its own line, amount + Quitar below it */
+@media (max-width: 599px) {
+  .splitRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .splitRow > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+.splitRow > * {
+  margin-bottom: var(--sp-2);
+}
+.splitActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  margin-top: var(--sp-1);
+}
+.dialogActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  align-items: center;
+  margin-top: var(--sp-2);
+}
+.tip {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.hint {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+/* Captura rápida */
+.qaPreview {
+  margin: var(--sp-3) 0 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface-2);
+}
+.qaPreview dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--sp-1) var(--sp-3);
+  margin: 0;
+}
+.qaPreview dt {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.qaPreview dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.qaWarnings {
+  margin: var(--sp-2) 0 0;
+  padding-left: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--warn);
+}
+.qaHint {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}

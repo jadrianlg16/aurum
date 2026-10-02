@@ -1,0 +1,60 @@
+rule: us.fed.schedule_c_net
+version: '2026.1'
+source: IRC § 61/162, Form 1040 Schedule C lines 1-31
+cases:
+- name: no activity
+  inputs:
+    gross_receipts: '0'
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+- name: expenses given as a category map
+  inputs:
+    gross_receipts: '120000'
+    expenses:
+      software: '3000'
+      travel: '2000'
+    lang: en
+  expect:
+    amount: '115000.00'
+    currency: USD
+  steps_contain: Expense · software
+- name: returns and cost of goods sold both subtract
+  inputs:
+    gross_receipts: '50000'
+    returns_and_allowances: '1000'
+    cost_of_goods_sold: '9000'
+    expenses: '5000'
+    lang: en
+  expect:
+    amount: '35000.00'
+    currency: USD
+  steps_contain: Cost of goods sold
+- name: a loss is reported as a loss
+  inputs:
+    gross_receipts: '10000'
+    expenses: '15000'
+    lang: en
+  expect:
+    amount: '-5000.00'
+    currency: USD
+  steps_contain: does not produce self-employment tax
+- name: expenses given as a list
+  inputs:
+    gross_receipts: '20000'
+    expenses:
+    - '1000'
+    - '2500'
+    lang: en
+  expect:
+    amount: '16500.00'
+    currency: USD
+- name: not advice
+  inputs:
+    gross_receipts: '1000'
+    lang: en
+  expect:
+    amount: '1000.00'
+    currency: USD
+  explain_contains: not tax advice

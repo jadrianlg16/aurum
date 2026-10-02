@@ -1,0 +1,12 @@
+id: law-watch
+name: Law watch
+description: Run the law/rule tracker and list changes detected since the last run.
+schedule: null
+steps:
+  - id: run
+    method: POST
+    path: /watch/run
+    body: {}
+  - id: changes
+    method: GET
+    path: /watch/changes

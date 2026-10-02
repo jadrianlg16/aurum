@@ -1,0 +1,62 @@
+/* Welcome (first run) — tokens only, one column, readable at 320px. */
+.wrap {
+  max-width: 560px;
+  margin: var(--sp-6) auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.mark {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-3);
+  background: linear-gradient(140deg, var(--accent-text) 0%, var(--accent) 100%);
+  color: var(--on-accent);
+  font-weight: 700;
+  font-size: var(--fs-xl);
+  display: grid;
+  place-items: center;
+}
+.wrap h1 {
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-tight);
+  margin: 0;
+}
+.lead {
+  color: var(--ink-2);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-body);
+  margin: 0;
+}
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-2);
+}
+.points li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  color: var(--ink);
+}
+.points li svg {
+  color: var(--accent-text);
+  flex: none;
+}
+.form {
+  padding: var(--sp-5);
+}
+.sample {
+  align-self: center;
+}
+.private {
+  color: var(--ink-3);
+  font-size: var(--fs-sm);
+  text-align: center;
+  margin: 0;
+}
+.start {
+  justify-content: center;
+}

@@ -1,0 +1,121 @@
+/*
+ * /empezar/ wizard layout. Tokens only.
+ */
+.rail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.rail li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  color: var(--ink-3);
+  background: var(--surface);
+  font-size: var(--fs-sm);
+  min-height: 32px;
+}
+.rail li[aria-current='step'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.rail li.done {
+  color: var(--pos);
+  border-color: var(--pos);
+}
+.num {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+.done .num {
+  background: var(--pos-soft);
+  color: var(--pos);
+}
+
+.step h2 {
+  margin: 0 0 var(--sp-1);
+}
+.progress {
+  margin: 0 0 var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+.have {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+}
+.form {
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  padding: var(--sp-4);
+  background: var(--surface-2);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.list li:first-child {
+  border-top: 0;
+}
+.footer {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+.footerRight {
+  margin-left: auto;
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.doneActions {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--sp-4);
+}
+.shortcut {
+  margin-top: var(--sp-4);
+}

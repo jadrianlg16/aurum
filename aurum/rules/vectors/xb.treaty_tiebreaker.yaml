@@ -1,0 +1,66 @@
+rule: xb.treaty_tiebreaker
+version: '2026.1'
+source: US–MX income tax treaty art. 4 (Residence) — ordering follows the OECD model
+  (verify)
+cases:
+- name: not a dual resident, the ladder does not apply
+  inputs:
+    dual_resident: false
+    permanent_home: MX
+    lang: en
+  expect:
+    amount: '0'
+    currency: STP
+  explain_contains: does not apply
+- name: resolved at step 1 by the permanent home
+  inputs:
+    dual_resident: true
+    permanent_home: MX
+    lang: en
+  expect:
+    amount: '1'
+    currency: STP
+  explain_contains: points to MX at step 1
+- name: resolved at step 2 by the centre of vital interests
+  inputs:
+    dual_resident: true
+    center_of_vital_interests: US
+    lang: en
+  expect:
+    amount: '2'
+    currency: STP
+  steps_contain: Centre of vital interests
+- name: resolved at step 3 by the habitual abode
+  inputs:
+    dual_resident: true
+    habitual_abode: MX
+    lang: en
+  expect:
+    amount: '3'
+    currency: STP
+- name: resolved at step 4 by nationality
+  inputs:
+    dual_resident: true
+    nationality: US
+    lang: en
+  expect:
+    amount: '4'
+    currency: STP
+- name: dual resident with nothing answered stays unresolved
+  inputs:
+    dual_resident: true
+    lang: en
+  expect:
+    amount: '0'
+    currency: STP
+  explain_contains: unresolved
+- name: the earliest decisive step wins
+  inputs:
+    dual_resident: true
+    permanent_home: MX
+    habitual_abode: US
+    lang: en
+  expect:
+    amount: '1'
+    currency: STP
+  steps_contain: Form 8833

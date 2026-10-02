@@ -1,0 +1,98 @@
+# Research quality eval set.
+#
+# Each question names the {law, article} the top citation SHOULD land on, once the sources
+# below are ingested (see `tests/fixtures/law/*.txt`, `scripts/ingest_law.py --offline`).
+# `docs/research-eval.md` records the last run's precision@1 / abstain counts.
+#
+# `article` comparison in aurum.research.eval is normalized (lowercase, punctuation
+# stripped, substring match) so "Artículo 113-E." and "113-E" count as the same article.
+
+- id: mx-resico-platforms-es
+  lang: es
+  jurisdiction: MX
+  question: "¿Cómo calculan el ISR las personas físicas que venden por plataformas tecnológicas bajo RESICO?"
+  expected: {law: LISR, article: "113-E"}
+
+- id: mx-resico-platforms-en
+  lang: en
+  jurisdiction: MX
+  question: "How do individuals selling through technology platforms calculate income tax under RESICO?"
+  expected: {law: LISR, article: "113-E"}
+
+- id: mx-lisr-obligated-es
+  lang: es
+  jurisdiction: MX
+  question: "¿Quiénes están obligados al pago del impuesto sobre la renta por ingresos obtenidos en México?"
+  expected: {law: LISR, article: "106"}
+
+- id: mx-lisr-retirement-deduction-en
+  lang: en
+  jurisdiction: MX
+  question: "What deduction can individuals take for retirement plan contributions under the income tax law?"
+  expected: {law: LISR, article: "151"}
+
+- id: mx-liva-who-pays-es
+  lang: es
+  jurisdiction: MX
+  question: "¿Quiénes deben pagar el impuesto al valor agregado por enajenar bienes en territorio nacional?"
+  expected: {law: LIVA, article: "1"}
+
+- id: mx-liva-creditable-en
+  lang: en
+  jurisdiction: MX
+  question: "What is required for value added tax paid by a taxpayer to be creditable?"
+  expected: {law: LIVA, article: "5"}
+
+- id: mx-cff-cfdi-issuance-es
+  lang: es
+  jurisdiction: MX
+  question: "¿Cómo deben expedir sus comprobantes fiscales digitales los contribuyentes conforme al CFF?"
+  expected: {law: CFF, article: "29"}
+
+- id: mx-cff-platform-access-en
+  lang: en
+  jurisdiction: MX
+  question: "What must digital platforms allow the tax authority to access in real time?"
+  expected: {law: CFF, article: "30-B"}
+
+- id: mx-rmf-cfdi-cancellation-es
+  lang: es
+  jurisdiction: MX
+  question: "¿Qué procedimiento deben seguir los contribuyentes para cancelar un comprobante fiscal digital?"
+  expected: {law: RMF, article: "2.7.2.4"}
+
+- id: mx-rmf-platform-notice-en
+  lang: en
+  jurisdiction: MX
+  question: "What notice must digital platforms file about the tax authority's system access?"
+  expected: {law: RMF, article: "2.9.21"}
+
+- id: us-se-tax-computation-en
+  lang: en
+  jurisdiction: US
+  question: "How is net earnings from self-employment computed for self-employment tax purposes?"
+  expected: {law: IRC, article: "1402"}
+
+- id: us-feie-tests-en
+  lang: en
+  jurisdiction: US
+  question: "What tests qualify an individual for the foreign earned income exclusion?"
+  expected: {law: IRC, article: "911"}
+
+- id: us-treas-reg-net-earnings-en
+  lang: en
+  jurisdiction: US
+  question: "How does the Treasury regulation define net earnings from self-employment?"
+  expected: {law: "Treas. Reg.", article: "1.1402(a)-1"}
+
+- id: us-tx-sales-tax-en
+  lang: en
+  jurisdiction: US
+  question: "What tax applies to the sale of a taxable item in Texas?"
+  expected: {law: "Texas Tax Code", article: "151"}
+
+- id: us-tx-franchise-tax-en
+  lang: en
+  jurisdiction: US
+  question: "What entities are subject to the Texas franchise tax?"
+  expected: {law: "Texas Tax Code", article: "171"}

@@ -1,0 +1,17 @@
+id: weekly-review
+name: Weekly review
+description: Reconcile the review board, check budget status, list goals, and produce an insights digest.
+schedule: null
+steps:
+  - id: review
+    method: GET
+    path: /pf/{{ ws }}/review/{{ period }}
+  - id: budgets_status
+    method: GET
+    path: /pf/{{ ws }}/budgets/status?period={{ period }}
+  - id: goals
+    method: GET
+    path: /pf/{{ ws }}/goals
+  - id: digest
+    method: GET
+    path: /insights/{{ ws }}/digest?period={{ period }}

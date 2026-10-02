@@ -1,0 +1,141 @@
+# Law/guidance sources the tracker watches.
+#
+# fetch_method is honest about what each source actually needs, since none of this
+# ships a real scraper yet:
+#   feed  — an RSS/Atom or JSON feed the source publishes officially
+#   api   — a documented, stable API (Federal Register, eCFR)
+#   bulk  — a bulk-download index page (DOF, SAT catálogos) — needs a real HTML scraper
+#           to enumerate today's entries; HttpFetcher here just re-fetches one URL and
+#           hashes it, which only detects "the page changed", not "which item changed"
+#   scrape — no feed/API at all (state-level Periódico Oficial); same caveat as bulk,
+#           worse: layout is fragile and specific to each state's site
+#
+# Every source lists a `trust_tier` for aurum.core.explain.Citation. `url` is the page
+# tracker.run() fetches and hashes — for `bulk`/`scrape` sources this is deliberately the
+# index/landing page, not a specific document, until a per-source scraper is written.
+
+- id: dof-daily
+  name: "Diario Oficial de la Federación — edición diaria"
+  jurisdiction: MX
+  doc_type: statute
+  fetch_method: bulk
+  cadence: daily
+  trust_tier: primary
+  url: https://www.dof.gob.mx/index_113.php
+
+- id: sat-rmf
+  name: "SAT — Resolución Miscelánea Fiscal (RMF) vigente"
+  jurisdiction: MX
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: weekly
+  trust_tier: official_guidance
+  url: https://www.sat.gob.mx/normatividad/15224/normatividad-de-resolucion-miscelanea-fiscal
+
+- id: sat-cfdi-catalogos
+  name: "SAT — catálogos CFDI (c_TipoDeComprobante, c_UsoCFDI, etc.)"
+  jurisdiction: MX
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: monthly
+  trust_tier: official_guidance
+  url: https://www.sat.gob.mx/consulta/93726/catalogos-de-la-factura-electronica
+
+- id: nl-periodico-oficial
+  name: "Periódico Oficial del Estado de Nuevo León"
+  jurisdiction: MX
+  doc_type: statute
+  fetch_method: scrape
+  cadence: weekly
+  trust_tier: primary
+  url: https://www.nl.gob.mx/periodico-oficial
+
+- id: irs-irb
+  name: "IRS — Internal Revenue Bulletin"
+  jurisdiction: US
+  doc_type: guidance
+  fetch_method: feed
+  cadence: weekly
+  trust_tier: official_guidance
+  url: https://www.irs.gov/irb
+
+- id: federal-register-title-26
+  name: "Federal Register — search, Title 26 (Internal Revenue)"
+  jurisdiction: US
+  doc_type: statute
+  fetch_method: api
+  cadence: daily
+  trust_tier: primary
+  url: "https://www.federalregister.gov/api/v1/articles.json?conditions%5Bcfr%5D%5Btitle%5D=26"
+
+- id: ecfr-title-26
+  name: "eCFR — Title 26, Internal Revenue"
+  jurisdiction: US
+  doc_type: statute
+  fetch_method: api
+  cadence: weekly
+  trust_tier: primary
+  url: "https://www.ecfr.gov/api/versioner/v1/full/current/title-26.xml"
+
+# --- US/TX triage domains -------------------------------------------------
+# Same fetch/cadence caveats as above: `bulk` and `scrape` only detect "the page changed".
+
+- id: irs-standard-deduction
+  name: "IRS — standard deduction (Rev. Proc. inflation adjustments)"
+  jurisdiction: US
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: monthly
+  trust_tier: official_guidance
+  domains: [standard_deduction]
+  url: https://www.irs.gov/newsroom/irs-provides-tax-inflation-adjustments
+
+- id: irs-se-tax
+  name: "IRS — self-employment tax (Schedule SE / Topic no. 554)"
+  jurisdiction: US
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: monthly
+  trust_tier: official_guidance
+  domains: [se_tax]
+  url: https://www.irs.gov/taxtopics/tc554
+
+- id: tx-comptroller-franchise
+  name: "Texas Comptroller — franchise tax overview and no-tax-due threshold"
+  jurisdiction: US
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: monthly
+  trust_tier: official_guidance
+  domains: [franchise_tax]
+  url: https://comptroller.texas.gov/taxes/franchise/
+
+- id: tx-comptroller-sales
+  name: "Texas Comptroller — sales and use tax"
+  jurisdiction: US
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: monthly
+  trust_tier: official_guidance
+  domains: [sales_tax]
+  url: https://comptroller.texas.gov/taxes/sales/
+
+- id: fincen-fbar
+  name: "FinCEN — FBAR (Report of Foreign Bank and Financial Accounts)"
+  jurisdiction: US
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: monthly
+  trust_tier: official_guidance
+  domains: [fbar]
+  url: https://www.fincen.gov/report-foreign-bank-and-financial-accounts
+
+- id: irs-feie
+  name: "IRS — foreign earned income exclusion (Form 2555)"
+  jurisdiction: US
+  doc_type: guidance
+  fetch_method: bulk
+  cadence: monthly
+  trust_tier: official_guidance
+  domains: [feie]
+  url: https://www.irs.gov/individuals/international-taxpayers/foreign-earned-income-exclusion

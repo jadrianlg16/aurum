@@ -1,0 +1,77 @@
+rule: us.fed.quarterly_estimate
+version: '2026.1'
+source: IRC § 6654; IRS estimated-tax FAQ (90% / 100% / 110% above USD 150,000 prior-year
+  AGI)
+cases:
+- name: no prior-year return, 90% of this year
+  inputs:
+    current_year_tax: '40000'
+    lang: en
+  expect:
+    amount: '9000.00'
+    currency: USD
+  steps_contain: no prior-year return supplied
+- name: prior-year safe harbour at 100%
+  inputs:
+    current_year_tax: '40000'
+    prior_year_tax: '30000'
+    prior_year_agi: '100000'
+    lang: en
+  expect:
+    amount: '7500.00'
+    currency: USD
+- name: prior-year AGI above 150k pushes the safe harbour to 110%
+  inputs:
+    current_year_tax: '40000'
+    prior_year_tax: '30000'
+    prior_year_agi: '200000'
+    lang: en
+  expect:
+    amount: '8250.00'
+    currency: USD
+  steps_contain: 110%
+- name: married filing separately uses the 75k AGI threshold
+  inputs:
+    current_year_tax: '40000'
+    prior_year_tax: '30000'
+    prior_year_agi: '100000'
+    filing_status: mfs
+    lang: en
+  expect:
+    amount: '8250.00'
+    currency: USD
+- name: a big prior year makes the 90% leg the smaller one
+  inputs:
+    current_year_tax: '40000'
+    prior_year_tax: '90000'
+    prior_year_agi: '100000'
+    lang: en
+  expect:
+    amount: '9000.00'
+    currency: USD
+- name: withholding reduces the installments
+  inputs:
+    current_year_tax: '40000'
+    prior_year_tax: '30000'
+    prior_year_agi: '100000'
+    withholding: '10000'
+    lang: en
+  expect:
+    amount: '5000.00'
+    currency: USD
+- name: under the de-minimis, no installment is required
+  inputs:
+    current_year_tax: '900'
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+  steps_contain: de-minimis
+- name: the four statutory due dates are shown
+  inputs:
+    current_year_tax: '4000'
+    lang: en
+  expect:
+    amount: '900.00'
+    currency: USD
+  steps_contain: '2027-01-15'

@@ -1,0 +1,12 @@
+id: us-quarterly
+name: US quarterly tax check
+description: Compute the US tax year figures and archive the organizer report bundle (US workspaces only).
+schedule: null
+steps:
+  - id: tax_year
+    method: GET
+    path: /tax/us/{{ ws }}/{{ params.year }}
+  - id: organizer_archive
+    method: POST
+    path: /reports/{{ ws }}/us-organizer-bundle/archive?period={{ params.year }}
+    when: "steps.tax_year.status == 200"

@@ -1,0 +1,12 @@
+.git
+.worktrees
+.venv
+data
+node_modules
+web-ui/node_modules
+web-ui/.next
+web-ui/out
+**/__pycache__
+*.log
+.env
+docs/*.pdf

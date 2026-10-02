@@ -1,0 +1,82 @@
+rule: xb.residency
+version: '2026.1'
+source: IRC § 7701(b)(3) substantial presence (irs.gov); CFF art. 9 (verify)
+cases:
+- name: no presence anywhere
+  inputs:
+    days_us: 0
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: DAY
+- name: 200 US days meets substantial presence outright
+  inputs:
+    days_us: 200
+    home_mx: true
+    lang: en
+  expect:
+    amount: '200.00'
+    currency: DAY
+  steps_contain: substantial presence test met
+- name: three years of 120 days weight to exactly 180 and miss the test
+  inputs:
+    days_us: 120
+    days_us_prior_1: 120
+    days_us_prior_2: 120
+    home_mx: true
+    home_us: true
+    mx_source_income_share: '0.8'
+    lang: en
+  expect:
+    amount: '180.00'
+    currency: DAY
+  steps_contain: centre of vital interests in Mexico
+- name: a US citizen is a US resident with zero US days
+  inputs:
+    days_us: 0
+    citizenship:
+    - US
+    home_mx: true
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: DAY
+  explain_contains: resident of both Mexico and the US
+- name: a green card holder is a US resident
+  inputs:
+    days_us: 10
+    green_card: true
+    lang: en
+  expect:
+    amount: '10.00'
+    currency: DAY
+  steps_contain: green-card test
+- name: living in Mexico all year, brief US visits
+  inputs:
+    days_us: 20
+    days_mx: 300
+    home_mx: true
+    lang: en
+  expect:
+    amount: '20.00'
+    currency: DAY
+  explain_contains: Mexican tax resident
+- name: the closer-connection exception is flagged below 183 current-year days
+  inputs:
+    days_us: 130
+    days_us_prior_1: 180
+    days_us_prior_2: 180
+    lang: en
+  expect:
+    amount: '220.00'
+    currency: DAY
+  steps_contain: closer-connection exception
+- name: many Mexican days without a Mexican home is only a signal
+  inputs:
+    days_us: 20
+    days_mx: 200
+    lang: en
+  expect:
+    amount: '20.00'
+    currency: DAY
+  steps_contain: strong practical signal

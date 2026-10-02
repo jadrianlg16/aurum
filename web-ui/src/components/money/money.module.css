@@ -1,0 +1,594 @@
+/*
+ * Mi dinero — the stylesheet of the `components/money/**` screens. Tokens only; the
+ * calendar grid is 7 equal columns with no minimum width and no gutter column, so it never
+ * scrolls sideways (the legacy `.cal-grid{min-width:720px}` in globals.css is not used).
+ */
+
+/* ---------------------------------------------------------------- page --- */
+
+.panel {
+  margin-top: var(--sp-4);
+}
+
+/* ------------------------------------------------------------- summary --- */
+
+.hero {
+  padding: var(--sp-5);
+}
+
+.parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: var(--sp-2) var(--sp-4);
+  margin-top: var(--sp-3);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.part {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.partLabel {
+  color: var(--ink-3);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--sp-4);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.sectionHead h2,
+.sectionHead h3 {
+  margin: 0;
+  font-size: var(--fs-lg);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.grow {
+  flex: 1 1 auto;
+}
+
+.status {
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  min-height: 1.5em;
+}
+
+/* -------------------------------------------------------------- notices --- */
+
+.notices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.notice {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-2) var(--sp-3);
+  align-items: start;
+  padding: var(--sp-3);
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: var(--r-2);
+  background: var(--surface);
+}
+
+.noticeUrgent {
+  border-left-color: var(--neg);
+}
+
+.noticeWarn {
+  border-left-color: var(--warn);
+}
+
+.noticeInfo {
+  border-left-color: var(--info);
+}
+
+.noticeBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.noticeTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.noticeText {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: var(--fs-md);
+}
+
+.noticeMeta {
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+
+/* ----------------------------------------------------------------- form --- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.twoCols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: var(--sp-3) var(--sp-4);
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+
+.check input {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.checkText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkHint {
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+}
+
+.formFoot {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.error {
+  margin: 0;
+  color: var(--neg);
+  font-size: var(--fs-sm);
+}
+
+.dup {
+  margin: 0;
+  padding: var(--sp-3);
+  border: 1px solid var(--warn);
+  border-radius: var(--r-2);
+  background: var(--warn-soft);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  font-size: var(--fs-md);
+}
+
+.linkBtn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--accent-text);
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: var(--tap);
+}
+
+.details {
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface);
+  padding: 0 var(--sp-4);
+}
+
+.details > summary {
+  cursor: pointer;
+  padding: var(--sp-3) 0;
+  font-weight: 600;
+}
+
+.detailsBody {
+  padding: var(--sp-2) 0 var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+  gap: var(--sp-3);
+}
+
+.previewLabel {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* --------------------------------------------------------------- drawer --- */
+
+.drawer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+  gap: var(--sp-3);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.factLabel {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.factValue {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+}
+
+.plainList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.plainList > li {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 36px;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-md);
+}
+
+.plainList > li:last-child {
+  border-bottom: 0;
+}
+
+.actions {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+/* ------------------------------------------------------------- calendar --- */
+
+.calHead {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--sp-1);
+  margin-bottom: var(--sp-1);
+}
+
+.calHeadCell {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  padding: var(--sp-1);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calWeek {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--sp-1);
+  margin-bottom: var(--sp-1);
+}
+
+.calCell {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 96px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-1);
+  background: var(--surface);
+  padding: var(--sp-1);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.calCell:hover {
+  border-color: var(--line-strong);
+}
+
+.calCellOut {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+  color: var(--ink-3);
+}
+
+.calCellToday {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.calDay {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+  text-align: right;
+}
+
+.calCellToday .calDay {
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-1);
+  background: var(--surface-2);
+  padding: 2px 5px;
+  font-size: var(--fs-xs);
+}
+
+.chipPos {
+  border-color: var(--pos);
+  background: var(--pos-soft);
+}
+
+.chipNeg {
+  border-color: var(--neg);
+  background: var(--neg-soft);
+}
+
+.chipWarn {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+}
+
+.chipName {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chipAmt {
+  flex: none;
+  color: var(--ink-2);
+}
+
+.chipMore {
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+
+.strip {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  font-size: var(--fs-md);
+  color: var(--ink-2);
+}
+
+/* --------------------------------------------------------------- agenda --- */
+
+.agenda {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.agendaDay > h3 {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
+.agendaItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.agendaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--sp-2) var(--sp-3);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.agendaItems > li:last-child > .agendaRow {
+  border-bottom: 0;
+}
+
+.agendaRow:hover {
+  background: var(--surface-2);
+}
+
+.agendaName {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dayList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+/* ------------------------------------------------------------ occurrence -- */
+
+.occ {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.occFacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  align-items: center;
+}
+
+.occAmount {
+  font-size: var(--fs-2xl);
+  font-weight: 650;
+}
+
+/* ----------------------------------------------------------------- flow --- */
+
+.chart {
+  width: 100%;
+  height: 240px;
+  display: block;
+}
+
+.chartArea {
+  fill: var(--accent-soft);
+}
+
+.chartLine {
+  stroke: var(--accent);
+}
+
+.chartNeg {
+  stroke: var(--neg);
+  fill: var(--neg);
+}
+
+.chartFoot {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-sm);
+  color: var(--ink-3);
+  margin-top: var(--sp-1);
+}
+
+/* Segmented controls (Flujo 30/60/90, the form's '¿Qué es?'): the global `.ui-chip` is 28px;
+   these chips honour the tap target on a finger or a phone-sized viewport. */
+.segment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.segment button {
+  min-height: 36px;
+  padding: 4px 12px;
+  font-size: var(--fs-sm);
+}
+
+@media (pointer: coarse), (max-width: 959px) {
+  .segment button {
+    min-height: var(--tap);
+    min-width: var(--tap);
+  }
+}
+
+/* Pagos fijos cards: three `meta` columns (próximo · cuenta · estado) share one slot in
+   `CardList`; keep them apart on the phone layout. */
+.list :global(.cl-meta) {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+}

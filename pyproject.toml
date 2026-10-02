@@ -1,0 +1,54 @@
+[project]
+name = "aurum"
+version = "0.1.0"
+description = "Self-hosted bilingual personal-finance + accounting + tax platform (US/MX) with cited rules and a local MCP server."
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn[standard]>=0.30,<1",
+    "pydantic>=2,<3",
+    "httpx>=0.27,<1",
+    "python-multipart>=0.0.9,<1",
+    "pyyaml>=6,<7",
+    "python-dateutil>=2.9,<3",
+    "beancount>=3,<4",
+    "beangulp>=0.2",
+    "beanquery>=0.2",
+    "fava>=1.28",
+    "satcfdi>=4",
+    "lxml>=5,<7",
+    "cryptography>=43",
+    "pymupdf>=1.24,<2",
+    "fastmcp>=3.2,<4",
+    "typer>=0.12,<1",
+    "reportlab>=4,<5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9,<10", "ruff>=0.6", "pytest-asyncio>=0.24", "hypothesis>=6"]
+
+[project.scripts]
+aurum-api = "aurum.api.app:main"
+aurum-mcp = "aurum.mcp_server.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["aurum"]
+
+[dependency-groups]
+dev = ["pytest>=9,<10", "ruff>=0.6", "pytest-asyncio>=0.24", "hypothesis>=6"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]

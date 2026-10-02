@@ -1,0 +1,62 @@
+rule: us.tx.sales_use_basics
+version: '2026.1'
+source: Tex. Tax Code ch. 151 + chs. 321/322/323; comptroller.texas.gov sales-tax
+  page
+cases:
+- name: nothing taxable
+  inputs:
+    taxable_sales: '0'
+    lang: en
+  expect:
+    amount: '0.00'
+    currency: USD
+- name: the default is the maximum combined 8.25%
+  inputs:
+    taxable_sales: '100000'
+    lang: en
+  expect:
+    amount: '8250.00'
+    currency: USD
+  steps_contain: 6.25%
+- name: a lower local rate is honoured
+  inputs:
+    taxable_sales: '100000'
+    local_rate: '0.01'
+    lang: en
+  expect:
+    amount: '7250.00'
+    currency: USD
+- name: no local tax at all
+  inputs:
+    taxable_sales: '100000'
+    local_rate: '0'
+    lang: en
+  expect:
+    amount: '6250.00'
+    currency: USD
+- name: a local rate above 2% is capped
+  inputs:
+    taxable_sales: '100000'
+    local_rate: '0.05'
+    lang: en
+  expect:
+    amount: '8250.00'
+    currency: USD
+  steps_contain: capped
+- name: use tax on out-of-state purchases
+  inputs:
+    taxable_sales: '0'
+    out_of_state_purchases: '20000'
+    lang: en
+  expect:
+    amount: '1650.00'
+    currency: USD
+  steps_contain: '151.101'
+- name: services are not automatically taxable
+  inputs:
+    taxable_sales: '1000'
+    lang: en
+  expect:
+    amount: '82.50'
+    currency: USD
+  steps_contain: '151.0101'

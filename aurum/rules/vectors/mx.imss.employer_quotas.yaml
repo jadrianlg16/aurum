@@ -1,0 +1,38 @@
+rule: mx.imss.employer_quotas
+version: "2026.1"
+source: >
+  Ley del Seguro Social (última reforma DOF 15-01-2026), arts. 25, 28, 71/72, 106, 107, 147, 168, 211.
+  UMA 2026 = 117.31 (INEGI). Salario mínimo general 2026 = 315.04 (CONASAMI, DOF 09-12-2025).
+  The 2026 cesantía-y-vejez employer column is (verify) — see docs/modules/rules-mx-nl.md.
+cases:
+  - name: a 500 MXN daily SBC for a 30-day month at the minimum riesgo prima
+    inputs: {sbc_daily: "500", days: "30"}
+    expect: {amount: "2943.75", currency: "MXN"}
+    steps_contain: "em_especie_cuota_fija"
+  - name: the cuota fija rides on the UMA, not on the SBC
+    inputs: {sbc_daily: "500", days: "30"}
+    expect: {amount: "2943.75", currency: "MXN"}
+    steps_contain: "sobre la UMA, no sobre el SBC"
+  - name: a minimum-wage worker uses the 3.150% cesantia bracket
+    inputs: {sbc_daily: "315.04", days: "30"}
+    expect: {amount: "1677.24", currency: "MXN"}
+    steps_contain: "1.00 SM"
+  - name: an SBC above 25 UMA is capped at 2932.75 daily
+    inputs: {sbc_daily: "5000", days: "30"}
+    expect: {amount: "14338.52", currency: "MXN"}
+    steps_contain: "2932.75"
+  - name: the employer's own riesgo prima replaces the statutory minimum
+    inputs: {sbc_daily: "1000", days: "31", riesgo_prima: "0.0125"}
+    expect: {amount: "5694.39", currency: "MXN"}
+    steps_contain: "prima propia del patrón"
+  - name: no SBC, no quotas except the UMA-based cuota fija
+    inputs: {sbc_daily: "0", days: "30"}
+    expect: {amount: "717.94", currency: "MXN"}
+  - name: the cesantia bracket is flagged unverified
+    inputs: {sbc_daily: "500", days: "30"}
+    expect: {amount: "2943.75", currency: "MXN"}
+    steps_contain: "tabla gradual 2026"
+  - name: not advice
+    inputs: {sbc_daily: "500", days: "30"}
+    expect: {amount: "2943.75", currency: "MXN"}
+    explain_contains: "not tax advice"

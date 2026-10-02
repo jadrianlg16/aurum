@@ -1,0 +1,6801 @@
+{
+ "GET /api/health": {
+  "status": 200,
+  "body": {
+   "ok": true,
+   "version": "0.1.0",
+   "data_dir": "/data",
+   "llm": {
+    "provider": "ollama",
+    "model": "llama3.1:8b",
+    "cloud_opt_in": false
+   }
+  }
+ },
+ "GET /api/workspaces": {
+  "status": 200,
+  "body": [
+   {
+    "id": "demo-mx",
+    "name": "Demo México (RESICO)",
+    "kind": "personal",
+    "jurisdictions": [
+     "MX"
+    ],
+    "base_currency": "MXN",
+    "language": "es",
+    "profile": {
+     "rfc": "*********1000",
+     "regime": "RESICO_PF",
+     "state": "NL",
+     "country": "MX",
+     "demo": true
+    },
+    "created_at": "2026-09-05T20:45:11.286491Z"
+   }
+  ]
+ },
+ "GET /api/workspaces/demo-mx": {
+  "status": 200,
+  "body": {
+   "id": "demo-mx",
+   "name": "Demo México (RESICO)",
+   "kind": "personal",
+   "jurisdictions": [
+    "MX"
+   ],
+   "base_currency": "MXN",
+   "language": "es",
+   "profile": {
+    "rfc": "*********1000",
+    "regime": "RESICO_PF",
+    "state": "NL",
+    "country": "MX",
+    "demo": true
+   },
+   "created_at": "2026-09-05T20:45:11.286491Z"
+  }
+ },
+ "GET /api/ledger/demo-mx/journal?start=2026-08-01&end=2026-08-31": {
+  "status": 200,
+  "body": [
+   {
+    "date": "2026-08-06",
+    "payee": "Spei Recibido Cliente Alfa",
+    "narration": "SPEI RECIBIDO CLIENTE ALFA",
+    "postings": [
+     {
+      "account": "Assets:Bank:BBVA",
+      "amount": {
+       "amount": "28687.50",
+       "currency": "MXN"
+      }
+     },
+     {
+      "account": "Assets:Taxes:ISR-Retenido",
+      "amount": {
+       "amount": "312.50",
+       "currency": "MXN"
+      }
+     },
+     {
+      "account": "Income:Freelance",
+      "amount": {
+       "amount": "-25000.00",
+       "currency": "MXN"
+      }
+     },
+     "…(1 more)"
+    ],
+    "tags": [
+     "demo"
+    ],
+    "links": [
+     "bank-2026-08-06-AGO-PUE-D"
+    ],
+    "meta": {
+     "cfdi_uuid": "AGO-PUE-D",
+     "source": "demo-bank"
+    }
+   },
+   {
+    "date": "2026-08-07",
+    "payee": "Pago Proveedor Gamma",
+    "narration": "PAGO PROVEEDOR GAMMA",
+    "postings": [
+     {
+      "account": "Expenses:Software",
+      "amount": {
+       "amount": "5000.00",
+       "currency": "MXN"
+      }
+     },
+     {
+      "account": "Assets:Taxes:IVA-Acreditable",
+      "amount": {
+       "amount": "800.00",
+       "currency": "MXN"
+      }
+     },
+     {
+      "account": "Assets:Bank:BBVA",
+      "amount": {
+       "amount": "-5800.00",
+       "currency": "MXN"
+      }
+     }
+    ],
+    "tags": [
+     "demo"
+    ],
+    "links": [
+     "bank-2026-08-07-REC-AGO-1"
+    ],
+    "meta": {
+     "cfdi_uuid": "REC-AGO-1",
+     "source": "demo-bank"
+    }
+   },
+   {
+    "date": "2026-08-09",
+    "payee": "Proveedor Gamma SA de CV",
+    "narration": "Comida de trabajo pagada en efectivo",
+    "postings": [
+     {
+      "account": "Expenses:Food:Restaurants",
+      "amount": {
+       "amount": "1160.00",
+       "currency": "MXN"
+      }
+     },
+     {
+      "account": "Assets:Cash",
+      "amount": {
+       "amount": "-1160.00",
+       "currency": "MXN"
+      }
+     }
+    ],
+    "tags": [
+     "demo"
+    ],
+    "links": [
+     "cash-REC-AGO-2"
+    ],
+    "meta": {
+     "cfdi_uuid": "REC-AGO-2",
+     "forma_pago": "01",
+     "source": "demo"
+    }
+   },
+   "…(4 more)"
+  ]
+ },
+ "GET /api/ledger/demo-mx/balances": {
+  "status": 200,
+  "body": {
+   "Assets:Bank:BBVA": [
+    {
+     "amount": "123217.50",
+     "currency": "MXN"
+    }
+   ],
+   "Assets:Cash": [
+    {
+     "amount": "3840.00",
+     "currency": "MXN"
+    }
+   ],
+   "Assets:FixedAssets:Equipo": [
+    {
+     "amount": "20000.00",
+     "currency": "MXN"
+    }
+   ],
+   "Assets:Receivable:Clients": [
+    {
+     "amount": "23200.00",
+     "currency": "MXN"
+    }
+   ],
+   "Assets:Taxes:ISR-Retenido": [
+    {
+     "amount": "562.50",
+     "currency": "MXN"
+    }
+   ],
+   "Assets:Taxes:IVA-Acreditable": [
+    {
+     "amount": "5120.00",
+     "currency": "MXN"
+    }
+   ],
+   "Equity:Opening": [
+    {
+     "amount": "-55000.00",
+     "currency": "MXN"
+    }
+   ],
+   "Expenses:Food:Restaurants": [
+    {
+     "amount": "1160.00",
+     "currency": "MXN"
+    }
+   ],
+   "Expenses:Office": [
+    {
+     "amount": "4000.00",
+     "currency": "MXN"
+    }
+   ],
+   "Expenses:Software": [
+    {
+     "amount": "8000.00",
+     "currency": "MXN"
+    }
+   ],
+   "Income:Freelance": [
+    {
+     "amount": "-110000.00",
+     "currency": "MXN"
+    }
+   ],
+   "Income:Other": [
+    {
+     "amount": "-6500.00",
+     "currency": "MXN"
+    }
+   ],
+   "Liabilities:Taxes:IVA-Trasladado": [
+    {
+     "amount": "-17600.00",
+     "currency": "MXN"
+    }
+   ]
+  }
+ },
+ "GET /api/ledger/demo-mx/accounts": {
+  "status": 200,
+  "body": [
+   "Assets:Bank:BBVA",
+   "Assets:Bank:Banorte",
+   "Assets:Bank:Nu",
+   "…(48 more)"
+  ]
+ },
+ "POST /api/ledger/demo-mx/query": {
+  "status": 200,
+  "body": [
+   {
+    "account": "Assets:Bank:BBVA",
+    "sum(position)": "(123217.50 MXN)"
+   },
+   {
+    "account": "Assets:Cash",
+    "sum(position)": "(3840.00 MXN)"
+   },
+   {
+    "account": "Assets:FixedAssets:Equipo",
+    "sum(position)": "(20000.00 MXN)"
+   }
+  ]
+ },
+ "GET /api/rules": {
+  "status": 200,
+  "body": [
+   {
+    "id": "mx.iva.monthly",
+    "version": "2026.1",
+    "rule_version": "mx.iva.monthly@2026.1",
+    "jurisdiction": "MX",
+    "effective_from": "2026-01-01",
+    "effective_to": null,
+    "citation": {
+     "law": "LIVA",
+     "article": "5",
+     "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIVA.pdf",
+     "effective_from": "2026-01-01",
+     "effective_to": null,
+     "trust_tier": "primary",
+     "excerpt": "Para que sea acreditable el IVA: que corresponda a bienes o servicios estrictamente indispensables, que conste por separado en el CFDI y que haya sido efectivamente pagado."
+    },
+    "doc": "IVA a cargo del mes = IVA trasladado cobrado − IVA acreditable (LIVA art. 5)."
+   },
+   {
+    "id": "mx.resico.income_cash_basis",
+    "version": "2026.1",
+    "rule_version": "mx.resico.income_cash_basis@2026.1",
+    "jurisdiction": "MX",
+    "effective_from": "2026-01-01",
+    "effective_to": null,
+    "citation": {
+     "law": "RMF 2026",
+     "article": "prefill RESICO (CFDI de ingreso, egreso y complementos de pago)",
+     "url": "https://www.sat.gob.mx/",
+     "effective_from": "2026-01-01",
+     "effective_to": null,
+     "trust_tier": "official_guidance",
+     "excerpt": "La declaración de RESICO se prellena con los CFDI: PUE en el mes de emisión, REP en el mes de la FechaPago; PPD sin REP no se considera cobrado."
+    },
+    "doc": "Collected RESICO income for a month under SAT's prefill rules (PUE / REP / PPD)."
+   },
+   {
+    "id": "mx.resico.isr_monthly",
+    "version": "2026.1",
+    "rule_version": "mx.resico.isr_monthly@2026.1",
+    "jurisdiction": "MX",
+    "effective_from": "2026-01-01",
+    "effective_to": null,
+    "citation": {
+     "law": "LISR",
+     "article": "113-E",
+     "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LISR.pdf",
+     "effective_from": "2026-01-01",
+     "effective_to": null,
+     "trust_tier": "primary",
+     "excerpt": "Pago mensual: tasa aplicada a la totalidad de los ingresos amparados por CFDI efectivamente cobrados en el mes, sin IVA y sin deducción alguna."
+    },
+    "doc": "Monthly RESICO ISR: tiered flat rate on the month's collected income, no deductions (art. 113-E)."
+   },
+   "…(1 more)"
+  ]
+ },
+ "GET /api/tax/mx/resico/demo-mx/2026-08": {
+  "status": 200,
+  "body": {
+   "period": "2026-08",
+   "workspace": "demo-mx",
+   "currency": "MXN",
+   "income": {
+    "collected": {
+     "amount": "37000.00",
+     "currency": "MXN"
+    },
+    "by_rule": [
+     {
+      "rule": "mx.resico.income_cash_basis@2026.1",
+      "value": {
+       "amount": "37000.00",
+       "currency": "MXN"
+      }
+     }
+    ],
+    "explain": {
+     "summary": "Ingreso efectivamente cobrado en 2026-08: 37000.00 MXN (2 documento(s), IVA excluido).",
+     "steps": [
+      {
+       "label": "PUE emitido AGO-PUE-D",
+       "formula": "2026-08-05 · bruto 29000.00 → sin IVA 25000.00",
+       "value": "25000.00"
+      },
+      {
+       "label": "PUE emitido AGO-PUE-E",
+       "formula": "2026-08-18 · bruto 13920.00 → sin IVA 12000.00",
+       "value": "12000.00"
+      },
+      {
+       "label": "excluido AGO-PPD-F (ppd_missing_rep)",
+       "formula": null,
+       "value": "8000.00"
+      },
+      "…(1 more)"
+     ],
+     "citations": [
+      {
+       "law": "RMF 2026",
+       "article": "prefill RESICO (CFDI de ingreso, egreso y complementos de pago)",
+       "url": "https://www.sat.gob.mx/",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "official_guidance",
+       "excerpt": "La declaración de RESICO se prellena con los CFDI: PUE en el mes de emisión, REP en el mes de la FechaPago; PPD sin REP no se considera cobrado."
+      }
+     ],
+     "rule_versions": [
+      "mx.resico.income_cash_basis@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "isr": {
+    "value": {
+     "amount": "407.00",
+     "currency": "MXN"
+    },
+    "explain": {
+     "summary": "ISR RESICO del mes: 407.00 MXN = 37000.00 × 1.1% (sin deducciones).",
+     "steps": [
+      {
+       "label": "Ingreso cobrado del mes (sin IVA)",
+       "formula": null,
+       "value": "37000.00"
+      },
+      {
+       "label": "Deducciones aplicables",
+       "formula": "art. 113-E: ninguna",
+       "value": "0.00"
+      },
+      {
+       "label": "Tramo de la tabla mensual",
+       "formula": "LISR art. 113-E (2026)",
+       "value": "≤ 50000.00"
+      },
+      "…(3 more)"
+     ],
+     "citations": [
+      {
+       "law": "LISR",
+       "article": "113-E",
+       "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LISR.pdf",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Pago mensual: tasa aplicada a la totalidad de los ingresos amparados por CFDI efectivamente cobrados en el mes, sin IVA y sin deducción alguna."
+      }
+     ],
+     "rule_versions": [
+      "mx.resico.isr_monthly@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "iva": {
+    "trasladado": {
+     "amount": "5920.00",
+     "currency": "MXN"
+    },
+    "acreditable": {
+     "amount": "800.00",
+     "currency": "MXN"
+    },
+    "payable": {
+     "amount": "5120.00",
+     "currency": "MXN"
+    },
+    "explain": {
+     "summary": "IVA de 2026-08: trasladado 5920.00 − acreditable 800.00 = 5120.00 MXN a cargo",
+     "steps": [
+      {
+       "label": "IVA trasladado (sobre lo cobrado)",
+       "formula": "Σ (bruto − neto) PUE/REP",
+       "value": "5920.00"
+      },
+      {
+       "label": "IVA acreditable REC-AGO-1",
+       "formula": "uso G03 · forma de pago 03",
+       "value": "800.00"
+      },
+      {
+       "label": "no acreditable REC-AGO-2 (cash_paid_expense)",
+       "formula": null,
+       "value": "160.00"
+      },
+      "…(4 more)"
+     ],
+     "citations": [
+      {
+       "law": "LIVA",
+       "article": "5",
+       "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIVA.pdf",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Para que sea acreditable el IVA: que corresponda a bienes o servicios estrictamente indispensables, que conste por separado en el CFDI y que haya sido efectivamente pagado."
+      }
+     ],
+     "rule_versions": [
+      "mx.iva.monthly@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "retentions": {
+    "isr": {
+     "amount": "312.50",
+     "currency": "MXN"
+    },
+    "iva": {
+     "amount": "0.00",
+     "currency": "MXN"
+    }
+   },
+   "prefill_expected": {
+    "income": {
+     "amount": "37000.00",
+     "currency": "MXN"
+    },
+    "isr": {
+     "amount": "407.00",
+     "currency": "MXN"
+    },
+    "iva_acreditable": {
+     "amount": "800.00",
+     "currency": "MXN"
+    },
+    "explain": {
+     "summary": "Prellenado esperado para 2026-08: ingreso 37000.00, ISR 407.00, IVA acreditable 800.00 MXN.",
+     "steps": [
+      {
+       "label": "Ingreso que el SAT dará por cobrado",
+       "formula": null,
+       "value": "37000.00"
+      },
+      {
+       "label": "ISR que mostrará el prellenado",
+       "formula": null,
+       "value": "407.00"
+      },
+      {
+       "label": "IVA acreditable del prellenado",
+       "formula": "sólo gastos generales pagados por medios bancarios",
+       "value": "800.00"
+      }
+     ],
+     "citations": [
+      {
+       "law": "RMF 2026",
+       "article": "prefill RESICO (CFDI de ingreso, egreso y complementos de pago)",
+       "url": "https://www.sat.gob.mx/",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "official_guidance",
+       "excerpt": "La declaración de RESICO se prellena con los CFDI: PUE en el mes de emisión, REP en el mes de la FechaPago; PPD sin REP no se considera cobrado."
+      }
+     ],
+     "rule_versions": [
+      "mx.resico.isr_monthly@2026.1",
+      "mx.resico.income_cash_basis@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "diffs": [
+    {
+     "kind": "pue_not_collected",
+     "amount": {
+      "amount": "13920.00",
+      "currency": "MXN"
+     },
+     "documents": [
+      "AGO-PUE-E"
+     ],
+     "explain": {
+      "summary": "1 factura(s) PUE que el SAT da por cobradas nunca llegaron al banco (13920.00 MXN). El ISR se paga igual; emite PPD la próxima vez.",
+      "steps": [
+       {
+        "label": "PUE sin depósito AGO-PUE-E",
+        "formula": null,
+        "value": "13920.00"
+       },
+       {
+        "label": "Total",
+        "formula": null,
+        "value": "13920.00"
+       }
+      ],
+      "citations": [
+       {
+        "law": "RMF 2026",
+        "article": "declaración prellenada RESICO",
+        "url": "https://www.sat.gob.mx/",
+        "effective_from": null,
+        "effective_to": null,
+        "trust_tier": "official_guidance",
+        "excerpt": "Desde 2023 la declaración mensual de RESICO se prellena con los CFDI de ingreso, egreso y los complementos de pago; el prellenado supone cobrada toda factura PUE."
+       }
+      ],
+      "rule_versions": [],
+      "confidence": null
+     }
+    },
+    {
+     "kind": "ppd_missing_rep",
+     "amount": {
+      "amount": "9280.00",
+      "currency": "MXN"
+     },
+     "documents": [
+      "AGO-PPD-F"
+     ],
+     "explain": {
+      "summary": "1 factura(s) PPD sin complemento de pago (9280.00 MXN): no se declaran hasta que exista el REP.",
+      "steps": [
+       {
+        "label": "PPD sin REP AGO-PPD-F",
+        "formula": null,
+        "value": "9280.00"
+       },
+       {
+        "label": "Total",
+        "formula": null,
+        "value": "9280.00"
+       }
+      ],
+      "citations": [
+       {
+        "law": "RMF 2026",
+        "article": "declaración prellenada RESICO",
+        "url": "https://www.sat.gob.mx/",
+        "effective_from": null,
+        "effective_to": null,
+        "trust_tier": "official_guidance",
+        "excerpt": "Desde 2023 la declaración mensual de RESICO se prellena con los CFDI de ingreso, egreso y los complementos de pago; el prellenado supone cobrada toda factura PUE."
+       }
+      ],
+      "rule_versions": [],
+      "confidence": null
+     }
+    },
+    {
+     "kind": "deposit_without_cfdi",
+     "amount": {
+      "amount": "6500.00",
+      "currency": "MXN"
+     },
+     "documents": [],
+     "explain": {
+      "summary": "1 depósito(s) sin CFDI que los respalde (6500.00 MXN). En RESICO todo ingreso debe facturarse.",
+      "steps": [
+       {
+        "label": "2026-08-15 Deposito En Efectivo Ventanilla",
+        "formula": null,
+        "value": "6500.00"
+       },
+       {
+        "label": "Total",
+        "formula": null,
+        "value": "6500.00"
+       }
+      ],
+      "citations": [
+       {
+        "law": "RMF 2026",
+        "article": "declaración prellenada RESICO",
+        "url": "https://www.sat.gob.mx/",
+        "effective_from": null,
+        "effective_to": null,
+        "trust_tier": "official_guidance",
+        "excerpt": "Desde 2023 la declaración mensual de RESICO se prellena con los CFDI de ingreso, egreso y los complementos de pago; el prellenado supone cobrada toda factura PUE."
+       }
+      ],
+      "rule_versions": [],
+      "confidence": null
+     }
+    },
+    "…(2 more)"
+   ],
+   "deadline": "2026-09-17",
+   "status": "draft",
+   "warnings": [
+    "El prellenado del SAT y la realidad bancaria no coinciden: revisa las diferencias antes de declarar.",
+    "Borrador. Aurum nunca transmite ni firma una declaración."
+   ]
+  }
+ },
+ "GET /api/ingest/demo-mx/cfdi?period=2026-08": {
+  "status": 200,
+  "body": [
+   {
+    "uuid": "AGO-PUE-D",
+    "version": "4.0",
+    "tipo": "I",
+    "fecha": "2026-08-05T10:00:00",
+    "emisor_rfc": "XAXX010101000",
+    "emisor_nombre": "Contribuyente Demo",
+    "receptor_rfc": "DPM010101AA1",
+    "receptor_nombre": "Cliente Alfa SA de CV",
+    "subtotal": "25000.00",
+    "total": "29000.00",
+    "moneda": "MXN",
+    "metodo_pago": "PUE",
+    "forma_pago": "03",
+    "uso_cfdi": "G03",
+    "impuestos_trasladados": "4000.00",
+    "impuestos_retenidos": "312.50",
+    "isr_retenido": "312.50",
+    "iva_retenido": "0",
+    "iva_trasladado": "4000.00",
+    "conceptos": [
+     {
+      "clave_prod_serv": "84111506",
+      "descripcion": "Servicios profesionales",
+      "cantidad": "1",
+      "valor_unitario": "25000.00",
+      "importe": "25000.00"
+     }
+    ],
+    "pagos": [],
+    "direction": "emitido",
+    "raw_path": "/data/workspaces/demo-mx/docs/cfdi/AGO-PUE-D.xml"
+   },
+   {
+    "uuid": "REC-AGO-1",
+    "version": "4.0",
+    "tipo": "I",
+    "fecha": "2026-08-07T12:00:00",
+    "emisor_rfc": "DPR010101CC3",
+    "emisor_nombre": "Proveedor Gamma SA de CV",
+    "receptor_rfc": "XAXX010101000",
+    "receptor_nombre": "Contribuyente Demo",
+    "subtotal": "5000.00",
+    "total": "5800.00",
+    "moneda": "MXN",
+    "metodo_pago": "PUE",
+    "forma_pago": "03",
+    "uso_cfdi": "G03",
+    "impuestos_trasladados": "800.00",
+    "impuestos_retenidos": "0",
+    "isr_retenido": "0",
+    "iva_retenido": "0",
+    "iva_trasladado": "800.00",
+    "conceptos": [
+     {
+      "clave_prod_serv": "84111506",
+      "descripcion": "Licencias de software",
+      "cantidad": "1",
+      "valor_unitario": "5000.00",
+      "importe": "5000.00"
+     }
+    ],
+    "pagos": [],
+    "direction": "recibido",
+    "raw_path": "/data/workspaces/demo-mx/docs/cfdi/REC-AGO-1.xml"
+   },
+   {
+    "uuid": "REC-AGO-2",
+    "version": "4.0",
+    "tipo": "I",
+    "fecha": "2026-08-09T14:00:00",
+    "emisor_rfc": "DPR010101CC3",
+    "emisor_nombre": "Proveedor Gamma SA de CV",
+    "receptor_rfc": "XAXX010101000",
+    "receptor_nombre": "Contribuyente Demo",
+    "subtotal": "1000.00",
+    "total": "1160.00",
+    "moneda": "MXN",
+    "metodo_pago": "PUE",
+    "forma_pago": "01",
+    "uso_cfdi": "G03",
+    "impuestos_trasladados": "160.00",
+    "impuestos_retenidos": "0",
+    "isr_retenido": "0",
+    "iva_retenido": "0",
+    "iva_trasladado": "160.00",
+    "conceptos": [
+     {
+      "clave_prod_serv": "84111506",
+      "descripcion": "Comida de trabajo",
+      "cantidad": "1",
+      "valor_unitario": "1000.00",
+      "importe": "1000.00"
+     }
+    ],
+    "pagos": [],
+    "direction": "recibido",
+    "raw_path": "/data/workspaces/demo-mx/docs/cfdi/REC-AGO-2.xml"
+   },
+   "…(3 more)"
+  ]
+ },
+ "POST /api/ingest/demo-mx/quickadd": {
+  "status": 200,
+  "body": {
+   "id": "inbox-c9a8f78fbb6e",
+   "ws_id": "demo-mx",
+   "kind": "quickadd",
+   "status": "pending",
+   "proposed": {
+    "date": "2026-09-05",
+    "payee": "tacos",
+    "narration": "250 tacos comida",
+    "postings": [
+     {
+      "account": "Assets:Cash",
+      "amount": {
+       "amount": "-250",
+       "currency": "MXN"
+      }
+     },
+     {
+      "account": "Expenses:Food:DiningOut",
+      "amount": null
+     }
+    ],
+    "tags": [],
+    "links": [],
+    "meta": {
+     "source": "quickadd",
+     "raw_text": "250 tacos comida",
+     "label": "Comida fuera"
+    }
+   },
+   "confidence": 0.9,
+   "source_ref": null,
+   "created_at": "2026-09-05T20:45:14.020039Z",
+   "decided_at": null,
+   "warnings": []
+  }
+ },
+ "GET /api/ingest/demo-mx/inbox?status=pending": {
+  "status": 200,
+  "body": [
+   {
+    "id": "inbox-c9a8f78fbb6e",
+    "ws_id": "demo-mx",
+    "kind": "quickadd",
+    "status": "pending",
+    "proposed": {
+     "date": "2026-09-05",
+     "payee": "tacos",
+     "narration": "250 tacos comida",
+     "postings": [
+      {
+       "account": "Assets:Cash",
+       "amount": {
+        "amount": "-250",
+        "currency": "MXN"
+       }
+      },
+      {
+       "account": "Expenses:Food:DiningOut",
+       "amount": null
+      }
+     ],
+     "tags": [],
+     "links": [],
+     "meta": {
+      "source": "quickadd",
+      "raw_text": "250 tacos comida",
+      "label": "Comida fuera"
+     }
+    },
+    "confidence": 0.9,
+    "source_ref": null,
+    "created_at": "2026-09-05T20:45:14.020039Z",
+    "decided_at": null
+   }
+  ]
+ },
+ "GET /api/satsync/demo-mx/vault": {
+  "status": 200,
+  "body": {
+   "present": false
+  }
+ },
+ "GET /api/satsync/demo-mx/jobs": {
+  "status": 200,
+  "body": []
+ },
+ "GET /api/pf/demo-mx/accounts": {
+  "status": 200,
+  "body": {
+   "groups": {
+    "bank": [
+     {
+      "account": "Assets:Bank:BBVA",
+      "balances": [
+       {
+        "amount": "123217.50",
+        "currency": "MXN"
+       }
+      ]
+     }
+    ],
+    "cash": [
+     {
+      "account": "Assets:Cash",
+      "balances": [
+       {
+        "amount": "3840.00",
+        "currency": "MXN"
+       }
+      ]
+     }
+    ],
+    "other_assets": [
+     {
+      "account": "Assets:FixedAssets:Equipo",
+      "balances": [
+       {
+        "amount": "20000.00",
+        "currency": "MXN"
+       }
+      ]
+     },
+     {
+      "account": "Assets:Receivable:Clients",
+      "balances": [
+       {
+        "amount": "23200.00",
+        "currency": "MXN"
+       }
+      ]
+     },
+     {
+      "account": "Assets:Taxes:ISR-Retenido",
+      "balances": [
+       {
+        "amount": "562.50",
+        "currency": "MXN"
+       }
+      ]
+     },
+     "…(1 more)"
+    ],
+    "other_liabilities": [
+     {
+      "account": "Liabilities:Taxes:IVA-Trasladado",
+      "balances": [
+       {
+        "amount": "-17600.00",
+        "currency": "MXN"
+       }
+      ]
+     }
+    ]
+   },
+   "net_worth": {
+    "amount": "193540.00",
+    "currency": "MXN"
+   },
+   "net_worth_series": [
+    {
+     "month": "2025-10",
+     "net_worth": "0"
+    },
+    {
+     "month": "2025-11",
+     "net_worth": "0"
+    },
+    {
+     "month": "2025-12",
+     "net_worth": "0"
+    },
+    "…(9 more)"
+   ],
+   "explain": {
+    "summary": "Net worth = sum(Assets) − sum(Liabilities) across all currencies as booked.",
+    "steps": [
+     {
+      "label": "net_worth",
+      "formula": "sum(Assets) - sum(Liabilities)",
+      "value": "193540.00"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /api/pf/demo-mx/income?months=3": {
+  "status": 200,
+  "body": {
+   "months": [
+    {
+     "month": "2026-07",
+     "gross": {
+      "amount": "45000.00",
+      "currency": "MXN"
+     },
+     "retained": {
+      "amount": "640.00",
+      "currency": "MXN"
+     },
+     "net": {
+      "amount": "44360.00",
+      "currency": "MXN"
+     },
+     "by_source": {
+      "Income:Freelance": "45000.00"
+     },
+     "expected_vs_received": {
+      "issued": "17400.00",
+      "pending_ppd_without_rep": "0",
+      "count": 2
+     }
+    },
+    {
+     "month": "2026-08",
+     "gross": {
+      "amount": "51500.00",
+      "currency": "MXN"
+     },
+     "retained": {
+      "amount": "4312.50",
+      "currency": "MXN"
+     },
+     "net": {
+      "amount": "47187.50",
+      "currency": "MXN"
+     },
+     "by_source": {
+      "Income:Freelance": "45000.00",
+      "Income:Other": "6500.00"
+     },
+     "expected_vs_received": {
+      "issued": "52200.00",
+      "pending_ppd_without_rep": "9280.00",
+      "count": 3
+     }
+    },
+    {
+     "month": "2026-09",
+     "gross": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "retained": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "net": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "by_source": {},
+     "expected_vs_received": {
+      "issued": "0",
+      "pending_ppd_without_rep": "0",
+      "count": 0
+     }
+    }
+   ],
+   "sources": [
+    {
+     "account": "Income:Freelance",
+     "months": {
+      "2026-07": "45000.00",
+      "2026-08": "45000.00"
+     }
+    },
+    {
+     "account": "Income:Other",
+     "months": {
+      "2026-08": "6500.00"
+     }
+    }
+   ],
+   "smoothed_average": {
+    "amount": "32166.67",
+    "currency": "MXN"
+   },
+   "explain": {
+    "summary": "Irregular-income 6-month average is the mean of gross income over the last 3 months.",
+    "steps": [
+     {
+      "label": "average",
+      "formula": "sum(gross)/3",
+      "value": "32166.66666666666666666666667"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /api/pf/demo-mx/labels": {
+  "status": 200,
+  "body": [
+   {
+    "id": "lbl-569885caff5c",
+    "ws_id": "demo-mx",
+    "name": "Comida fuera",
+    "aliases": [
+     "restaurante",
+     "comida"
+    ],
+    "account": "Expenses:Food:DiningOut",
+    "icon": "🍽️",
+    "tax": {
+     "MX": {
+      "isr_deductible": false,
+      "iva_creditable": false,
+      "requires_cfdi": false,
+      "personal_deduction": false
+     },
+     "US": {
+      "schedule_c": false,
+      "itemized": false
+     }
+    },
+    "sort": 0
+   },
+   {
+    "id": "lbl-6c72269a8eab",
+    "ws_id": "demo-mx",
+    "name": "Súper",
+    "aliases": [
+     "super",
+     "supermercado",
+     "abarrotes"
+    ],
+    "account": "Expenses:Food:Groceries",
+    "icon": "🛒",
+    "tax": {
+     "MX": {
+      "isr_deductible": false,
+      "iva_creditable": false,
+      "requires_cfdi": false,
+      "personal_deduction": false
+     },
+     "US": {
+      "schedule_c": false,
+      "itemized": false
+     }
+    },
+    "sort": 1
+   },
+   {
+    "id": "lbl-d92e338efc65",
+    "ws_id": "demo-mx",
+    "name": "Renta/Hipoteca",
+    "aliases": [
+     "renta",
+     "hipoteca",
+     "infonavit"
+    ],
+    "account": "Expenses:Housing:RentMortgage",
+    "icon": "🏠",
+    "tax": {
+     "MX": {
+      "isr_deductible": false,
+      "iva_creditable": false,
+      "requires_cfdi": false,
+      "personal_deduction": false
+     },
+     "US": {
+      "schedule_c": false,
+      "itemized": false
+     }
+    },
+    "sort": 2
+   },
+   "…(22 more)"
+  ]
+ },
+ "GET /api/pf/demo-mx/budgets": {
+  "status": 200,
+  "body": [
+   {
+    "id": "bud-9ab50bc41d0c",
+    "ws_id": "demo-mx",
+    "label_id": "lbl-569885caff5c",
+    "period": "2026-08",
+    "amount": "3500",
+    "currency": "MXN",
+    "rollover": true
+   },
+   {
+    "id": "bud-5b45b312b2d4",
+    "ws_id": "demo-mx",
+    "label_id": "lbl-6c72269a8eab",
+    "period": "2026-08",
+    "amount": "6000",
+    "currency": "MXN",
+    "rollover": true
+   }
+  ]
+ },
+ "GET /api/pf/demo-mx/budgets/status?period=2026-08": {
+  "status": 200,
+  "body": {
+   "period": "2026-08",
+   "budgets": [
+    {
+     "budget_id": "bud-9ab50bc41d0c",
+     "label_id": "lbl-569885caff5c",
+     "label_name": "Comida fuera",
+     "account": "Expenses:Food:DiningOut",
+     "budget": {
+      "amount": "3500",
+      "currency": "MXN"
+     },
+     "rollover_applied": "0",
+     "spent": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "remaining": {
+      "amount": "3500",
+      "currency": "MXN"
+     },
+     "pct": "0.0000",
+     "alert": "none",
+     "deductible_share": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "explain": {
+      "summary": "Comida fuera: spent / (budget + rollover).",
+      "steps": [
+       {
+        "label": "effective_budget",
+        "formula": "amount + rollover",
+        "value": "3500"
+       },
+       {
+        "label": "spent",
+        "formula": null,
+        "value": "0"
+       },
+       {
+        "label": "remaining",
+        "formula": "effective_budget - spent",
+        "value": "3500"
+       },
+       "…(1 more)"
+      ],
+      "citations": [],
+      "rule_versions": [],
+      "confidence": null
+     }
+    },
+    {
+     "budget_id": "bud-5b45b312b2d4",
+     "label_id": "lbl-6c72269a8eab",
+     "label_name": "Súper",
+     "account": "Expenses:Food:Groceries",
+     "budget": {
+      "amount": "6000",
+      "currency": "MXN"
+     },
+     "rollover_applied": "0",
+     "spent": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "remaining": {
+      "amount": "6000",
+      "currency": "MXN"
+     },
+     "pct": "0.0000",
+     "alert": "none",
+     "deductible_share": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "explain": {
+      "summary": "Súper: spent / (budget + rollover).",
+      "steps": [
+       {
+        "label": "effective_budget",
+        "formula": "amount + rollover",
+        "value": "6000"
+       },
+       {
+        "label": "spent",
+        "formula": null,
+        "value": "0"
+       },
+       {
+        "label": "remaining",
+        "formula": "effective_budget - spent",
+        "value": "6000"
+       },
+       "…(1 more)"
+      ],
+      "citations": [],
+      "rule_versions": [],
+      "confidence": null
+     }
+    }
+   ],
+   "safe_to_spend": {
+    "amount": "9500",
+    "currency": "MXN"
+   }
+  }
+ },
+ "GET /api/pf/demo-mx/goals": {
+  "status": 200,
+  "body": [
+   {
+    "id": "goal-ad79e9f36e53",
+    "ws_id": "demo-mx",
+    "kind": "emergency",
+    "name": "Fondo de emergencia",
+    "target": "90000",
+    "currency": "MXN",
+    "target_date": "2027-06-30",
+    "account": "Assets:Bank:Nu",
+    "created_at": "2026-09-05T20:45:12.007331+00:00",
+    "progress": {
+     "amount": "0",
+     "currency": "MXN"
+    },
+    "remaining": {
+     "amount": "90000",
+     "currency": "MXN"
+    },
+    "monthly_required": {
+     "amount": "10000.00",
+     "currency": "MXN"
+    },
+    "explain": {
+     "summary": "monthly_required = (target − progress) / months remaining to target_date.",
+     "steps": [
+      {
+       "label": "months_left",
+       "formula": null,
+       "value": "9"
+      },
+      {
+       "label": "monthly_required",
+       "formula": "(target - progress) / months_left",
+       "value": "10000.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    },
+    "months_of_spend_covered": "0.00"
+   },
+   {
+    "id": "goal-38e980badbed",
+    "ws_id": "demo-mx",
+    "kind": "purchase",
+    "name": "Laptop nueva",
+    "target": "35000",
+    "currency": "MXN",
+    "target_date": "2026-12-31",
+    "account": "Assets:Bank:Banorte",
+    "created_at": "2026-09-05T20:45:12.017826+00:00",
+    "progress": {
+     "amount": "0",
+     "currency": "MXN"
+    },
+    "remaining": {
+     "amount": "35000",
+     "currency": "MXN"
+    },
+    "monthly_required": {
+     "amount": "11666.67",
+     "currency": "MXN"
+    },
+    "explain": {
+     "summary": "monthly_required = (target − progress) / months remaining to target_date.",
+     "steps": [
+      {
+       "label": "months_left",
+       "formula": null,
+       "value": "3"
+      },
+      {
+       "label": "monthly_required",
+       "formula": "(target - progress) / months_left",
+       "value": "11666.67"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   }
+  ]
+ },
+ "GET /api/pf/demo-mx/credit/cards": {
+  "status": 200,
+  "body": [
+   {
+    "id": "card-6d442896fd44",
+    "name": "BBVA Azul",
+    "account": "Liabilities:CreditCard:BBVA",
+    "balance": {
+     "amount": "0",
+     "currency": "MXN"
+    },
+    "limit": {
+     "amount": "60000",
+     "currency": "MXN"
+    },
+    "utilization": "0.0000",
+    "next_cut_date": "2026-09-20",
+    "next_due_date": "2026-09-10",
+    "pago_no_intereses": {
+     "amount": "0",
+     "currency": "MXN"
+    },
+    "minimum_payment_note": "(verify) minimum payment is set by the issuer's cardholder agreement",
+    "msi": [],
+    "explain": {
+     "summary": "Pago para no generar intereses = statement (cut-date) balance in full; minimum payment is a card-issuer policy, not computed here (verify with your card agreement).",
+     "steps": [
+      {
+       "label": "balance",
+       "formula": null,
+       "value": "0"
+      },
+      {
+       "label": "utilization",
+       "formula": "|balance| / limit",
+       "value": "0.0000"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   }
+  ]
+ },
+ "GET /api/pf/demo-mx/credit/loans": {
+  "status": 200,
+  "body": [
+   {
+    "id": "loan-b0529662e3e1",
+    "ws_id": "demo-mx",
+    "account": "Liabilities:Loans:Auto",
+    "name": "Crédito auto",
+    "principal": "180000",
+    "currency": "MXN",
+    "annual_rate": "0.14",
+    "months": 48,
+    "start": "2026-01-15"
+   }
+  ]
+ },
+ "GET /api/pf/demo-mx/review/2026-08": {
+  "status": 200,
+  "body": {
+   "period": "2026-08",
+   "income": {
+    "amount": "51500.00",
+    "currency": "MXN"
+   },
+   "expense": {
+    "amount": "6160.00",
+    "currency": "MXN"
+   },
+   "net": {
+    "amount": "45340.00",
+    "currency": "MXN"
+   },
+   "vs_previous_month": {
+    "income_delta": "6500.00",
+    "expense_delta": "2160.00"
+   },
+   "top_labels": [
+    {
+     "label": "Expenses:Software",
+     "amount": "5000.00"
+    },
+    {
+     "label": "Expenses:Food:Restaurants",
+     "amount": "1160.00"
+    }
+   ],
+   "anomalies": [],
+   "goals_progress": [
+    {
+     "id": "goal-ad79e9f36e53",
+     "ws_id": "demo-mx",
+     "kind": "emergency",
+     "name": "Fondo de emergencia",
+     "target": "90000",
+     "currency": "MXN",
+     "target_date": "2027-06-30",
+     "account": "Assets:Bank:Nu",
+     "created_at": "2026-09-05T20:45:12.007331+00:00",
+     "progress": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "remaining": {
+      "amount": "90000",
+      "currency": "MXN"
+     },
+     "monthly_required": {
+      "amount": "10000.00",
+      "currency": "MXN"
+     },
+     "explain": {
+      "summary": "monthly_required = (target − progress) / months remaining to target_date.",
+      "steps": [
+       {
+        "label": "months_left",
+        "formula": null,
+        "value": "9"
+       },
+       {
+        "label": "monthly_required",
+        "formula": "(target - progress) / months_left",
+        "value": "10000.00"
+       }
+      ],
+      "citations": [],
+      "rule_versions": [],
+      "confidence": null
+     },
+     "months_of_spend_covered": "0.00"
+    },
+    {
+     "id": "goal-38e980badbed",
+     "ws_id": "demo-mx",
+     "kind": "purchase",
+     "name": "Laptop nueva",
+     "target": "35000",
+     "currency": "MXN",
+     "target_date": "2026-12-31",
+     "account": "Assets:Bank:Banorte",
+     "created_at": "2026-09-05T20:45:12.017826+00:00",
+     "progress": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "remaining": {
+      "amount": "35000",
+      "currency": "MXN"
+     },
+     "monthly_required": {
+      "amount": "11666.67",
+      "currency": "MXN"
+     },
+     "explain": {
+      "summary": "monthly_required = (target − progress) / months remaining to target_date.",
+      "steps": [
+       {
+        "label": "months_left",
+        "formula": null,
+        "value": "3"
+       },
+       {
+        "label": "monthly_required",
+        "formula": "(target - progress) / months_left",
+        "value": "11666.67"
+       }
+      ],
+      "citations": [],
+      "rule_versions": [],
+      "confidence": null
+     }
+    }
+   ],
+   "upcoming_bills": [],
+   "interest_paid": {
+    "amount": "0",
+    "currency": "MXN"
+   },
+   "explain": {
+    "summary": "Monthly review aggregates ledger postings for the period; deltas vs. prior month.",
+    "steps": [
+     {
+      "label": "income",
+      "formula": null,
+      "value": "51500.00"
+     },
+     {
+      "label": "expense",
+      "formula": null,
+      "value": "6160.00"
+     },
+     {
+      "label": "net",
+      "formula": "income - expense",
+      "value": "45340.00"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /api/pf/demo-mx/recurring": {
+  "status": 200,
+  "body": {
+   "bills": [],
+   "explain": {
+    "summary": "Recurring bills detected from same payee, similar amount (±15%), 20-40 day cadence.",
+    "steps": [],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /api/pf/demo-mx/credit/loans/{id}/amortization": {
+  "status": 200,
+  "body": {
+   "loan_id": "loan-b0529662e3e1",
+   "payment": "4918.77",
+   "total_paid": "236100.76",
+   "total_interest": "56100.76",
+   "rows": [
+    {
+     "month": 1,
+     "payment": "4918.77",
+     "interest": "2100.00",
+     "principal": "2818.77",
+     "balance": "177181.23"
+    },
+    {
+     "month": 2,
+     "payment": "4918.77",
+     "interest": "2067.11",
+     "principal": "2851.65",
+     "balance": "174329.58"
+    },
+    {
+     "month": 3,
+     "payment": "4918.77",
+     "interest": "2033.85",
+     "principal": "2884.92",
+     "balance": "171444.66"
+    },
+    "…(45 more)"
+   ],
+   "explain": {
+    "summary": "Fixed monthly payment (pmt) amortizing principal over `months` at annual_rate/12.",
+    "steps": [
+     {
+      "label": "payment",
+      "formula": null,
+      "value": "4918.77"
+     },
+     {
+      "label": "total_interest",
+      "formula": null,
+      "value": "56100.76"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "POST /api/pf/demo-mx/credit/loans/{id}/whatif": {
+  "status": 200,
+  "body": {
+   "loan_id": "loan-b0529662e3e1",
+   "months_to_payoff": 38,
+   "months_saved": 10,
+   "new_total_interest": "43609.39",
+   "interest_saved": {
+    "amount": "12491.37",
+    "currency": "MXN"
+   },
+   "explain": {
+    "summary": "Extra monthly payment shortens payoff and lowers total interest paid.",
+    "steps": [
+     {
+      "label": "base_months",
+      "formula": null,
+      "value": "48"
+     },
+     {
+      "label": "new_months",
+      "formula": null,
+      "value": "38"
+     },
+     {
+      "label": "interest_saved",
+      "formula": null,
+      "value": "12491.37"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /api/pf/demo-mx/goals/{id}/projection": {
+  "status": 200,
+  "body": {
+   "goal_id": "goal-ad79e9f36e53",
+   "path": [
+    {
+     "month": "2026-10",
+     "balance": "10000.00"
+    },
+    {
+     "month": "2026-11",
+     "balance": "20000.00"
+    },
+    {
+     "month": "2026-12",
+     "balance": "30000.00"
+    },
+    "…(6 more)"
+   ],
+   "explain": {
+    "summary": "Projection assumes a constant monthly contribution equal to monthly_required.",
+    "steps": [],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /ledger/demo-mx/statements/2026-08?type=pnl": {
+  "status": 200,
+  "body": {
+   "type": "pnl",
+   "period": "2026-08",
+   "currency": "MXN",
+   "sections": [
+    {
+     "title": "Income",
+     "rows": [
+      {
+       "account": "Income:Freelance",
+       "label": "Income:Freelance",
+       "amount": {
+        "amount": "45000.00",
+        "currency": "MXN"
+       }
+      },
+      {
+       "account": "Income:Other",
+       "label": "Income:Other",
+       "amount": {
+        "amount": "6500.00",
+        "currency": "MXN"
+       }
+      }
+     ],
+     "total": {
+      "amount": "51500.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "title": "Expenses",
+     "rows": [
+      {
+       "account": "Expenses:Food:Restaurants",
+       "label": "Expenses:Food:Restaurants",
+       "amount": {
+        "amount": "1160.00",
+        "currency": "MXN"
+       }
+      },
+      {
+       "account": "Expenses:Software",
+       "label": "Expenses:Software",
+       "amount": {
+        "amount": "5000.00",
+        "currency": "MXN"
+       }
+      }
+     ],
+     "total": {
+      "amount": "6160.00",
+      "currency": "MXN"
+     }
+    }
+   ],
+   "net": {
+    "amount": "45340.00",
+    "currency": "MXN"
+   },
+   "explain": {
+    "summary": "Estado de resultados para 2026-08: ingresos menos gastos, por cuenta.",
+    "steps": [
+     {
+      "label": "period_start",
+      "formula": null,
+      "value": "2026-08-01"
+     },
+     {
+      "label": "period_end",
+      "formula": null,
+      "value": "2026-08-31"
+     },
+     {
+      "label": "net",
+      "formula": null,
+      "value": "45340.00"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /ledger/demo-mx/statements/2026-08?type=balance": {
+  "status": 200,
+  "body": {
+   "type": "balance",
+   "period": "2026-08",
+   "currency": "MXN",
+   "sections": [
+    {
+     "title": "Assets",
+     "rows": [
+      {
+       "account": "Assets:Bank:BBVA",
+       "label": "Assets:Bank:BBVA",
+       "amount": {
+        "amount": "123217.50",
+        "currency": "MXN"
+       }
+      },
+      {
+       "account": "Assets:Cash",
+       "label": "Assets:Cash",
+       "amount": {
+        "amount": "3840.00",
+        "currency": "MXN"
+       }
+      },
+      {
+       "account": "Assets:FixedAssets:Equipo",
+       "label": "Assets:FixedAssets:Equipo",
+       "amount": {
+        "amount": "20000.00",
+        "currency": "MXN"
+       }
+      },
+      "…(3 more)"
+     ],
+     "total": {
+      "amount": "175940.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "title": "Liabilities",
+     "rows": [
+      {
+       "account": "Liabilities:Taxes:IVA-Trasladado",
+       "label": "Liabilities:Taxes:IVA-Trasladado",
+       "amount": {
+        "amount": "-17600.00",
+        "currency": "MXN"
+       }
+      }
+     ],
+     "total": {
+      "amount": "-17600.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "title": "Equity",
+     "rows": [
+      {
+       "account": "Equity:Opening",
+       "label": "Equity:Opening",
+       "amount": {
+        "amount": "-55000.00",
+        "currency": "MXN"
+       }
+      }
+     ],
+     "total": {
+      "amount": "-55000.00",
+      "currency": "MXN"
+     }
+    }
+   ],
+   "net": {
+    "amount": "193540.00",
+    "currency": "MXN"
+   },
+   "explain": {
+    "summary": "Balance general al cierre de 2026-08: activos, pasivos y capital.",
+    "steps": [
+     {
+      "label": "period_start",
+      "formula": null,
+      "value": "2026-08-01"
+     },
+     {
+      "label": "period_end",
+      "formula": null,
+      "value": "2026-08-31"
+     },
+     {
+      "label": "net",
+      "formula": null,
+      "value": "193540.00"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /ledger/demo-mx/statements/2026-08?type=cashflow": {
+  "status": 200,
+  "body": {
+   "type": "cashflow",
+   "period": "2026-08",
+   "currency": "MXN",
+   "sections": [
+    {
+     "title": "Cashflow",
+     "rows": [
+      {
+       "account": "Assets:FixedAssets:Equipo",
+       "label": "Assets:FixedAssets:Equipo",
+       "amount": {
+        "amount": "-23200.00",
+        "currency": "MXN"
+       }
+      },
+      {
+       "account": "Assets:Taxes:ISR-Retenido",
+       "label": "Assets:Taxes:ISR-Retenido",
+       "amount": {
+        "amount": "28687.50",
+        "currency": "MXN"
+       }
+      },
+      {
+       "account": "Expenses:Food:Restaurants",
+       "label": "Expenses:Food:Restaurants",
+       "amount": {
+        "amount": "-1160.00",
+        "currency": "MXN"
+       }
+      },
+      "…(2 more)"
+     ],
+     "total": {
+      "amount": "5027.50",
+      "currency": "MXN"
+     }
+    }
+   ],
+   "net": {
+    "amount": "5027.50",
+    "currency": "MXN"
+   },
+   "explain": {
+    "summary": "Flujo de efectivo para 2026-08: cambio en cuentas de banco/efectivo por contracuenta.",
+    "steps": [
+     {
+      "label": "period_start",
+      "formula": null,
+      "value": "2026-08-01"
+     },
+     {
+      "label": "period_end",
+      "formula": null,
+      "value": "2026-08-31"
+     },
+     {
+      "label": "net",
+      "formula": null,
+      "value": "5027.50"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /ingest/demo-mx/reconcile?period=2026-08": {
+  "status": 200,
+  "body": {
+   "bank_lines": [
+    {
+     "id": 6,
+     "date": "2026-08-06",
+     "description": "SPEI RECIBIDO CLIENTE ALFA",
+     "amount": {
+      "amount": "28687.50",
+      "currency": "MXN"
+     },
+     "matched_txn_id": null,
+     "cfdi_uuid": null,
+     "suggestions": [
+      {
+       "txn_id": "bank-2026-08-06-AGO-PUE-D",
+       "cfdi_uuid": null,
+       "score": 1.0
+      }
+     ]
+    },
+    {
+     "id": 7,
+     "date": "2026-08-07",
+     "description": "PAGO PROVEEDOR GAMMA",
+     "amount": {
+      "amount": "-5800.00",
+      "currency": "MXN"
+     },
+     "matched_txn_id": null,
+     "cfdi_uuid": null,
+     "suggestions": [
+      {
+       "txn_id": "bank-2026-08-07-REC-AGO-1",
+       "cfdi_uuid": null,
+       "score": 1.0
+      },
+      {
+       "txn_id": null,
+       "cfdi_uuid": "REC-AGO-1",
+       "score": 1.0
+      }
+     ]
+    },
+    {
+     "id": 8,
+     "date": "2026-08-12",
+     "description": "COMPRA EQUIPO DE COMPUTO",
+     "amount": {
+      "amount": "-23200.00",
+      "currency": "MXN"
+     },
+     "matched_txn_id": null,
+     "cfdi_uuid": null,
+     "suggestions": [
+      {
+       "txn_id": "bank-2026-08-12-REC-AGO-3",
+       "cfdi_uuid": null,
+       "score": 1.0
+      },
+      {
+       "txn_id": null,
+       "cfdi_uuid": "REC-AGO-3",
+       "score": 1.0
+      }
+     ]
+    },
+    "…(1 more)"
+   ],
+   "unmatched_bank": 4,
+   "unmatched_cfdi": [
+    "AGO-PPD-F",
+    "AGO-PUE-D",
+    "AGO-PUE-E",
+    "…(3 more)"
+   ],
+   "explain": {
+    "summary": "Sugerencias por monto (±1%) y fecha (±3 días) contra transacciones y CFDIs.",
+    "steps": [
+     {
+      "label": "bank_lines",
+      "formula": null,
+      "value": "4"
+     },
+     {
+      "label": "unmatched_bank",
+      "formula": null,
+      "value": "4"
+     },
+     {
+      "label": "unmatched_cfdi",
+      "formula": null,
+      "value": "6"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /tax/us/demo-us/2026": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-us",
+   "year": 2026,
+   "applicable": true,
+   "currency": "USD",
+   "profile": {
+    "filing_status": "single",
+    "entity_type": "sole_proprietorship",
+    "business_type": "other",
+    "state": "TX"
+   },
+   "schedule_c": {
+    "gross_receipts": {
+     "amount": "141000.00",
+     "currency": "USD"
+    },
+    "returns_and_allowances": {
+     "amount": "1500.00",
+     "currency": "USD"
+    },
+    "cost_of_goods_sold": {
+     "amount": "12000.00",
+     "currency": "USD"
+    },
+    "expenses": {
+     "amount": "9810.00",
+     "currency": "USD"
+    },
+    "expenses_by_account": {
+     "Expenses:US:Insurance": {
+      "amount": "1800.00",
+      "currency": "USD"
+     },
+     "Expenses:US:Office": {
+      "amount": "960.00",
+      "currency": "USD"
+     },
+     "Expenses:US:Professional": {
+      "amount": "1500.00",
+      "currency": "USD"
+     },
+     "Expenses:US:Software": {
+      "amount": "2400.00",
+      "currency": "USD"
+     },
+     "Expenses:US:Travel": {
+      "amount": "3150.00",
+      "currency": "USD"
+     }
+    },
+    "income_by_account": {
+     "Income:US:Consulting": {
+      "amount": "130500.00",
+      "currency": "USD"
+     },
+     "Income:US:Training": {
+      "amount": "9000.00",
+      "currency": "USD"
+     }
+    },
+    "transactions": 27,
+    "net": {
+     "amount": "117690.00",
+     "currency": "USD"
+    },
+    "explain": {
+     "summary": "Schedule C net profit for the year: 117690.00 USD (gross 141000.00 − returns 1500.00 − COGS 12000.00 − expenses 9810.00). Informational only — Aurum is not a tax return and not tax advice; review with a licensed preparer.",
+     "steps": [
+      {
+       "label": "Gross receipts or sales (line 1)",
+       "formula": null,
+       "value": "141000.00"
+      },
+      {
+       "label": "Returns and allowances (line 2)",
+       "formula": null,
+       "value": "1500.00"
+      },
+      {
+       "label": "Cost of goods sold (line 4)",
+       "formula": null,
+       "value": "12000.00"
+      },
+      "…(7 more)"
+     ],
+     "citations": [
+      {
+       "law": "IRC",
+       "article": "61 / 162 (Schedule C)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Gross income from a trade or business less the ordinary and necessary expenses of carrying it on."
+      }
+     ],
+     "rule_versions": [
+      "us.fed.schedule_c_net@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "se_tax": {
+    "value": {
+     "amount": "16629.06",
+     "currency": "USD"
+    },
+    "deductible_half": {
+     "amount": "8314.53",
+     "currency": "USD"
+    },
+    "explain": {
+     "summary": "Self-employment tax for 2026: 16629.06 USD (OASDI 13477.15 + Medicare 3151.91 + additional Medicare 0.00) (verify). Informational only — Aurum is not a tax return and not tax advice; review with a licensed preparer.",
+     "steps": [
+      {
+       "label": "Schedule C net profit",
+       "formula": null,
+       "value": "117690.00"
+      },
+      {
+       "label": "Net earnings from self-employment (verify)",
+       "formula": "117690.00 × 0.9235 (§ 1402(a)(12))",
+       "value": "108686.72"
+      },
+      {
+       "label": "W-2 wages already subject to FICA",
+       "formula": null,
+       "value": "0.00"
+      },
+      "…(8 more)"
+     ],
+     "citations": [
+      {
+       "law": "IRC",
+       "article": "1401 / 1402",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "A tax on self-employment income: the old-age, survivors and disability insurance portion and the hospital insurance portion, plus the additional Medicare tax of § 1401(b)(2)."
+      },
+      {
+       "law": "IRS guidance",
+       "article": "Topic no. 751 — Social Security wage base 2026",
+       "url": "https://www.irs.gov/taxtopics/tc751",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "official_guidance",
+       "excerpt": null
+      },
+      {
+       "law": "IRC",
+       "article": "1401(b)(2)(A)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Threshold amounts by filing status."
+      }
+     ],
+     "rule_versions": [
+      "us.fed.se_tax@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "income_tax": {
+    "value": {
+     "amount": "15232.60",
+     "currency": "USD"
+    },
+    "explain": {
+     "summary": "Federal income tax for 2026 (single): 15232.60 USD on taxable income 93275.47; marginal rate 22%, effective 16.33%. Informational only — Aurum is not a tax return and not tax advice; review with a licensed preparer.",
+     "steps": [
+      {
+       "label": "Schedule C net profit",
+       "formula": null,
+       "value": "117690.00"
+      },
+      {
+       "label": "Other income",
+       "formula": null,
+       "value": "0.00"
+      },
+      {
+       "label": "Less: deductible half of SE tax (§ 164(f))",
+       "formula": null,
+       "value": "8314.53"
+      },
+      "…(10 more)"
+     ],
+     "citations": [
+      {
+       "law": "IRC",
+       "article": "1(j)(2) / 63(c)",
+       "url": "https://www.irs.gov/pub/irs-drop/rp-25-32.pdf",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "2026 rate tables and standard deduction as adjusted by Rev. Proc. 2025-32."
+      },
+      {
+       "law": "IRC",
+       "article": "1(j)(2)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "2026 rate tables as adjusted by Rev. Proc. 2025-32 § 4.01."
+      },
+      {
+       "law": "IRC",
+       "article": "63(c)(2)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Standard deduction for taxable years beginning in 2026."
+      }
+     ],
+     "rule_versions": [
+      "us.fed.income_tax@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "total_tax": {
+    "amount": "31861.66",
+    "currency": "USD"
+   },
+   "quarterly": {
+    "due_dates": [
+     "2026-04-15",
+     "2026-06-15",
+     "2026-09-15",
+     "…(1 more)"
+    ],
+    "amount_each": {
+     "amount": "6000.00",
+     "currency": "USD"
+    },
+    "explain": {
+     "summary": "Estimated tax: 6000.00 USD per quarter (24000.00 for the year, 100% of the prior year's tax (safe harbour)). Informational only — Aurum is not a tax return and not tax advice; review with a licensed preparer.",
+     "steps": [
+      {
+       "label": "Projected tax for 2026 (income tax + SE tax)",
+       "formula": null,
+       "value": "31861.66"
+      },
+      {
+       "label": "90% of the current year's tax",
+       "formula": null,
+       "value": "28675.49"
+      },
+      {
+       "label": "Prior year's tax",
+       "formula": null,
+       "value": "24000.00"
+      },
+      "…(11 more)"
+     ],
+     "citations": [
+      {
+       "law": "IRC",
+       "article": "6654",
+       "url": "https://www.irs.gov/faqs/estimated-tax",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Required annual payment: the lesser of 90% of the tax for the year or 100% (110% for higher prior-year AGI) of the tax shown on the prior year's return, in four installments."
+      },
+      {
+       "law": "IRC",
+       "article": "6654(c)(2)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Due dates of the four required installments for a calendar-year individual."
+      }
+     ],
+     "rule_versions": [
+      "us.fed.quarterly_estimate@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "organizer_url": "/api/tax/us/demo-us/2026/organizer.pdf",
+   "tx_franchise_url": "/api/tax/us/demo-us/2026/tx-franchise",
+   "unverified_constants": [
+    "se.net_earnings_factor",
+    "tx.franchise.margin_revenue_share",
+    "tx.franchise.margin_flat_deduction",
+    "…(5 more)"
+   ],
+   "warnings": [],
+   "disclaimer": "This is an organizer, not a tax return. Aurum never files, signs or transmits anything to the IRS or the Texas Comptroller. Every figure is an estimate from your ledger — take it to a licensed preparer.",
+   "status": "draft"
+  }
+ },
+ "GET /tax/us/demo-us/2026/tx-franchise": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-us",
+   "year": 2026,
+   "applicable": true,
+   "currency": "USD",
+   "entity_type": "sole_proprietorship",
+   "business_type": "other",
+   "total_revenue": {
+    "amount": "141000.00",
+    "currency": "USD"
+   },
+   "no_tax_due_threshold": {
+    "amount": "2650000.00",
+    "currency": "USD"
+   },
+   "no_tax_due": true,
+   "tax": {
+    "amount": "0.00",
+    "currency": "USD"
+   },
+   "explain": {
+    "summary": "Texas franchise tax 2026: no tax due — a sole proprietorship (not an LLC) is not a taxable entity under Tex. Tax Code § 171.0002(b)(1) (verify). Informational only — Aurum is not a tax return and not tax advice; review with a licensed preparer.",
+    "steps": [
+     {
+      "label": "Annualized total revenue",
+      "formula": null,
+      "value": "141000.00"
+     },
+     {
+      "label": "Taxable entity",
+      "formula": "§ 171.0002",
+      "value": "False"
+     },
+     {
+      "label": "No-tax-due threshold (2026)",
+      "formula": "source: https://comptroller.texas.gov/taxes/franchise/",
+      "value": "2650000"
+     },
+     "…(2 more)"
+    ],
+    "citations": [
+     {
+      "law": "Texas Tax Code",
+      "article": "ch. 171 (§§ 171.002, 171.006, 171.101, 171.1016)",
+      "url": "https://comptroller.texas.gov/taxes/franchise/",
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "trust_tier": "official_guidance",
+      "excerpt": "Franchise tax on taxable margin; entities at or below the no-tax-due threshold owe no tax but still file an information report."
+     },
+     {
+      "law": "Texas Tax Code",
+      "article": "ch. 171 (§ 171.006 adjustment)",
+      "url": "https://comptroller.texas.gov/taxes/franchise/",
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "trust_tier": "official_guidance",
+      "excerpt": "No tax due threshold for 2026 reports."
+     }
+    ],
+    "rule_versions": [
+     "us.tx.franchise_no_tax_due@2026.1"
+    ],
+    "confidence": null
+   },
+   "warnings": [],
+   "disclaimer": "This is an organizer, not a tax return. Aurum never files, signs or transmits anything to the IRS or the Texas Comptroller. Every figure is an estimate from your ledger — take it to a licensed preparer."
+  }
+ },
+ "GET /crossborder/demo-us/assessment": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-us",
+   "profile": {
+    "days_mx": 210,
+    "days_us": 150,
+    "days_us_prior_1": 150,
+    "days_us_prior_2": 150,
+    "days_abroad_for_feie": 210,
+    "bona_fide_resident_abroad": false,
+    "home_mx": true,
+    "home_us": true,
+    "green_card": false,
+    "citizenship": [
+     "US",
+     "MX"
+    ],
+    "filing_status": "single",
+    "main_professional_center": "MX",
+    "mx_source_income_share": "0.20",
+    "foreign_tax_paid_usd": "1800.00",
+    "income_sources": [
+     {
+      "country": "US",
+      "kind": "self_employment",
+      "amount": "132000.00",
+      "currency": "USD"
+     },
+     {
+      "country": "MX",
+      "kind": "self_employment",
+      "amount": "9000.00",
+      "currency": "USD"
+     }
+    ],
+    "foreign_accounts": [
+     {
+      "country": "MX",
+      "institution": "Banco Demo Uno",
+      "max_balance_usd": "14500.00"
+     },
+     {
+      "country": "MX",
+      "institution": "Banco Demo Ahorro",
+      "max_balance_usd": "2200.00"
+     }
+    ],
+    "treaty_permanent_home": null,
+    "treaty_center_of_vital_interests": "MX",
+    "treaty_habitual_abode": "MX",
+    "treaty_nationality": null
+   },
+   "residency": {
+    "mx": true,
+    "us": true,
+    "dual": true,
+    "weighted_us_days": {
+     "amount": "225.00",
+     "currency": "DAY"
+    },
+    "explain": {
+     "summary": "Residency: resident of both Mexico and the US on these facts. Weighted US days 225.00 vs the 183 threshold (verify). Informational only — residency, treaty positions and FBAR obligations must be confirmed with a cross-border preparer; Aurum decides nothing.",
+     "steps": [
+      {
+       "label": "Days in the US, current year",
+       "formula": null,
+       "value": "150"
+      },
+      {
+       "label": "Days in the US, first preceding year",
+       "formula": "counted at 1/3",
+       "value": "150"
+      },
+      {
+       "label": "Days in the US, second preceding year",
+       "formula": "counted at 1/6",
+       "value": "150"
+      },
+      "…(7 more)"
+     ],
+     "citations": [
+      {
+       "law": "IRC",
+       "article": "7701(b)(3) · CFF art. 9",
+       "url": "https://www.irs.gov/individuals/international-taxpayers/substantial-presence-test",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Substantial presence: 31 days in the current year and 183 weighted days over three years (current 1, prior 1/3, second prior 1/6). CFF art. 9: casa habitación, then centre of vital interests."
+      },
+      {
+       "law": "IRC",
+       "article": "7701(b)(3)(A)(ii)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Current year 1, first preceding year 1/3, second preceding year 1/6."
+      },
+      {
+       "law": "CFF",
+       "article": "9",
+       "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/CFF.pdf",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Se consideran residentes en México las personas físicas que hayan establecido su casa habitación en México; cuando también tengan casa habitación en otro país, se considerará el centro de intereses vitales."
+      }
+     ],
+     "rule_versions": [
+      "xb.residency@2026.1"
+     ],
+     "confidence": 0.6
+    }
+   },
+   "treaty": {
+    "applies": true,
+    "resolved_at_step": 2,
+    "checklist": [
+     {
+      "step": 1,
+      "key": "permanent_home",
+      "label": "Permanent home available in only one State"
+     },
+     {
+      "step": 2,
+      "key": "center_of_vital_interests",
+      "label": "Centre of vital interests (personal and economic relations)"
+     },
+     {
+      "step": 3,
+      "key": "habitual_abode",
+      "label": "Habitual abode"
+     },
+     "…(2 more)"
+    ],
+    "explain": {
+     "summary": "Dual residency: the art. 4 ladder points to MX at step 2 (Centre of vital interests (personal and economic relations)) (verify). Informational only — residency, treaty positions and FBAR obligations must be confirmed with a cross-border preparer; Aurum decides nothing.",
+     "steps": [
+      {
+       "label": "Resident of both countries",
+       "formula": null,
+       "value": "True"
+      },
+      {
+       "label": "Step 1 · Permanent home available in only one State",
+       "formula": "not decisive on these facts",
+       "value": "unanswered"
+      },
+      {
+       "label": "Step 2 · Centre of vital interests (personal and economic relations)",
+       "formula": "decisive",
+       "value": "MX"
+      },
+      "…(4 more)"
+     ],
+     "citations": [
+      {
+       "law": "US–MX income tax treaty",
+       "article": "4 (Residence)",
+       "url": "https://www.irs.gov/businesses/international-businesses/mexico-tax-treaty-documents",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Tie-breaker: permanent home → centre of vital interests → habitual abode → nationality → mutual agreement."
+      }
+     ],
+     "rule_versions": [
+      "xb.treaty_tiebreaker@2026.1"
+     ],
+     "confidence": 0.5
+    }
+   },
+   "fbar": {
+    "required": true,
+    "aggregate": {
+     "amount": "16700.00",
+     "currency": "USD"
+    },
+    "threshold": "10000",
+    "explain": {
+     "summary": "Foreign accounts peak at 16700.00 USD against the 10000 USD threshold — an FBAR is likely required. Informational only — residency, treaty positions and FBAR obligations must be confirmed with a cross-border preparer; Aurum decides nothing.",
+     "steps": [
+      {
+       "label": "US person",
+       "formula": null,
+       "value": "True"
+      },
+      {
+       "label": "Account · MX Banco Demo Uno",
+       "formula": "highest balance at any point in the calendar year",
+       "value": "14500.00"
+      },
+      {
+       "label": "Account · MX Banco Demo Ahorro",
+       "formula": "highest balance at any point in the calendar year",
+       "value": "2200.00"
+      },
+      "…(5 more)"
+     ],
+     "citations": [
+      {
+       "law": "31 C.F.R.",
+       "article": "1010.350",
+       "url": "https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Aggregate value of foreign financial accounts exceeding USD 10,000 at any time in the year."
+      },
+      {
+       "law": "31 C.F.R.",
+       "article": "1010.306(c)",
+       "url": "https://www.irs.gov/businesses/small-businesses-self-employed/report-of-foreign-bank-and-financial-accounts-fbar",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "official_guidance",
+       "excerpt": "April 15 following the calendar year reported, with an automatic extension to October 15."
+      }
+     ],
+     "rule_versions": [
+      "xb.fbar@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "feie_vs_ftc": {
+    "options": [
+     {
+      "option": "FEIE",
+      "citation": "IRC 911",
+      "value": {
+       "amount": "0.00",
+       "currency": "USD"
+      }
+     },
+     {
+      "option": "FTC",
+      "citation": "IRC 901",
+      "value": {
+       "amount": "1800.00",
+       "currency": "USD"
+      }
+     }
+    ],
+    "explain": {
+     "summary": "FEIE could exclude 0.00 USD (2026 cap 132900); foreign tax paid of 1800.00 USD is what a foreign tax credit would work from (verify). Explore both with a preparer — Aurum does not choose. Informational only — residency, treaty positions and FBAR obligations must be confirmed with a cross-border preparer; Aurum decides nothing.",
+     "steps": [
+      {
+       "label": "Foreign earned income",
+       "formula": null,
+       "value": "9000.00"
+      },
+      {
+       "label": "2026 exclusion cap",
+       "formula": "§ 911(b)(2)(D)(i), Rev. Proc. 2025-32",
+       "value": "132900"
+      },
+      {
+       "label": "Qualifies for the exclusion",
+       "formula": "neither test met on these facts: 210 days abroad and not a bona fide resident",
+       "value": "False"
+      },
+      "…(5 more)"
+     ],
+     "citations": [
+      {
+       "law": "IRC",
+       "article": "911(b)(2)(D)(i)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Foreign earned income exclusion amount for taxable years beginning in 2026."
+      },
+      {
+       "law": "IRC",
+       "article": "911(d)(1)(B)",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "330 full days in a foreign country during any period of 12 consecutive months."
+      },
+      {
+       "law": "IRC",
+       "article": "901",
+       "url": "https://uscode.house.gov/view.xhtml?path=/prelim@title26&edition=prelim",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Credit against US tax for income taxes paid or accrued to a foreign country."
+      }
+     ],
+     "rule_versions": [
+      "xb.feie_vs_ftc@2026.1"
+     ],
+     "confidence": 0.5
+    }
+   },
+   "flags": [
+    "FBAR likely required — foreign accounts peaked at 16700.00 USD, above the 10000 USD threshold (FinCEN Form 114, 31 C.F.R. 1010.350).",
+    "Possible dual residency — treaty tie-breaker: US-MX treaty art. 4 decides which country wins, and claiming it needs Form 8833. Explore with a preparer.",
+    "FEIE vs FTC — explore with a preparer: you have foreign earned income but neither the 330-day nor the bona fide residence test is met on these facts, so the foreign tax credit is the path to look at."
+   ],
+   "unverified_constants": [
+    "xb.feie.physical_presence_days",
+    "xb.mx.residency_cff9",
+    "xb.treaty.article_4",
+    "…(1 more)"
+   ],
+   "disclaimer": "Informational only. Residency, treaty positions, FBAR and the FEIE/FTC choice all have consequences Aurum cannot see — take this to a cross-border preparer. Aurum decides nothing."
+  }
+ },
+ "PUT /crossborder/demo-us/profile": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-us",
+   "crossborder": {
+    "days_mx": 200,
+    "days_us": 165,
+    "days_us_prior_1": 0,
+    "days_us_prior_2": 0,
+    "days_abroad_for_feie": 0,
+    "bona_fide_resident_abroad": false,
+    "home_mx": true,
+    "home_us": false,
+    "green_card": false,
+    "citizenship": [
+     "US"
+    ],
+    "filing_status": "single",
+    "main_professional_center": null,
+    "mx_source_income_share": null,
+    "foreign_tax_paid_usd": "0",
+    "income_sources": [
+     {
+      "country": "US",
+      "kind": "self_employment",
+      "amount": "117690",
+      "currency": "USD"
+     }
+    ],
+    "foreign_accounts": [
+     {
+      "country": "MX",
+      "institution": null,
+      "max_balance_usd": "16700"
+     }
+    ],
+    "treaty_permanent_home": null,
+    "treaty_center_of_vital_interests": null,
+    "treaty_habitual_abode": null,
+    "treaty_nationality": null
+   }
+  }
+ },
+ "GET /holdings/demo-mx": {
+  "status": 200,
+  "body": {
+   "positions": [
+    {
+     "symbol": "VOO",
+     "account": "Assets:Investments:Brokerage",
+     "units": "2",
+     "cost_basis": {
+      "amount": "760.00",
+      "currency": "USD"
+     },
+     "market_value": null,
+     "unrealized_gain": null,
+     "asset_class": "equity",
+     "name": "Vanguard S&P 500 ETF",
+     "price_as_of": null
+    }
+   ],
+   "realized_gains": [],
+   "allocation": {
+    "by_asset_class": {},
+    "total_market_value": "0.00"
+   },
+   "explain": {
+    "summary": "Positions are FIFO lots from recorded trades; realized gains match sells to the oldest open lot first (verify against your jurisdiction's actual lot-method election).",
+    "steps": [
+     {
+      "label": "total_market_value",
+      "formula": null,
+      "value": "0.00"
+     }
+    ],
+    "citations": [
+     {
+      "law": "LISR",
+      "article": "129/133/150",
+      "url": null,
+      "effective_from": null,
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "(verify)"
+     },
+     {
+      "law": "IRC",
+      "article": "§ 1(h) / § 1222",
+      "url": null,
+      "effective_from": null,
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "(verify)"
+     }
+    ],
+    "rule_versions": [],
+    "confidence": null
+   },
+   "contributions": {
+    "year": 2026,
+    "limits": [
+     {
+      "key": "ppr",
+      "jurisdiction": "MX",
+      "label": "Aportaciones a plan personal de retiro, tope deducible (verify)",
+      "limit": {
+       "amount": "152331",
+       "currency": "MXN"
+      },
+      "contributed": {
+       "amount": "0.00",
+       "currency": "MXN"
+      },
+      "remaining": {
+       "amount": "152331.00",
+       "currency": "MXN"
+      },
+      "verified": false
+     },
+     {
+      "key": "401k",
+      "jurisdiction": "US",
+      "label": "401(k) elective deferral limit (verify)",
+      "limit": {
+       "amount": "23500",
+       "currency": "USD"
+      },
+      "contributed": {
+       "amount": "0.00",
+       "currency": "USD"
+      },
+      "remaining": {
+       "amount": "23500.00",
+       "currency": "USD"
+      },
+      "verified": false
+     },
+     {
+      "key": "hsa_family",
+      "jurisdiction": "US",
+      "label": "HSA family coverage limit (verify)",
+      "limit": {
+       "amount": "8550",
+       "currency": "USD"
+      },
+      "contributed": {
+       "amount": "0.00",
+       "currency": "USD"
+      },
+      "remaining": {
+       "amount": "8550.00",
+       "currency": "USD"
+      },
+      "verified": false
+     },
+     "…(2 more)"
+    ]
+   },
+   "tax_explain": {
+    "summary": "MX: gains on securities held through a Mexican broker are generally subject to withholding by the intermediary; personal capital-gains treatment depends on the asset and holding structure (verify).",
+    "steps": [],
+    "citations": [
+     {
+      "law": "LISR",
+      "article": "129",
+      "url": null,
+      "effective_from": null,
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "(verify) enajenación de acciones"
+     },
+     {
+      "law": "LISR",
+      "article": "133",
+      "url": null,
+      "effective_from": null,
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "(verify) intereses"
+     },
+     {
+      "law": "LISR",
+      "article": "150",
+      "url": null,
+      "effective_from": null,
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "(verify) declaración anual"
+     }
+    ],
+    "rule_versions": [],
+    "confidence": 0.4
+   },
+   "symbols": [
+    {
+     "ws_id": "demo-mx",
+     "symbol": "BTC",
+     "name": "Bitcoin",
+     "asset_class": "crypto",
+     "currency": "USD"
+    },
+    {
+     "ws_id": "demo-mx",
+     "symbol": "CETES",
+     "name": "Cetes (Certificados de la Tesorería)",
+     "asset_class": "bond",
+     "currency": "MXN"
+    },
+    {
+     "ws_id": "demo-mx",
+     "symbol": "VOO",
+     "name": "Vanguard S&P 500 ETF",
+     "asset_class": "equity",
+     "currency": "USD"
+    },
+    "…(1 more)"
+   ]
+  }
+ },
+ "POST /holdings/demo-mx/trades": {
+  "status": 200,
+  "body": {
+   "id": "trade-29be67e9ccd3",
+   "ws_id": "demo-mx",
+   "date": "2026-08-03",
+   "account": "Assets:Investments:Brokerage",
+   "symbol": "VOO",
+   "kind": "buy",
+   "units": "2",
+   "price_amount": "380.00",
+   "price_currency": "USD",
+   "fees_amount": "0",
+   "fees_currency": null,
+   "cash_amount": null,
+   "cash_currency": null,
+   "counter_account": "Assets:Bank:Brokerage",
+   "limit_key": null,
+   "txn_id": "trade-29be67e9ccd3",
+   "created_at": "2026-09-06T23:02:59.882485"
+  }
+ },
+ "GET /fx/rate?base=USD&quote=MXN": {
+  "status": 404,
+  "body": {
+   "detail": "no FX rate for USD/MXN on 2026-09-06"
+  }
+ },
+ "GET /creditreport/demo-mx": {
+  "status": 200,
+  "body": {
+   "imports": [],
+   "latest": null
+  }
+ },
+ "GET /creditreport/demo-mx/explain": {
+  "status": 200,
+  "body": {
+   "summary": "Factors that generally move a Buró de Crédito score: payment history, credit utilization, credit age/mix, and recent inquiries (verify against current Buró/CONDUSEF text).",
+   "steps": [
+    {
+     "label": "payment_history",
+     "formula": null,
+     "value": "largest single factor (verify exact weighting)"
+    },
+    {
+     "label": "utilization",
+     "formula": null,
+     "value": "lower balance-to-limit ratio generally helps (verify)"
+    },
+    {
+     "label": "credit_age_mix",
+     "formula": null,
+     "value": "older, varied accounts generally help (verify)"
+    },
+    "…(1 more)"
+   ],
+   "citations": [
+    {
+     "law": "Buró de Crédito",
+     "article": "¿Cómo se calcula mi score?",
+     "url": "https://www.burodecredito.com.mx",
+     "effective_from": null,
+     "effective_to": null,
+     "trust_tier": "official_guidance",
+     "excerpt": "(verify)"
+    },
+    {
+     "law": "CONDUSEF",
+     "article": "Reporte de Crédito Especial",
+     "url": "https://www.condusef.gob.mx",
+     "effective_from": null,
+     "effective_to": null,
+     "trust_tier": "official_guidance",
+     "excerpt": "(verify)"
+    }
+   ],
+   "rule_versions": [],
+   "confidence": 0.4
+  }
+ },
+ "GET /plan/demo-mx/scenarios": {
+  "status": 200,
+  "body": [
+   {
+    "id": "regime_mx",
+    "schema": {
+     "properties": {
+      "monthly_income": {
+       "default": "30000.00",
+       "description": "Uniform monthly income (MXN, before IVA).",
+       "title": "Monthly Income",
+       "type": "string"
+      },
+      "monthly_deductible_expenses": {
+       "default": "6000.00",
+       "description": "Uniform monthly authorized deductions (only used by the general regime).",
+       "title": "Monthly Deductible Expenses",
+       "type": "string"
+      },
+      "months": {
+       "default": 12,
+       "maximum": 12,
+       "minimum": 1,
+       "title": "Months",
+       "type": "integer"
+      },
+      "currency": {
+       "default": "MXN",
+       "title": "Currency",
+       "type": "string"
+      }
+     },
+     "title": "Inputs",
+     "type": "object"
+    },
+    "metric_path": [
+     "results",
+     "general",
+     "annual_isr"
+    ]
+   },
+   {
+    "id": "entity_us",
+    "schema": {
+     "properties": {
+      "annual_net_profit": {
+       "default": "100000.00",
+       "description": "Net profit before any owner compensation, USD.",
+       "title": "Annual Net Profit",
+       "type": "string"
+      },
+      "reasonable_salary": {
+       "default": "60000.00",
+       "description": "S-corp sketch: the W-2 salary paid to the owner-employee.",
+       "title": "Reasonable Salary",
+       "type": "string"
+      },
+      "currency": {
+       "default": "USD",
+       "title": "Currency",
+       "type": "string"
+      }
+     },
+     "title": "Inputs",
+     "type": "object"
+    },
+    "metric_path": [
+     "results",
+     "s_corp_sketch",
+     "estimated_savings_vs_sole_prop"
+    ]
+   },
+   {
+    "id": "buy_vs_rent",
+    "schema": {
+     "properties": {
+      "home_price": {
+       "default": "3000000.00",
+       "title": "Home Price",
+       "type": "string"
+      },
+      "down_payment_pct": {
+       "default": "0.20",
+       "title": "Down Payment Pct",
+       "type": "string"
+      },
+      "mortgage_annual_rate": {
+       "default": "0.11",
+       "title": "Mortgage Annual Rate",
+       "type": "string"
+      },
+      "mortgage_years": {
+       "default": 20,
+       "maximum": 40,
+       "minimum": 1,
+       "title": "Mortgage Years",
+       "type": "integer"
+      },
+      "monthly_rent": {
+       "default": "18000.00",
+       "title": "Monthly Rent",
+       "type": "string"
+      },
+      "rent_annual_growth": {
+       "default": "0.05",
+       "title": "Rent Annual Growth",
+       "type": "string"
+      },
+      "home_appreciation_annual": {
+       "default": "0.04",
+       "title": "Home Appreciation Annual",
+       "type": "string"
+      },
+      "property_tax_insurance_monthly": {
+       "default": "1500.00",
+       "title": "Property Tax Insurance Monthly",
+       "type": "string"
+      },
+      "maintenance_monthly": {
+       "default": "1000.00",
+       "title": "Maintenance Monthly",
+       "type": "string"
+      },
+      "selling_cost_pct": {
+       "default": "0.06",
+       "title": "Selling Cost Pct",
+       "type": "string"
+      },
+      "discount_rate_annual": {
+       "default": "0.08",
+       "title": "Discount Rate Annual",
+       "type": "string"
+      },
+      "horizon_years": {
+       "default": 10,
+       "maximum": 40,
+       "minimum": 1,
+       "title": "Horizon Years",
+       "type": "integer"
+      },
+      "currency": {
+       "default": "MXN",
+       "title": "Currency",
+       "type": "string"
+      }
+     },
+     "title": "Inputs",
+     "type": "object"
+    },
+    "metric_path": [
+     "results",
+     "buy_npv_cost"
+    ]
+   },
+   "…(3 more)"
+  ]
+ },
+ "POST /plan/demo-mx/scenarios/regime_mx/run": {
+  "status": 200,
+  "body": {
+   "inputs": {
+    "monthly_income": "29125.0",
+    "monthly_deductible_expenses": "6000.00",
+    "months": 12,
+    "currency": "MXN"
+   },
+   "results": {
+    "resico": {
+     "annual_isr": "3844.56",
+     "effective_rate": "0.01100017167381974248927038627"
+    },
+    "general": {
+     "annual_isr": "36613.85",
+     "effective_rate": "0.1047606580829756795422031474"
+    },
+    "cheaper": "regime_mx.resico",
+    "deduction_ratio_breakeven": "0.8078",
+    "months": [
+     {
+      "month": 1,
+      "resico_isr": "320.38",
+      "general_provisional": "3051.15"
+     },
+     {
+      "month": 2,
+      "resico_isr": "320.38",
+      "general_provisional": "3051.16"
+     },
+     {
+      "month": 3,
+      "resico_isr": "320.38",
+      "general_provisional": "3051.15"
+     },
+     "…(9 more)"
+    ]
+   },
+   "explain": {
+    "summary": "RESICO: 3844.56 MXN de ISR anual vs. Actividad Empresarial: 36613.85 MXN. Conviene regime_mx.resico.",
+    "steps": [
+     {
+      "label": "ISR anual RESICO",
+      "formula": null,
+      "value": "3844.56"
+     },
+     {
+      "label": "ISR anual Actividad Empresarial",
+      "formula": null,
+      "value": "36613.85"
+     },
+     {
+      "label": "Tasa efectiva RESICO",
+      "formula": null,
+      "value": "1.10%"
+     },
+     "…(2 more)"
+    ],
+    "citations": [],
+    "rule_versions": [
+     "mx.resico.isr_monthly@2026.1",
+     "mx.general.isr_provisional@2026.1"
+    ],
+    "confidence": null
+   }
+  }
+ },
+ "POST /plan/demo-mx/scenarios/retirement/montecarlo": {
+  "status": 200,
+  "body": {
+   "inputs": {
+    "starting_balance": "200000.00",
+    "monthly_contribution": "8000.00",
+    "expected_annual_return": "0.07",
+    "annual_volatility": "0.15",
+    "inflation_annual": "0.045",
+    "horizon_years": 25,
+    "iterations": 200,
+    "seed": 7,
+    "currency": "MXN"
+   },
+   "results": {
+    "p10": "5559130.73",
+    "p50": "10215309.93",
+    "p90": "18349080.32",
+    "mean": "11114907.06",
+    "success_rate_pct": "100.00",
+    "iterations": 200,
+    "seed": 7
+   },
+   "explain": {
+    "summary": "A 25 años con 200 simulaciones (seed 7): saldo final p50 = 10215309.93 MXN (rango p10-p90: 5559130.73 - 18349080.32).",
+    "steps": [
+     {
+      "label": "Saldo inicial",
+      "formula": null,
+      "value": "200000.00"
+     },
+     {
+      "label": "Aportación mensual (crece con inflación)",
+      "formula": null,
+      "value": "8000.00"
+     },
+     {
+      "label": "Rendimiento esperado anual",
+      "formula": null,
+      "value": "7.00%"
+     },
+     "…(6 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /plan/demo-mx/saved": {
+  "status": 200,
+  "body": []
+ },
+ "POST /research/ask": {
+  "status": 200,
+  "body": {
+   "answer": "No encontré suficiente respaldo en el corpus para responder con confianza. no corpus material matched this question Esto no es asesoría fiscal ni legal — verifica con un Contador Público (CPA/Contador) autorizado antes de actuar.",
+   "citations": [],
+   "confidence": 0.0,
+   "abstained": true
+  }
+ },
+ "GET /research/refs?law=LISR&article=113-E": {
+  "status": 200,
+  "body": {
+   "law": "LISR",
+   "article": "113-E",
+   "cites": [],
+   "cited_by": []
+  }
+ },
+ "GET /research/collections": {
+  "status": 200,
+  "body": {
+   "collections": []
+  }
+ },
+ "GET /watch/changes": {
+  "status": 200,
+  "body": [
+   {
+    "id": "chg_86130b1553a1",
+    "source_id": "sat-rmf",
+    "detected_at": "2026-09-06T14:59:47+00:00",
+    "summary": "CFF art. 30-B: el SAT podrá tener acceso en tiempo real a los sistemas de las plataformas tecnológicas que prestan servicios digitales, vigente a partir del 2026-04-01; el aviso correspondiente se presenta mediante la forma oficial 168/CFF a más tardar el 2026-04-30 (RMF 2026, regla 2.9.21).",
+    "domains": [
+     "platform_withholding"
+    ],
+    "diff_excerpt": "Artículo 30-B. Los contribuyentes que operen como plataformas tecnológicas, aplicaciones informáticas y similares que presten servicios digitales deberán permitir al Servicio de Administración Tributaria el acceso en tiempo real a la información de sus sistemas conforme a la regla 2.9.21 de la RMF.",
+    "corpus_source_id": null,
+    "effective_from": "2026-04-01"
+   }
+  ]
+ },
+ "GET /watch/sources": {
+  "status": 200,
+  "body": [
+   {
+    "id": "dof-daily",
+    "name": "Diario Oficial de la Federación — edición diaria",
+    "jurisdiction": "MX",
+    "doc_type": "statute",
+    "fetch_method": "bulk",
+    "cadence": "daily",
+    "trust_tier": "primary",
+    "url": "https://www.dof.gob.mx/index_113.php"
+   },
+   {
+    "id": "sat-rmf",
+    "name": "SAT — Resolución Miscelánea Fiscal (RMF) vigente",
+    "jurisdiction": "MX",
+    "doc_type": "guidance",
+    "fetch_method": "bulk",
+    "cadence": "weekly",
+    "trust_tier": "official_guidance",
+    "url": "https://www.sat.gob.mx/normatividad/15224/normatividad-de-resolucion-miscelanea-fiscal"
+   },
+   {
+    "id": "sat-cfdi-catalogos",
+    "name": "SAT — catálogos CFDI (c_TipoDeComprobante, c_UsoCFDI, etc.)",
+    "jurisdiction": "MX",
+    "doc_type": "guidance",
+    "fetch_method": "bulk",
+    "cadence": "monthly",
+    "trust_tier": "official_guidance",
+    "url": "https://www.sat.gob.mx/consulta/93726/catalogos-de-la-factura-electronica"
+   },
+   "…(10 more)"
+  ]
+ },
+ "GET /watch/proposals": {
+  "status": 200,
+  "body": [
+   {
+    "id": "prop_ea1cfecd722c",
+    "change_id": "chg_86130b1553a1",
+    "rule_id": "mx.platform_withholding.sat_access",
+    "field": "requirement",
+    "old_value": "no real-time access requirement",
+    "new_value": "real-time SAT access required from 2026-04-01; notice via forma 168/CFF by 2026-04-30",
+    "status": "proposed",
+    "created_at": "2026-09-06T14:59:47+00:00"
+   }
+  ]
+ },
+ "GET /workspaces": {
+  "status": 200,
+  "body": [
+   {
+    "id": "demo-biz",
+    "name": "Demo Persona Moral (NL)",
+    "kind": "business",
+    "jurisdictions": [
+     "MX"
+    ],
+    "base_currency": "MXN",
+    "language": "es",
+    "profile": {
+     "rfc": "*********1000",
+     "regime": "GENERAL_PM",
+     "state": "NL",
+     "entity": "persona_moral",
+     "synthetic": true
+    },
+    "created_at": "2026-09-06T23:30:19.334528Z"
+   },
+   {
+    "id": "demo-mx",
+    "name": "Demo México (RESICO)",
+    "kind": "personal",
+    "jurisdictions": [
+     "MX"
+    ],
+    "base_currency": "MXN",
+    "language": "es",
+    "profile": {
+     "rfc": "*********1000",
+     "regime": "RESICO_PF",
+     "state": "NL",
+     "country": "MX",
+     "demo": true
+    },
+    "created_at": "2026-09-05T20:47:26.151914Z"
+   },
+   {
+    "id": "demo-us",
+    "name": "Demo USA (Texas sole proprietor)",
+    "kind": "personal",
+    "jurisdictions": [
+     "US"
+    ],
+    "base_currency": "USD",
+    "language": "en",
+    "profile": {
+     "country": "US",
+     "state": "TX",
+     "entity_type": "sole_proprietorship",
+     "business_type": "other",
+     "demo": true,
+     "us": {
+      "filing_status": "single",
+      "prior_year_tax": "24000.00",
+      "prior_year_agi": "118000.00",
+      "withholding": "0",
+      "other_income": "0"
+     },
+     "crossborder": {
+      "days_mx": 200,
+      "days_us": 165,
+      "days_us_prior_1": 0,
+      "days_us_prior_2": 0,
+      "days_abroad_for_feie": 0,
+      "bona_fide_resident_abroad": false,
+      "home_mx": true,
+      "home_us": false,
+      "green_card": false,
+      "citizenship": [
+       "US"
+      ],
+      "filing_status": "single",
+      "main_professional_center": null,
+      "mx_source_income_share": null,
+      "foreign_tax_paid_usd": "0",
+      "income_sources": [
+       {
+        "country": "US",
+        "kind": "self_employment",
+        "amount": "117690",
+        "currency": "USD"
+       }
+      ],
+      "foreign_accounts": [
+       {
+        "country": "MX",
+        "institution": null,
+        "max_balance_usd": "16700"
+       }
+      ],
+      "treaty_permanent_home": null,
+      "treaty_center_of_vital_interests": null,
+      "treaty_habitual_abode": null,
+      "treaty_nationality": null
+     }
+    },
+    "created_at": "2026-09-06T23:02:29.122389Z"
+   }
+  ]
+ },
+ "GET /business/demo-biz/kpis?period=2026-05": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-biz",
+   "period": "2026-05",
+   "currency": "MXN",
+   "revenue": {
+    "amount": "256000.00",
+    "currency": "MXN",
+    "explain": {
+     "summary": "Ingresos del periodo: 256000.00 MXN",
+     "steps": [
+      {
+       "label": "Suma de Income:* (signo invertido)",
+       "formula": null,
+       "value": "256000.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "cogs": {
+    "amount": "68500.00",
+    "currency": "MXN",
+    "explain": {
+     "summary": "Costo de ventas: 68500.00 MXN",
+     "steps": [
+      {
+       "label": "Suma de Expenses:COGS:*",
+       "formula": null,
+       "value": "68500.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "gross_profit": {
+    "amount": "187500.00",
+    "currency": "MXN",
+    "explain": {
+     "summary": "Utilidad bruta: 187500.00 MXN",
+     "steps": [
+      {
+       "label": "Ingresos − costo de ventas",
+       "formula": "256000.00 − 68500.00",
+       "value": "187500.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "gross_margin": {
+    "value": "0.7324",
+    "percent": "73.24",
+    "explain": {
+     "summary": "Margen bruto 73.24%",
+     "steps": [
+      {
+       "label": "Utilidad bruta ÷ ingresos",
+       "formula": "187500.00 ÷ 256000.00",
+       "value": "0.7324"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "operating_expenses": {
+    "total": {
+     "amount": "121827.12",
+     "currency": "MXN"
+    },
+    "by_group": [
+     {
+      "group": "Payroll",
+      "amount": {
+       "amount": "69327.12",
+       "currency": "MXN"
+      }
+     },
+     {
+      "group": "Rent",
+      "amount": {
+       "amount": "28000.00",
+       "currency": "MXN"
+      }
+     },
+     {
+      "group": "Marketing",
+      "amount": {
+       "amount": "15000.00",
+       "currency": "MXN"
+      }
+     },
+     "…(1 more)"
+    ],
+    "payroll": {
+     "amount": "69327.12",
+     "currency": "MXN"
+    },
+    "explain": {
+     "summary": "Gastos de operación 121827.12 MXN (todo Expenses:* excepto COGS)",
+     "steps": [
+      {
+       "label": "Grupo · Payroll",
+       "formula": null,
+       "value": "69327.12"
+      },
+      {
+       "label": "Grupo · Rent",
+       "formula": null,
+       "value": "28000.00"
+      },
+      {
+       "label": "Grupo · Marketing",
+       "formula": null,
+       "value": "15000.00"
+      },
+      "…(1 more)"
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "operating_profit": {
+    "amount": "65672.88",
+    "currency": "MXN",
+    "explain": {
+     "summary": "Utilidad de operación: 65672.88 MXN",
+     "steps": [
+      {
+       "label": "Utilidad bruta − gastos de operación",
+       "formula": "187500.00 − 121827.12",
+       "value": "65672.88"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "cash": {
+    "amount": "474940.00",
+    "currency": "MXN",
+    "explain": {
+     "summary": "Efectivo y bancos: 474940.00 MXN",
+     "steps": [
+      {
+       "label": "Assets:Bank:* + Assets:Cash",
+       "formula": null,
+       "value": "474940.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "receivables": {
+    "amount": "315520.00",
+    "currency": "MXN",
+    "explain": {
+     "summary": "Cuentas por cobrar: 315520.00 MXN",
+     "steps": [
+      {
+       "label": "Assets:Receivable:*",
+       "formula": null,
+       "value": "315520.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "payables": {
+    "amount": "0.00",
+    "currency": "MXN",
+    "explain": {
+     "summary": "Cuentas por pagar: 0.00 MXN",
+     "steps": [
+      {
+       "label": "Liabilities:Payable:*",
+       "formula": null,
+       "value": "0.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "runway": {
+    "months": null,
+    "average_burn": {
+     "amount": "0",
+     "currency": "MXN"
+    },
+    "lookback_months": 3,
+    "explain": {
+     "summary": "Runway n/d — el negocio no está quemando efectivo",
+     "steps": [
+      {
+       "label": "Efectivo al cierre",
+       "formula": null,
+       "value": "474940.00"
+      },
+      {
+       "label": "Quema promedio (3 meses)",
+       "formula": "gastos − ingresos, sólo meses con quema positiva",
+       "value": "0"
+      },
+      {
+       "label": "Meses de runway",
+       "formula": null,
+       "value": "n/d"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "tax_reserve": {
+    "total": {
+     "amount": "7182.00",
+     "currency": "MXN"
+    },
+    "isr": {
+     "amount": "462.00",
+     "currency": "MXN"
+    },
+    "iva": {
+     "amount": "6720.00",
+     "currency": "MXN"
+    },
+    "source": "aurum.tax.month_close",
+    "warnings": [
+     "aurum.tax.month_close aplica reglas RESICO; el régimen declarado es GENERAL_PM. La reserva de ISR es una aproximación (verify)."
+    ],
+    "explain": {
+     "summary": "Reserva fiscal sugerida 7182.00 MXN (fuente: aurum.tax.month_close)",
+     "steps": [
+      {
+       "label": "ISR del mes (tax/month_close)",
+       "formula": "regla mx.resico.isr_monthly",
+       "value": "462.00"
+      },
+      {
+       "label": "IVA a cargo (tax/month_close)",
+       "formula": "trasladado − acreditable",
+       "value": "6720.00"
+      },
+      {
+       "label": "Reserva fiscal total",
+       "formula": "ISR + IVA",
+       "value": "7182.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   }
+  }
+ },
+ "GET /business/demo-biz/invoices": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-biz",
+   "as_of": "2026-09-06",
+   "currency": "MXN",
+   "period": {
+    "start": null,
+    "end": null
+   },
+   "counts": {
+    "issued": 8,
+    "open": 3
+   },
+   "issued": {
+    "amount": "757480.00",
+    "currency": "MXN"
+   },
+   "collected": {
+    "amount": "504600.00",
+    "currency": "MXN"
+   },
+   "outstanding": {
+    "amount": "252880.00",
+    "currency": "MXN"
+   },
+   "aging": [
+    {
+     "bucket": "0-30",
+     "amount": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "invoices": 0
+    },
+    {
+     "bucket": "31-60",
+     "amount": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "invoices": 0
+    },
+    {
+     "bucket": "61-90",
+     "amount": {
+      "amount": "111360.00",
+      "currency": "MXN"
+     },
+     "invoices": 1
+    },
+    "…(1 more)"
+   ],
+   "open_invoices": [
+    {
+     "uuid": "DEMO-BIZ-0000-0000-0008",
+     "fecha": "2026-03-09",
+     "client_rfc": "********2BB2",
+     "metodo_pago": "PPD",
+     "total": {
+      "amount": "67280.00",
+      "currency": "MXN"
+     },
+     "outstanding": {
+      "amount": "67280.00",
+      "currency": "MXN"
+     },
+     "age_days": 181,
+     "bucket": "90+",
+     "reps": 0
+    },
+    {
+     "uuid": "DEMO-BIZ-0000-0000-0005",
+     "fecha": "2026-05-26",
+     "client_rfc": "********2BB2",
+     "metodo_pago": "PPD",
+     "total": {
+      "amount": "74240.00",
+      "currency": "MXN"
+     },
+     "outstanding": {
+      "amount": "74240.00",
+      "currency": "MXN"
+     },
+     "age_days": 103,
+     "bucket": "90+",
+     "reps": 0
+    },
+    {
+     "uuid": "DEMO-BIZ-0000-0000-0007",
+     "fecha": "2026-06-12",
+     "client_rfc": "********1AA1",
+     "metodo_pago": "PPD",
+     "total": {
+      "amount": "111360.00",
+      "currency": "MXN"
+     },
+     "outstanding": {
+      "amount": "111360.00",
+      "currency": "MXN"
+     },
+     "age_days": 86,
+     "bucket": "61-90",
+     "reps": 0
+    }
+   ],
+   "top_clients": [
+    {
+     "client_rfc": "********1AA1",
+     "invoices": 3,
+     "issued": {
+      "amount": "424560.00",
+      "currency": "MXN"
+     },
+     "paid": {
+      "amount": "313200.00",
+      "currency": "MXN"
+     },
+     "outstanding": {
+      "amount": "111360.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "client_rfc": "********2BB2",
+     "invoices": 3,
+     "issued": {
+      "amount": "240120.00",
+      "currency": "MXN"
+     },
+     "paid": {
+      "amount": "98600.00",
+      "currency": "MXN"
+     },
+     "outstanding": {
+      "amount": "141520.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "client_rfc": "********3CC3",
+     "invoices": 2,
+     "issued": {
+      "amount": "92800.00",
+      "currency": "MXN"
+     },
+     "paid": {
+      "amount": "92800.00",
+      "currency": "MXN"
+     },
+     "outstanding": {
+      "amount": "0.00",
+      "currency": "MXN"
+     }
+    }
+   ],
+   "dso_days": "61",
+   "explain": {
+    "summary": "Facturación: 757480.00 MXN emitidos, 504600.00 cobrados, 252880.00 por cobrar al 2026-09-06. DSO 61 días.",
+    "steps": [
+     {
+      "label": "CFDI emitidos tipo I",
+      "formula": null,
+      "value": "8"
+     },
+     {
+      "label": "Total emitido",
+      "formula": null,
+      "value": "757480.00"
+     },
+     {
+      "label": "Cobrado",
+      "formula": "PUE en su fecha de emisión; PPD sólo con REP (imp_pagado)",
+      "value": "504600.00"
+     },
+     "…(6 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /business/demo-biz/payroll": {
+  "status": 200,
+  "body": [
+   {
+    "id": "pay-2026-08-bc9a6751",
+    "period": "2026-08",
+    "days": "31",
+    "currency": "MXN",
+    "gross": "54096.24",
+    "net": "46628.08",
+    "isr_retenido": "5996.18",
+    "imss_employee": "1471.98",
+    "imss_employer": "10723.44",
+    "infonavit": "2884.55",
+    "isn": "1622.89",
+    "employer_cost": "69327.12",
+    "txn_id": "txn-a2a81c14f95a",
+    "created_at": "2026-09-06T23:30:45+00:00"
+   },
+   {
+    "id": "pay-2026-04-945b6abb",
+    "period": "2026-04",
+    "days": "30",
+    "currency": "MXN",
+    "gross": "52351.20",
+    "net": "45246.11",
+    "isr_retenido": "5680.58",
+    "imss_employee": "1424.51",
+    "imss_employer": "10377.52",
+    "infonavit": "2791.50",
+    "isn": "1570.54",
+    "employer_cost": "67090.76",
+    "txn_id": "txn-f0efce0a38bb",
+    "created_at": "2026-09-06T23:30:20+00:00"
+   },
+   {
+    "id": "pay-2026-05-e83a1bb8",
+    "period": "2026-05",
+    "days": "31",
+    "currency": "MXN",
+    "gross": "54096.24",
+    "net": "46628.08",
+    "isr_retenido": "5996.18",
+    "imss_employee": "1471.98",
+    "imss_employer": "10723.44",
+    "infonavit": "2884.55",
+    "isn": "1622.89",
+    "employer_cost": "69327.12",
+    "txn_id": "txn-e542e16f665a",
+    "created_at": "2026-09-06T23:30:20+00:00"
+   },
+   "…(1 more)"
+  ]
+ },
+ "POST /business/demo-biz/payroll/run": {
+  "status": 200,
+  "body": {
+   "id": "pay-2026-05-8bcafe5a",
+   "workspace": "demo-biz",
+   "period": "2026-05",
+   "days": "31",
+   "currency": "MXN",
+   "employees": 3,
+   "lines": [
+    {
+     "employee_id": "emp-2865de47f7",
+     "name": "E. T***",
+     "rfc": null,
+     "state": "NL",
+     "days": "31",
+     "gross": {
+      "amount": "9766.24",
+      "currency": "MXN"
+     },
+     "isr_retenido": {
+      "amount": "167.36",
+      "currency": "MXN"
+     },
+     "isr_tarifa": {
+      "amount": "703.58",
+      "currency": "MXN"
+     },
+     "subsidio_empleo": {
+      "amount": "536.22",
+      "currency": "MXN"
+     },
+     "imss_employee": {
+      "amount": "247.38",
+      "currency": "MXN"
+     },
+     "imss_employee_detail": {
+      "em_especie_excedente": "0.00",
+      "em_dinero": "26.04",
+      "gastos_medicos_pensionados": "39.06",
+      "invalidez_vida": "65.10",
+      "cesantia_vejez": "117.18"
+     },
+     "imss_employer": {
+      "amount": "2098.66",
+      "currency": "MXN"
+     },
+     "imss_employer_branches": [
+      {
+       "branch": "riesgos_trabajo",
+       "amount": {
+        "amount": "52.08",
+        "currency": "MXN"
+       },
+       "formula": "0.5% × 10416.00 · prima mínima de riesgo (0.5%) (verify)"
+      },
+      {
+       "branch": "em_especie_cuota_fija",
+       "amount": {
+        "amount": "741.87",
+        "currency": "MXN"
+       },
+       "formula": "20.4% × 3636.61 · sobre la UMA, no sobre el SBC"
+      },
+      {
+       "branch": "em_especie_excedente",
+       "amount": {
+        "amount": "0.00",
+        "currency": "MXN"
+       },
+       "formula": "1.1% × 0.00 · sobre (SBC − 3 UMA) = (336.00 − 351.93)"
+      },
+      "…(6 more)"
+     ],
+     "sbc_capped": false,
+     "infonavit": {
+      "amount": "520.80",
+      "currency": "MXN"
+     },
+     "net": {
+      "amount": "9351.50",
+      "currency": "MXN"
+     },
+     "explain": {
+      "summary": "E. T***: neto 9351.50 MXN = bruto 9766.24 − ISR 167.36 − IMSS obrero 247.38.",
+      "steps": [
+       {
+        "label": "Salario diario",
+        "formula": null,
+        "value": "315.04"
+       },
+       {
+        "label": "Días del periodo",
+        "formula": null,
+        "value": "31"
+       },
+       {
+        "label": "Percepción bruta",
+        "formula": "315.04 × 31",
+        "value": "9766.24"
+       },
+       "…(8 more)"
+      ],
+      "citations": [
+       {
+        "law": "LISR",
+        "article": "96 (Anexo 8 RMF 2026, tabla A.V)",
+        "url": "https://www.sat.gob.mx/minisitio/NormatividadRMFyRGCE/documentos2026/rmf/anexos/Anexo-8-RMF-2026_DOF-28122025.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Tarifa aplicable durante 2026 para el cálculo de los pagos provisionales mensuales a que se refieren los artículos 96 de la Ley del ISR y 175 de su Reglamento, así como la regla 3.12.2 (DOF 28/12/2025)."
+       },
+       {
+        "law": "LINFONAVIT",
+        "article": "29 fr. II",
+        "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIFNVT.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Determinar el monto de las aportaciones del cinco por ciento sobre el salario de los trabajadores a su servicio … En lo que corresponde a la integración y cálculo de la base y límite superior salarial para el pago de aportaciones, se aplicará lo contenido en la Ley del Seguro Social."
+       },
+       {
+        "law": "LSS",
+        "article": "168 II a)",
+        "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LSS.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Los patrones cubrirán la cuota que corresponda sobre el salario base de cotización, calculada conforme a la siguiente tabla: 1.00 SM 3.150%; 1.01 SM a 1.50 UMA 4.202%; 1.51 a 2.00 UMA 6.552%; 2.01 a 2.50 UMA 7.962%; 2.51 a 3.00 UMA 8.902%; 3.01 a 3.50 UMA 9.573%; 3.51 a 4.00 UMA 10.077%; 4.01 UMA en adelante 11.875%."
+       }
+      ],
+      "rule_versions": [
+       "mx.general.isr_provisional@2026.1",
+       "mx.imss.employer_quotas@2026.1",
+       "mx.infonavit.employer@2026.1"
+      ],
+      "confidence": null
+     }
+    },
+    {
+     "employee_id": "emp-125f085d7c",
+     "name": "E. U***",
+     "rfc": null,
+     "state": "NL",
+     "days": "31",
+     "gross": {
+      "amount": "13950.00",
+      "currency": "MXN"
+     },
+     "isr_retenido": {
+      "amount": "1228.00",
+      "currency": "MXN"
+     },
+     "isr_tarifa": {
+      "amount": "1228.00",
+      "currency": "MXN"
+     },
+     "subsidio_empleo": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "imss_employee": {
+      "amount": "369.28",
+      "currency": "MXN"
+     },
+     "imss_employee_detail": {
+      "em_especie_excedente": "15.88",
+      "em_dinero": "37.20",
+      "gastos_medicos_pensionados": "55.80",
+      "invalidez_vida": "93.00",
+      "cesantia_vejez": "167.40"
+     },
+     "imss_employer": {
+      "amount": "2945.07",
+      "currency": "MXN"
+     },
+     "imss_employer_branches": [
+      {
+       "branch": "riesgos_trabajo",
+       "amount": {
+        "amount": "74.40",
+        "currency": "MXN"
+       },
+       "formula": "0.5% × 14880.00 · prima mínima de riesgo (0.5%) (verify)"
+      },
+      {
+       "branch": "em_especie_cuota_fija",
+       "amount": {
+        "amount": "741.87",
+        "currency": "MXN"
+       },
+       "formula": "20.4% × 3636.61 · sobre la UMA, no sobre el SBC"
+      },
+      {
+       "branch": "em_especie_excedente",
+       "amount": {
+        "amount": "43.67",
+        "currency": "MXN"
+       },
+       "formula": "1.1% × 3970.17 · sobre (SBC − 3 UMA) = (480.00 − 351.93)"
+      },
+      "…(6 more)"
+     ],
+     "sbc_capped": false,
+     "infonavit": {
+      "amount": "744.00",
+      "currency": "MXN"
+     },
+     "net": {
+      "amount": "12352.72",
+      "currency": "MXN"
+     },
+     "explain": {
+      "summary": "E. U***: neto 12352.72 MXN = bruto 13950.00 − ISR 1228.00 − IMSS obrero 369.28.",
+      "steps": [
+       {
+        "label": "Salario diario",
+        "formula": null,
+        "value": "450.00"
+       },
+       {
+        "label": "Días del periodo",
+        "formula": null,
+        "value": "31"
+       },
+       {
+        "label": "Percepción bruta",
+        "formula": "450.00 × 31",
+        "value": "13950.00"
+       },
+       "…(7 more)"
+      ],
+      "citations": [
+       {
+        "law": "LISR",
+        "article": "96 (Anexo 8 RMF 2026, tabla A.V)",
+        "url": "https://www.sat.gob.mx/minisitio/NormatividadRMFyRGCE/documentos2026/rmf/anexos/Anexo-8-RMF-2026_DOF-28122025.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Tarifa aplicable durante 2026 para el cálculo de los pagos provisionales mensuales a que se refieren los artículos 96 de la Ley del ISR y 175 de su Reglamento, así como la regla 3.12.2 (DOF 28/12/2025)."
+       },
+       {
+        "law": "LINFONAVIT",
+        "article": "29 fr. II",
+        "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIFNVT.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Determinar el monto de las aportaciones del cinco por ciento sobre el salario de los trabajadores a su servicio … En lo que corresponde a la integración y cálculo de la base y límite superior salarial para el pago de aportaciones, se aplicará lo contenido en la Ley del Seguro Social."
+       },
+       {
+        "law": "LSS",
+        "article": "168 II a)",
+        "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LSS.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Los patrones cubrirán la cuota que corresponda sobre el salario base de cotización, calculada conforme a la siguiente tabla: 1.00 SM 3.150%; 1.01 SM a 1.50 UMA 4.202%; 1.51 a 2.00 UMA 6.552%; 2.01 a 2.50 UMA 7.962%; 2.51 a 3.00 UMA 8.902%; 3.01 a 3.50 UMA 9.573%; 3.51 a 4.00 UMA 10.077%; 4.01 UMA en adelante 11.875%."
+       }
+      ],
+      "rule_versions": [
+       "mx.general.isr_provisional@2026.1",
+       "mx.imss.employer_quotas@2026.1",
+       "mx.infonavit.employer@2026.1"
+      ],
+      "confidence": null
+     }
+    },
+    {
+     "employee_id": "emp-2edfcfb2c4",
+     "name": "E. D***",
+     "rfc": null,
+     "state": "NL",
+     "days": "31",
+     "gross": {
+      "amount": "30380.00",
+      "currency": "MXN"
+     },
+     "isr_retenido": {
+      "amount": "4600.82",
+      "currency": "MXN"
+     },
+     "isr_tarifa": {
+      "amount": "4600.82",
+      "currency": "MXN"
+     },
+     "subsidio_empleo": {
+      "amount": "0",
+      "currency": "MXN"
+     },
+     "imss_employee": {
+      "amount": "855.32",
+      "currency": "MXN"
+     },
+     "imss_employee_detail": {
+      "em_especie_excedente": "85.94",
+      "em_dinero": "80.99",
+      "gastos_medicos_pensionados": "121.48",
+      "invalidez_vida": "202.47",
+      "cesantia_vejez": "364.44"
+     },
+     "imss_employer": {
+      "amount": "5679.71",
+      "currency": "MXN"
+     },
+     "imss_employer_branches": [
+      {
+       "branch": "riesgos_trabajo",
+       "amount": {
+        "amount": "161.98",
+        "currency": "MXN"
+       },
+       "formula": "0.5% × 32395.00 · prima mínima de riesgo (0.5%) (verify)"
+      },
+      {
+       "branch": "em_especie_cuota_fija",
+       "amount": {
+        "amount": "741.87",
+        "currency": "MXN"
+       },
+       "formula": "20.4% × 3636.61 · sobre la UMA, no sobre el SBC"
+      },
+      {
+       "branch": "em_especie_excedente",
+       "amount": {
+        "amount": "236.34",
+        "currency": "MXN"
+       },
+       "formula": "1.1% × 21485.17 · sobre (SBC − 3 UMA) = (1045.00 − 351.93)"
+      },
+      "…(6 more)"
+     ],
+     "sbc_capped": false,
+     "infonavit": {
+      "amount": "1619.75",
+      "currency": "MXN"
+     },
+     "net": {
+      "amount": "24923.86",
+      "currency": "MXN"
+     },
+     "explain": {
+      "summary": "E. D***: neto 24923.86 MXN = bruto 30380.00 − ISR 4600.82 − IMSS obrero 855.32.",
+      "steps": [
+       {
+        "label": "Salario diario",
+        "formula": null,
+        "value": "980.00"
+       },
+       {
+        "label": "Días del periodo",
+        "formula": null,
+        "value": "31"
+       },
+       {
+        "label": "Percepción bruta",
+        "formula": "980.00 × 31",
+        "value": "30380.00"
+       },
+       "…(7 more)"
+      ],
+      "citations": [
+       {
+        "law": "LISR",
+        "article": "96 (Anexo 8 RMF 2026, tabla A.V)",
+        "url": "https://www.sat.gob.mx/minisitio/NormatividadRMFyRGCE/documentos2026/rmf/anexos/Anexo-8-RMF-2026_DOF-28122025.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Tarifa aplicable durante 2026 para el cálculo de los pagos provisionales mensuales a que se refieren los artículos 96 de la Ley del ISR y 175 de su Reglamento, así como la regla 3.12.2 (DOF 28/12/2025)."
+       },
+       {
+        "law": "LINFONAVIT",
+        "article": "29 fr. II",
+        "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIFNVT.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Determinar el monto de las aportaciones del cinco por ciento sobre el salario de los trabajadores a su servicio … En lo que corresponde a la integración y cálculo de la base y límite superior salarial para el pago de aportaciones, se aplicará lo contenido en la Ley del Seguro Social."
+       },
+       {
+        "law": "LSS",
+        "article": "168 II a)",
+        "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LSS.pdf",
+        "effective_from": "2026-01-01",
+        "effective_to": null,
+        "trust_tier": "primary",
+        "excerpt": "Los patrones cubrirán la cuota que corresponda sobre el salario base de cotización, calculada conforme a la siguiente tabla: 1.00 SM 3.150%; 1.01 SM a 1.50 UMA 4.202%; 1.51 a 2.00 UMA 6.552%; 2.01 a 2.50 UMA 7.962%; 2.51 a 3.00 UMA 8.902%; 3.01 a 3.50 UMA 9.573%; 3.51 a 4.00 UMA 10.077%; 4.01 UMA en adelante 11.875%."
+       }
+      ],
+      "rule_versions": [
+       "mx.general.isr_provisional@2026.1",
+       "mx.imss.employer_quotas@2026.1",
+       "mx.infonavit.employer@2026.1"
+      ],
+      "confidence": null
+     }
+    }
+   ],
+   "totals": {
+    "gross": {
+     "amount": "54096.24",
+     "currency": "MXN"
+    },
+    "isr": {
+     "amount": "5996.18",
+     "currency": "MXN"
+    },
+    "imss_employee": {
+     "amount": "1471.98",
+     "currency": "MXN"
+    },
+    "imss_employer": {
+     "amount": "10723.44",
+     "currency": "MXN"
+    },
+    "infonavit": {
+     "amount": "2884.55",
+     "currency": "MXN"
+    },
+    "isn": {
+     "amount": "1622.89",
+     "currency": "MXN"
+    },
+    "net": {
+     "amount": "46628.08",
+     "currency": "MXN"
+    },
+    "employer_cost": {
+     "amount": "69327.12",
+     "currency": "MXN"
+    }
+   },
+   "isn": {
+    "value": {
+     "amount": "1622.89",
+     "currency": "MXN"
+    },
+    "explain": {
+     "summary": "ISN Nuevo León: 1622.89 MXN = 3% × base gravable 54096.24 MXN. Informational only — Aurum is not a filing and not tax advice; review with a licensed contador.",
+     "steps": [
+      {
+       "label": "Erogaciones por remuneraciones al trabajo personal (art. 154)",
+       "formula": null,
+       "value": "54096.24"
+      },
+      {
+       "label": "Total exento (art. 160)",
+       "formula": null,
+       "value": "0.00"
+      },
+      {
+       "label": "Base gravable (art. 156)",
+       "formula": "54096.24 − 0.00",
+       "value": "54096.24"
+      },
+      "…(3 more)"
+     ],
+     "citations": [
+      {
+       "law": "Ley de Hacienda del Estado de Nuevo León",
+       "article": "154",
+       "url": "https://www.hcnl.gob.mx/trabajo_legislativo/leyes/pdf/LEY%20DE%20HACIENDA%20DEL%20ESTADO%20DE%20NUEVO%20LEON.doc",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Se consideran remuneraciones al trabajo personal todas las contraprestaciones, ordinarias o extraordinarias, incluyendo viáticos, gastos de representación, comisiones, premios, gratificaciones, fondo de ahorro, donativos, primas, aguinaldo, tiempo extra, despensas, alimentación y otros conceptos de naturaleza semejante."
+      },
+      {
+       "law": "Ley de Hacienda del Estado de Nuevo León",
+       "article": "157",
+       "url": "https://www.hcnl.gob.mx/trabajo_legislativo/leyes/pdf/LEY%20DE%20HACIENDA%20DEL%20ESTADO%20DE%20NUEVO%20LEON.doc",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Este impuesto se causará con tasa del 3% sobre la base a que se refiere el Artículo anterior."
+      },
+      {
+       "law": "Ley de Hacienda del Estado de Nuevo León",
+       "article": "160",
+       "url": "https://www.hcnl.gob.mx/trabajo_legislativo/leyes/pdf/LEY%20DE%20HACIENDA%20DEL%20ESTADO%20DE%20NUEVO%20LEON.doc",
+       "effective_from": "2026-01-01",
+       "effective_to": null,
+       "trust_tier": "primary",
+       "excerpt": "Están exentos del pago de este impuesto: I. Las erogaciones que se cubran por concepto de: a) Participaciones de los trabajadores en las utilidades de las empresas; … g) Fondo de ahorro, despensas y alimentación; h) Las remuneraciones a personas discapacitadas."
+      },
+      "…(1 more)"
+     ],
+     "rule_versions": [
+      "mx.nl.isn@2026.1"
+     ],
+     "confidence": null
+    }
+   },
+   "txn_id": "txn-043770775803",
+   "status": "draft",
+   "warnings": [
+    "El subsidio para el empleo 2026 no está verificado contra el decreto (verify) — the 2026 employment subsidy was not read in a primary source.",
+    "La tabla gradual 2026 de cesantía y vejez no se leyó en fuente primaria (verify) — the 2026 cesantía-y-vejez employer column is published only as an image in the DOF.",
+    "Borrador. Aurum nunca transmite ni firma una declaración. / Draft, never transmitted."
+   ],
+   "explain": {
+    "summary": "Nómina 2026-05: costo patronal 69327.12 MXN para 3 empleado(s) — bruto 54096.24 + IMSS patronal 10723.44 + INFONAVIT 2884.55 + ISN 1622.89. Borrador, no es una declaración.",
+    "steps": [
+     {
+      "label": "Días del periodo",
+      "formula": null,
+      "value": "31"
+     },
+     {
+      "label": "Percepciones brutas",
+      "formula": null,
+      "value": "54096.24"
+     },
+     {
+      "label": "ISR retenido a los trabajadores",
+      "formula": null,
+      "value": "5996.18"
+     },
+     "…(6 more)"
+    ],
+    "citations": [
+     {
+      "law": "Ley de Hacienda del Estado de Nuevo León",
+      "article": "154",
+      "url": "https://www.hcnl.gob.mx/trabajo_legislativo/leyes/pdf/LEY%20DE%20HACIENDA%20DEL%20ESTADO%20DE%20NUEVO%20LEON.doc",
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "Se consideran remuneraciones al trabajo personal todas las contraprestaciones, ordinarias o extraordinarias, incluyendo viáticos, gastos de representación, comisiones, premios, gratificaciones, fondo de ahorro, donativos, primas, aguinaldo, tiempo extra, despensas, alimentación y otros conceptos de naturaleza semejante."
+     },
+     {
+      "law": "Ley de Hacienda del Estado de Nuevo León",
+      "article": "157",
+      "url": "https://www.hcnl.gob.mx/trabajo_legislativo/leyes/pdf/LEY%20DE%20HACIENDA%20DEL%20ESTADO%20DE%20NUEVO%20LEON.doc",
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "Este impuesto se causará con tasa del 3% sobre la base a que se refiere el Artículo anterior."
+     },
+     {
+      "law": "Ley de Hacienda del Estado de Nuevo León",
+      "article": "160",
+      "url": "https://www.hcnl.gob.mx/trabajo_legislativo/leyes/pdf/LEY%20DE%20HACIENDA%20DEL%20ESTADO%20DE%20NUEVO%20LEON.doc",
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "trust_tier": "primary",
+      "excerpt": "Están exentos del pago de este impuesto: I. Las erogaciones que se cubran por concepto de: a) Participaciones de los trabajadores en las utilidades de las empresas; … g) Fondo de ahorro, despensas y alimentación; h) Las remuneraciones a personas discapacitadas."
+     },
+     "…(3 more)"
+    ],
+    "rule_versions": [
+     "mx.general.isr_provisional@2026.1",
+     "mx.imss.employer_quotas@2026.1",
+     "mx.infonavit.employer@2026.1",
+     "…(1 more)"
+    ],
+    "confidence": null
+   }
+  }
+ },
+ "GET /business/constants/mx-nl": {
+  "status": 200,
+  "body": {
+   "year": 2026,
+   "verified_on": "2026-09-06",
+   "constants": [
+    {
+     "key": "uma.daily",
+     "value": "117.31",
+     "citation": {
+      "law": "INEGI",
+      "article": "Comunicado de prensa 1/26 — UMA 2026",
+      "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/uma/uma2026.pdf",
+      "effective_from": "2026-02-01",
+      "effective_to": null,
+      "trust_tier": "official_guidance",
+      "excerpt": "Los valores de la UMA que entrarán en vigor a partir del 1 de febrero de 2026 son: Diario 117.31 pesos mexicanos."
+     },
+     "source_url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/uma/uma2026.pdf",
+     "verified": true,
+     "verified_on": "2026-09-06",
+     "note": "Read in the INEGI press release PDF (8 January 2026). Monthly 3,566.22 · annual 42,794.64. In force 2026-02-01 … 2027-01-31; January 2026 still uses the 2025 UMA (113.14)."
+    },
+    {
+     "key": "uma.monthly",
+     "value": "3566.22",
+     "citation": {
+      "law": "INEGI",
+      "article": "Comunicado de prensa 1/26 — UMA 2026",
+      "url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/uma/uma2026.pdf",
+      "effective_from": "2026-02-01",
+      "effective_to": null,
+      "trust_tier": "official_guidance",
+      "excerpt": "Los valores de la UMA que entrarán en vigor a partir del 1 de febrero de 2026 son: Diario 117.31 pesos mexicanos."
+     },
+     "source_url": "https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2026/uma/uma2026.pdf",
+     "verified": true,
+     "verified_on": "2026-09-06",
+     "note": "Same INEGI release: 'Mensual 3 566.22 pesos mexicanos'."
+    },
+    {
+     "key": "salario_minimo.general_daily",
+     "value": "315.04",
+     "citation": {
+      "law": "CONASAMI",
+      "article": "Salarios mínimos 2026 (DOF 09-12-2025)",
+      "url": "https://www.gob.mx/conasami/articulos/incremento-a-los-salarios-minimos-para-2026",
+      "effective_from": "2026-01-01",
+      "effective_to": null,
+      "trust_tier": "official_guidance",
+      "excerpt": "A partir del 1 de enero del 2026 el salario mínimo general se incrementa de 278.80 a 315.04 pesos diarios."
+     },
+     "source_url": "https://www.gob.mx/conasami/articulos/incremento-a-los-salarios-minimos-para-2026",
+     "verified": true,
+     "verified_on": "2026-09-06",
+     "note": "Zona Libre de la Frontera Norte: 440.87 (Nuevo León's border municipios only)."
+    },
+    "…(27 more)"
+   ],
+   "unverified": [
+    "imss.cesantia_vejez.employer_table_2026",
+    "isr.subsidio_empleo.monthly",
+    "isr.subsidio_empleo.income_cap_monthly"
+   ]
+  }
+ },
+ "GET /insights/demo-mx?period=2026-08": {
+  "status": 200,
+  "body": [
+   {
+    "id": "ins-pue_not_collected-109c38a31789734d",
+    "ws_id": "demo-mx",
+    "kind": "pue_not_collected",
+    "severity": "warn",
+    "title": "Factura PUE sin cobrar",
+    "body": "1 factura(s) PUE que el SAT da por cobradas nunca llegaron al banco (13920.00 MXN). El ISR se paga igual; emite PPD la próxima vez.",
+    "amount": {
+     "amount": "13920.00",
+     "currency": "MXN"
+    },
+    "due_date": "2026-09-17",
+    "explain": {
+     "summary": "1 factura(s) PUE que el SAT da por cobradas nunca llegaron al banco (13920.00 MXN). El ISR se paga igual; emite PPD la próxima vez.",
+     "steps": [
+      {
+       "label": "PUE sin depósito AGO-PUE-E",
+       "formula": null,
+       "value": "13920.00"
+      },
+      {
+       "label": "Total",
+       "formula": null,
+       "value": "13920.00"
+      }
+     ],
+     "citations": [
+      {
+       "law": "RMF 2026",
+       "article": "declaración prellenada RESICO",
+       "url": "https://www.sat.gob.mx/",
+       "effective_from": null,
+       "effective_to": null,
+       "trust_tier": "official_guidance",
+       "excerpt": "Desde 2023 la declaración mensual de RESICO se prellena con los CFDI de ingreso, egreso y los complementos de pago; el prellenado supone cobrada toda factura PUE."
+      }
+     ],
+     "rule_versions": [],
+     "confidence": null
+    },
+    "actions": [
+     {
+      "label": "Ver cierre del mes",
+      "href": "/api/tax/mx/resico/demo-mx/2026-08"
+     }
+    ]
+   },
+   {
+    "id": "ins-deposit_without_cfdi-7489b150530b4e5d",
+    "ws_id": "demo-mx",
+    "kind": "deposit_without_cfdi",
+    "severity": "warn",
+    "title": "Depósito sin CFDI",
+    "body": "1 depósito(s) sin CFDI que los respalde (6500.00 MXN). En RESICO todo ingreso debe facturarse.",
+    "amount": {
+     "amount": "6500.00",
+     "currency": "MXN"
+    },
+    "due_date": "2026-09-17",
+    "explain": {
+     "summary": "1 depósito(s) sin CFDI que los respalde (6500.00 MXN). En RESICO todo ingreso debe facturarse.",
+     "steps": [
+      {
+       "label": "2026-08-15 Deposito En Efectivo Ventanilla",
+       "formula": null,
+       "value": "6500.00"
+      },
+      {
+       "label": "Total",
+       "formula": null,
+       "value": "6500.00"
+      }
+     ],
+     "citations": [
+      {
+       "law": "RMF 2026",
+       "article": "declaración prellenada RESICO",
+       "url": "https://www.sat.gob.mx/",
+       "effective_from": null,
+       "effective_to": null,
+       "trust_tier": "official_guidance",
+       "excerpt": "Desde 2023 la declaración mensual de RESICO se prellena con los CFDI de ingreso, egreso y los complementos de pago; el prellenado supone cobrada toda factura PUE."
+      }
+     ],
+     "rule_versions": [],
+     "confidence": null
+    },
+    "actions": [
+     {
+      "label": "Ver cierre del mes",
+      "href": "/api/tax/mx/resico/demo-mx/2026-08"
+     }
+    ]
+   },
+   {
+    "id": "ins-you_may_owe-76f78851be2d1b36",
+    "ws_id": "demo-mx",
+    "kind": "you_may_owe",
+    "severity": "warn",
+    "title": "Podrías deber ~5527.00 MXN",
+    "body": "Con lo declarado hasta ahora podrías deber aproximadamente 5527.00 MXN el 2026-09-17.",
+    "amount": {
+     "amount": "5527.00",
+     "currency": "MXN"
+    },
+    "due_date": "2026-09-17",
+    "explain": {
+     "summary": "Con lo declarado hasta ahora podrías deber aproximadamente 5527.00 MXN el 2026-09-17.",
+     "steps": [
+      {
+       "label": "ISR",
+       "formula": null,
+       "value": "407.00"
+      },
+      {
+       "label": "IVA a pagar",
+       "formula": null,
+       "value": "5120.00"
+      },
+      {
+       "label": "Total estimado",
+       "formula": "isr + iva_payable",
+       "value": "5527.00"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [
+      "mx.resico.isr_monthly@2026.1"
+     ],
+     "confidence": null
+    },
+    "actions": [
+     {
+      "label": "Ver cierre del mes",
+      "href": "/api/tax/mx/resico/demo-mx/2026-08"
+     }
+    ]
+   },
+   "…(6 more)"
+  ]
+ },
+ "GET /insights/demo-mx/calendar?from=2026-08-01&to=2026-12-31": {
+  "status": 200,
+  "body": [
+   {
+    "kind": "mx_monthly_declaration",
+    "date": "2026-08-17",
+    "period": "2026-07",
+    "title": "Declaración mensual RESICO / DIOT",
+    "note": "(verify) whether DIOT is filed separately from the monthly declaration"
+   },
+   {
+    "kind": "card_due",
+    "date": "2026-09-10",
+    "title": "BBVA Azul due"
+   },
+   {
+    "kind": "mx_monthly_declaration",
+    "date": "2026-09-17",
+    "period": "2026-08",
+    "title": "Declaración mensual RESICO / DIOT",
+    "note": "(verify) whether DIOT is filed separately from the monthly declaration"
+   },
+   "…(5 more)"
+  ]
+ },
+ "GET /insights/demo-mx/digest": {
+  "status": 200,
+  "body": "Resumen de Aurum (demo-mx, 2026-09)\n0 urgente(s), 3 de atención, 1 informativo(s).\n\n! Meta 'Fondo de emergencia' fuera de ritmo (2027-06-30): El ritmo de ahorro reciente no alcanza lo que requiere la "
+ },
+ "GET /reports/demo-mx": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-mx",
+   "kind": "personal",
+   "jurisdictions": [
+    "MX"
+   ],
+   "packs": [
+    {
+     "pack": "monthly-review",
+     "title": {
+      "es": "Revisión mensual",
+      "en": "Monthly review"
+     },
+     "applicable": true,
+     "period_kind": "month",
+     "url": "/api/reports/demo-mx/monthly-review"
+    },
+    {
+     "pack": "net-worth",
+     "title": {
+      "es": "Patrimonio neto",
+      "en": "Net worth"
+     },
+     "applicable": true,
+     "period_kind": "none",
+     "url": "/api/reports/demo-mx/net-worth"
+    },
+    {
+     "pack": "mx-annual",
+     "title": {
+      "es": "Anual MX (RESICO)",
+      "en": "MX annual (RESICO)"
+     },
+     "applicable": true,
+     "period_kind": "year",
+     "url": "/api/reports/demo-mx/mx-annual"
+    },
+    "…(2 more)"
+   ]
+  }
+ },
+ "GET /reports/demo-mx/monthly-review/preview?period=2026-08": {
+  "status": 200,
+  "body": {
+   "title": "Revisión mensual — 2026-08",
+   "workspace": "demo-mx",
+   "period": "2026-08",
+   "lang": "es",
+   "draft": false,
+   "watermark_text": null,
+   "generated_at": "2026-09-06T23:32:21+00:00",
+   "rule_versions": [],
+   "sections": [
+    {
+     "title": "Ingreso vs. gasto / Income vs. spend",
+     "kpis": [
+      {
+       "label": "Ingreso / Income",
+       "value": "51500.00 MXN",
+       "note": null
+      },
+      {
+       "label": "Gasto / Expense",
+       "value": "6160.00 MXN",
+       "note": null
+      },
+      {
+       "label": "Neto / Net",
+       "value": "45340.00 MXN",
+       "note": null
+      },
+      "…(2 more)"
+     ],
+     "tables": [],
+     "notes": [],
+     "explains": [
+      {
+       "summary": "La revisión mensual agrega los movimientos del período; deltas vs. el mes anterior.",
+       "steps": [],
+       "citations": []
+      }
+     ]
+    },
+    {
+     "title": "Principales categorías / Top labels",
+     "kpis": [],
+     "tables": [
+      {
+       "title": "",
+       "columns": [
+        "Label",
+        "Amount"
+       ],
+       "rows": [
+        [
+         "Expenses:Software",
+         "5000.00"
+        ],
+        [
+         "Expenses:Food:Restaurants",
+         "1160.00"
+        ]
+       ]
+      }
+     ],
+     "notes": [],
+     "explains": []
+    },
+    {
+     "title": "Presupuestos / Budgets",
+     "kpis": [],
+     "tables": [
+      {
+       "title": "",
+       "columns": [
+        "Label",
+        "Budget",
+        "Spent",
+        "…(1 more)"
+       ],
+       "rows": [
+        [
+         "Comida fuera",
+         "3500 MXN",
+         "0 MXN",
+         "…(1 more)"
+        ],
+        [
+         "Súper",
+         "6000 MXN",
+         "0 MXN",
+         "…(1 more)"
+        ]
+       ]
+      }
+     ],
+     "notes": [],
+     "explains": []
+    },
+    "…(2 more)"
+   ],
+   "warnings": []
+  }
+ },
+ "GET /reports/demo-mx/archive": {
+  "status": 404,
+  "body": {
+   "detail": "unknown report pack 'archive'"
+  }
+ },
+ "GET /reports/demo-us": {
+  "status": 200,
+  "body": {
+   "workspace": "demo-us",
+   "kind": "personal",
+   "jurisdictions": [
+    "US"
+   ],
+   "packs": [
+    {
+     "pack": "monthly-review",
+     "title": {
+      "es": "Revisión mensual",
+      "en": "Monthly review"
+     },
+     "applicable": true,
+     "period_kind": "month",
+     "url": "/api/reports/demo-us/monthly-review"
+    },
+    {
+     "pack": "net-worth",
+     "title": {
+      "es": "Patrimonio neto",
+      "en": "Net worth"
+     },
+     "applicable": true,
+     "period_kind": "none",
+     "url": "/api/reports/demo-us/net-worth"
+    },
+    {
+     "pack": "mx-annual",
+     "title": {
+      "es": "Anual MX (RESICO)",
+      "en": "MX annual (RESICO)"
+     },
+     "applicable": false,
+     "period_kind": "year",
+     "url": "/api/reports/demo-us/mx-annual"
+    },
+    "…(2 more)"
+   ]
+  }
+ },
+ "POST /organizer/demo-mx/detect": {
+  "status": 200,
+  "body": {
+   "candidates": [
+    {
+     "id": "cand-69201f07dc33",
+     "merchant": "CREDITO AUTOMOTRIZ",
+     "preview": {
+      "id": "",
+      "ws_id": "demo-mx",
+      "kind": "loan_payment",
+      "name": "Crédito auto",
+      "merchant_patterns": [
+       "CREDITO AUTOMOTRIZ"
+      ],
+      "amount": {
+       "amount": "4918.77",
+       "currency": "MXN"
+      },
+      "amount_variable": false,
+      "cadence": "monthly",
+      "interval_days": null,
+      "anchor_day": 15,
+      "weekday": null,
+      "next_due": "2026-09-15",
+      "account": "Liabilities:Loans:Auto",
+      "label_id": null,
+      "essential": "debt",
+      "status": "active",
+      "trial_ends": null,
+      "started": "2026-01-15",
+      "ended": null,
+      "auto_pay": false,
+      "cancel_notes": null,
+      "linked_loan_id": "loan-83cf6fc0003b",
+      "linked_card_id": null,
+      "source": "detected",
+      "confidence": 0.95,
+      "last_seen": "2026-08-18",
+      "notes": null,
+      "category_hint": "loan",
+      "reviewed_at": null,
+      "explain": {
+       "summary": "CREDITO AUTOMOTRIZ: 3 cargos, intervalos 30,31 días (mediana 30) → monthly.",
+       "steps": [
+        {
+         "label": "intervals_days",
+         "formula": null,
+         "value": "[30, 31]"
+        },
+        {
+         "label": "median_interval",
+         "formula": "median(intervals)",
+         "value": "30"
+        },
+        {
+         "label": "cadence",
+         "formula": "band 30d",
+         "value": "monthly"
+        },
+        "…(10 more)"
+       ],
+       "citations": [],
+       "rule_versions": [],
+       "confidence": 0.88
+      }
+     },
+     "evidence": [
+      {
+       "date": "2026-06-18",
+       "amount": {
+        "amount": "4915.75",
+        "currency": "MXN"
+       },
+       "description": "CARGO CREDITO AUTOMOTRIZ BBVA",
+       "source": "bank"
+      },
+      {
+       "date": "2026-07-18",
+       "amount": {
+        "amount": "4915.75",
+        "currency": "MXN"
+       },
+       "description": "CARGO CREDITO AUTOMOTRIZ BBVA",
+       "source": "bank"
+      },
+      {
+       "date": "2026-08-18",
+       "amount": {
+        "amount": "4915.75",
+        "currency": "MXN"
+       },
+       "description": "CARGO CREDITO AUTOMOTRIZ BBVA",
+       "source": "bank"
+      }
+     ],
+     "confidence": 0.95,
+     "status": "open"
+    },
+    {
+     "id": "cand-1d27eb7e58cf",
+     "merchant": "NOMINA ACME",
+     "preview": {
+      "id": "",
+      "ws_id": "demo-mx",
+      "kind": "income",
+      "name": "Nomina Acme",
+      "merchant_patterns": [
+       "NOMINA ACME"
+      ],
+      "amount": {
+       "amount": "45000.00",
+       "currency": "MXN"
+      },
+      "amount_variable": false,
+      "cadence": "monthly",
+      "interval_days": null,
+      "anchor_day": 5,
+      "weekday": null,
+      "next_due": "2026-10-05",
+      "account": "Assets:Bank",
+      "label_id": null,
+      "essential": "needs",
+      "status": "active",
+      "trial_ends": null,
+      "started": "2026-07-05",
+      "ended": null,
+      "auto_pay": false,
+      "cancel_notes": null,
+      "linked_loan_id": null,
+      "linked_card_id": null,
+      "source": "detected",
+      "confidence": 0.89,
+      "last_seen": "2026-09-05",
+      "notes": null,
+      "category_hint": null,
+      "reviewed_at": null,
+      "explain": {
+       "summary": "NOMINA ACME: 3 cargos, intervalos 31,31 días (mediana 31) → monthly.",
+       "steps": [
+        {
+         "label": "intervals_days",
+         "formula": null,
+         "value": "[31, 31]"
+        },
+        {
+         "label": "median_interval",
+         "formula": "median(intervals)",
+         "value": "31"
+        },
+        {
+         "label": "cadence",
+         "formula": "band 30d",
+         "value": "monthly"
+        },
+        "…(7 more)"
+       ],
+       "citations": [],
+       "rule_versions": [],
+       "confidence": 0.89
+      }
+     },
+     "evidence": [
+      {
+       "date": "2026-07-05",
+       "amount": {
+        "amount": "45000.00",
+        "currency": "MXN"
+       },
+       "description": "DEPOSITO NOMINA ACME SA DE CV",
+       "source": "bank"
+      },
+      {
+       "date": "2026-08-05",
+       "amount": {
+        "amount": "45000.00",
+        "currency": "MXN"
+       },
+       "description": "DEPOSITO NOMINA ACME SA DE CV",
+       "source": "bank"
+      },
+      {
+       "date": "2026-09-05",
+       "amount": {
+        "amount": "45000.00",
+        "currency": "MXN"
+       },
+       "description": "DEPOSITO NOMINA ACME SA DE CV",
+       "source": "bank"
+      }
+     ],
+     "confidence": 0.89,
+     "status": "open"
+    },
+    {
+     "id": "cand-1a7b3e6902f9",
+     "merchant": "RENTA",
+     "preview": {
+      "id": "",
+      "ws_id": "demo-mx",
+      "kind": "rent",
+      "name": "Renta",
+      "merchant_patterns": [
+       "RENTA"
+      ],
+      "amount": {
+       "amount": "10500.00",
+       "currency": "MXN"
+      },
+      "amount_variable": false,
+      "cadence": "monthly",
+      "interval_days": null,
+      "anchor_day": 1,
+      "weekday": null,
+      "next_due": "2026-10-01",
+      "account": "Assets:Bank",
+      "label_id": null,
+      "essential": "needs",
+      "status": "active",
+      "trial_ends": null,
+      "started": "2026-07-01",
+      "ended": null,
+      "auto_pay": false,
+      "cancel_notes": null,
+      "linked_loan_id": null,
+      "linked_card_id": null,
+      "source": "detected",
+      "confidence": 0.89,
+      "last_seen": "2026-09-01",
+      "notes": null,
+      "category_hint": "housing",
+      "reviewed_at": null,
+      "explain": {
+       "summary": "RENTA: 3 cargos, intervalos 31,31 días (mediana 31) → monthly.",
+       "steps": [
+        {
+         "label": "intervals_days",
+         "formula": null,
+         "value": "[31, 31]"
+        },
+        {
+         "label": "median_interval",
+         "formula": "median(intervals)",
+         "value": "31"
+        },
+        {
+         "label": "cadence",
+         "formula": "band 30d",
+         "value": "monthly"
+        },
+        "…(7 more)"
+       ],
+       "citations": [],
+       "rule_versions": [],
+       "confidence": 0.89
+      }
+     },
+     "evidence": [
+      {
+       "date": "2026-07-01",
+       "amount": {
+        "amount": "10500.00",
+        "currency": "MXN"
+       },
+       "description": "PAGO RENTA DEPARTAMENTO",
+       "source": "bank"
+      },
+      {
+       "date": "2026-08-01",
+       "amount": {
+        "amount": "10500.00",
+        "currency": "MXN"
+       },
+       "description": "PAGO RENTA DEPARTAMENTO",
+       "source": "bank"
+      },
+      {
+       "date": "2026-09-01",
+       "amount": {
+        "amount": "10500.00",
+        "currency": "MXN"
+       },
+       "description": "PAGO RENTA DEPARTAMENTO",
+       "source": "bank"
+      }
+     ],
+     "confidence": 0.89,
+     "status": "open"
+    },
+    "…(11 more)"
+   ],
+   "count": 14
+  }
+ },
+ "GET /organizer/demo-mx/commitments": {
+  "status": 200,
+  "body": [
+   {
+    "id": "cmt-73ead647e8fd",
+    "ws_id": "demo-mx",
+    "kind": "subscription",
+    "name": "Spotify",
+    "merchant_patterns": [
+     "SPOTIFY"
+    ],
+    "amount": {
+     "amount": "129.00",
+     "currency": "MXN"
+    },
+    "amount_variable": false,
+    "cadence": "monthly",
+    "interval_days": null,
+    "anchor_day": 8,
+    "weekday": null,
+    "next_due": "2026-09-08",
+    "account": "Assets:Bank",
+    "label_id": null,
+    "essential": "wants",
+    "status": "active",
+    "trial_ends": null,
+    "started": "2026-06-08",
+    "ended": null,
+    "auto_pay": false,
+    "cancel_notes": null,
+    "linked_loan_id": null,
+    "linked_card_id": null,
+    "source": "detected",
+    "confidence": 0.88,
+    "last_seen": "2026-08-08",
+    "notes": null,
+    "category_hint": "music",
+    "reviewed_at": null,
+    "explain": {
+     "summary": "Spotify: compromiso con cadencia monthly; el equivalente mensual normaliza el monto a un mes.",
+     "steps": [
+      {
+       "label": "amount",
+       "formula": null,
+       "value": "129.00 MXN"
+      },
+      {
+       "label": "monthly_equivalent",
+       "formula": "amount × 12.0/12",
+       "value": "129.00"
+      },
+      {
+       "label": "next_due",
+       "formula": null,
+       "value": "2026-09-08"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": 0.88
+    },
+    "monthly_equivalent": {
+     "amount": "129.00",
+     "currency": "MXN"
+    },
+    "annual_equivalent": {
+     "amount": "1548.00",
+     "currency": "MXN"
+    }
+   },
+   {
+    "id": "cmt-878d4212b9d5",
+    "ws_id": "demo-mx",
+    "kind": "subscription",
+    "name": "Max",
+    "merchant_patterns": [
+     "MAX"
+    ],
+    "amount": {
+     "amount": "249.00",
+     "currency": "MXN"
+    },
+    "amount_variable": false,
+    "cadence": "monthly",
+    "interval_days": null,
+    "anchor_day": 12,
+    "weekday": null,
+    "next_due": "2026-09-12",
+    "account": "Assets:Bank:BBVA",
+    "label_id": null,
+    "essential": "wants",
+    "status": "trial",
+    "trial_ends": "2026-09-12",
+    "started": "2026-08-13",
+    "ended": null,
+    "auto_pay": false,
+    "cancel_notes": null,
+    "linked_loan_id": null,
+    "linked_card_id": null,
+    "source": "manual",
+    "confidence": 1.0,
+    "last_seen": null,
+    "notes": null,
+    "category_hint": "streaming",
+    "reviewed_at": null,
+    "explain": {
+     "summary": "Max: compromiso con cadencia monthly; el equivalente mensual normaliza el monto a un mes.",
+     "steps": [
+      {
+       "label": "amount",
+       "formula": null,
+       "value": "249.00 MXN"
+      },
+      {
+       "label": "monthly_equivalent",
+       "formula": "amount × 12.0/12",
+       "value": "249.00"
+      },
+      {
+       "label": "next_due",
+       "formula": null,
+       "value": "2026-09-12"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": 1.0
+    },
+    "monthly_equivalent": {
+     "amount": "249.00",
+     "currency": "MXN"
+    },
+    "annual_equivalent": {
+     "amount": "2988.00",
+     "currency": "MXN"
+    }
+   },
+   {
+    "id": "cmt-87b70f807a2c",
+    "ws_id": "demo-mx",
+    "kind": "bill",
+    "name": "Telcel",
+    "merchant_patterns": [
+     "TELCEL"
+    ],
+    "amount": {
+     "amount": "399.00",
+     "currency": "MXN"
+    },
+    "amount_variable": false,
+    "cadence": "monthly",
+    "interval_days": null,
+    "anchor_day": 12,
+    "weekday": null,
+    "next_due": "2026-09-12",
+    "account": "Assets:Bank",
+    "label_id": null,
+    "essential": "needs",
+    "status": "active",
+    "trial_ends": null,
+    "started": "2026-06-12",
+    "ended": null,
+    "auto_pay": false,
+    "cancel_notes": null,
+    "linked_loan_id": null,
+    "linked_card_id": null,
+    "source": "detected",
+    "confidence": 0.88,
+    "last_seen": "2026-08-12",
+    "notes": null,
+    "category_hint": "telecom",
+    "reviewed_at": null,
+    "explain": {
+     "summary": "Telcel: compromiso con cadencia monthly; el equivalente mensual normaliza el monto a un mes.",
+     "steps": [
+      {
+       "label": "amount",
+       "formula": null,
+       "value": "399.00 MXN"
+      },
+      {
+       "label": "monthly_equivalent",
+       "formula": "amount × 12.0/12",
+       "value": "399.00"
+      },
+      {
+       "label": "next_due",
+       "formula": null,
+       "value": "2026-09-12"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": 0.88
+    },
+    "monthly_equivalent": {
+     "amount": "399.00",
+     "currency": "MXN"
+    },
+    "annual_equivalent": {
+     "amount": "4788.00",
+     "currency": "MXN"
+    }
+   },
+   "…(7 more)"
+  ]
+ },
+ "GET /organizer/demo-mx/commitments/cmt-496bf21c8592": {
+  "status": 200,
+  "body": {
+   "id": "cmt-496bf21c8592",
+   "ws_id": "demo-mx",
+   "kind": "subscription",
+   "name": "Netflix",
+   "merchant_patterns": [
+    "NETFLIX"
+   ],
+   "amount": {
+    "amount": "219.00",
+    "currency": "MXN"
+   },
+   "amount_variable": false,
+   "cadence": "monthly",
+   "interval_days": null,
+   "anchor_day": 15,
+   "weekday": null,
+   "next_due": "2026-09-15",
+   "account": "Assets:Bank",
+   "label_id": null,
+   "essential": "wants",
+   "status": "active",
+   "trial_ends": null,
+   "started": "2026-06-15",
+   "ended": null,
+   "auto_pay": false,
+   "cancel_notes": null,
+   "linked_loan_id": null,
+   "linked_card_id": null,
+   "source": "detected",
+   "confidence": 0.86,
+   "last_seen": "2026-08-15",
+   "notes": null,
+   "category_hint": "streaming",
+   "reviewed_at": null,
+   "explain": {
+    "summary": "Netflix: compromiso con cadencia monthly; el equivalente mensual normaliza el monto a un mes.",
+    "steps": [
+     {
+      "label": "amount",
+      "formula": null,
+      "value": "219.00 MXN"
+     },
+     {
+      "label": "monthly_equivalent",
+      "formula": "amount × 12.0/12",
+      "value": "219.00"
+     },
+     {
+      "label": "next_due",
+      "formula": null,
+      "value": "2026-09-15"
+     }
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": 0.86
+   },
+   "monthly_equivalent": {
+    "amount": "219.00",
+    "currency": "MXN"
+   },
+   "annual_equivalent": {
+    "amount": "2628.00",
+    "currency": "MXN"
+   },
+   "price_history": [
+    {
+     "observed": "2026-06-15",
+     "amount": {
+      "amount": "199.00",
+      "currency": "MXN"
+     },
+     "source": "detected"
+    },
+    {
+     "observed": "2026-07-15",
+     "amount": {
+      "amount": "199.00",
+      "currency": "MXN"
+     },
+     "source": "detected"
+    },
+    {
+     "observed": "2026-08-15",
+     "amount": {
+      "amount": "219.00",
+      "currency": "MXN"
+     },
+     "source": "detected"
+    }
+   ],
+   "occurrences": [
+    {
+     "commitment_id": "cmt-496bf21c8592",
+     "due": "2026-08-15",
+     "amount": {
+      "amount": "219.00",
+      "currency": "MXN"
+     },
+     "status": "paid",
+     "txn_id": "org-demo-netflix-2026-08-15"
+    }
+   ],
+   "loan": null
+  }
+ },
+ "GET /organizer/demo-mx/summary": {
+  "status": 200,
+  "body": {
+   "monthly_committed": {
+    "total": {
+     "amount": "18612.77",
+     "currency": "MXN"
+    },
+    "by_kind": {
+     "bill": {
+      "amount": "399.00",
+      "currency": "MXN"
+     },
+     "loan_payment": {
+      "amount": "4918.77",
+      "currency": "MXN"
+     },
+     "rent": {
+      "amount": "12000.00",
+      "currency": "MXN"
+     },
+     "subscription": {
+      "amount": "1295.00",
+      "currency": "MXN"
+     }
+    }
+   },
+   "annual_subscriptions": {
+    "amount": "15540.00",
+    "currency": "MXN"
+   },
+   "next_7_days": [
+    {
+     "commitment_id": "cmt-73ead647e8fd",
+     "name": "Spotify",
+     "kind": "subscription",
+     "due": "2026-09-08",
+     "amount": {
+      "amount": "129.00",
+      "currency": "MXN"
+     },
+     "status": "upcoming",
+     "txn_id": null
+    },
+    {
+     "commitment_id": "cmt-878d4212b9d5",
+     "name": "Max",
+     "kind": "subscription",
+     "due": "2026-09-12",
+     "amount": {
+      "amount": "249.00",
+      "currency": "MXN"
+     },
+     "status": "upcoming",
+     "txn_id": null
+    },
+    {
+     "commitment_id": "cmt-87b70f807a2c",
+     "name": "Telcel",
+     "kind": "bill",
+     "due": "2026-09-12",
+     "amount": {
+      "amount": "399.00",
+      "currency": "MXN"
+     },
+     "status": "upcoming",
+     "txn_id": null
+    }
+   ],
+   "alerts_count": 6,
+   "safe_to_spend": {
+    "amount": {
+     "amount": "248632.20",
+     "currency": "MXN"
+    },
+    "until": "2026-09-20",
+    "explain": {
+     "summary": "Libre para gastar = saldo líquido − compromisos pendientes hasta el próximo ingreso − colchón.",
+     "steps": [
+      {
+       "label": "liquid_balance",
+       "formula": "Σ Assets:Bank:* + Assets:Cash",
+       "value": "256457.25"
+      },
+      {
+       "label": "until",
+       "formula": "next projected income",
+       "value": "2026-09-20"
+      },
+      {
+       "label": "committed_until",
+       "formula": "2026-09-08 Spotify 129.00 + 2026-09-12 Max 249.00 + 2026-09-12 Telcel 399.00 + 2026-09-15 Crédito auto 4918.77 + 2026-09-15 Netflix 219.00 + 2026-09-20 Icloud 49.00",
+       "value": "5963.77"
+      },
+      "…(2 more)"
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "uncategorized_count": 0,
+   "setup": {
+    "has_bank_lines": true,
+    "has_commitments": true,
+    "has_income": true,
+    "has_plan": true,
+    "counts": {
+     "bank_lines": 40,
+     "commitments": 10,
+     "income_commitments": 2,
+     "budgets": 6,
+     "open_candidates": 5
+    },
+    "progress": "4/4",
+    "explain": {
+     "summary": "Configuración en 3 pasos: movimientos bancarios → compromisos detectados → plan.",
+     "steps": [
+      {
+       "label": "bank_lines",
+       "formula": null,
+       "value": "40"
+      },
+      {
+       "label": "commitments",
+       "formula": null,
+       "value": "10"
+      },
+      {
+       "label": "income_commitments",
+       "formula": null,
+       "value": "2"
+      },
+      "…(2 more)"
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "explain": {
+    "summary": "Comprometido al mes = suma de cada compromiso activo llevado a su equivalente mensual.",
+    "steps": [
+     {
+      "label": "active_commitments",
+      "formula": null,
+      "value": "10"
+     },
+     {
+      "label": "monthly_committed",
+      "formula": "Σ amount × periods_per_year / 12",
+      "value": "18612.77"
+     },
+     {
+      "label": "annual_subscriptions",
+      "formula": "Σ amount × periods_per_year (kind = subscription)",
+      "value": "15540.00"
+     },
+     "…(2 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /organizer/demo-mx/alerts": {
+  "status": 200,
+  "body": [
+   {
+    "id": "org-trial_ending-ef3542cf34016ebc",
+    "kind": "trial_ending",
+    "severity": "warn",
+    "commitment_id": "cmt-878d4212b9d5",
+    "title": "Termina la prueba: Max",
+    "body": "La prueba de Max termina el 2026-09-12; después se cobrarán 249.00 MXN.",
+    "old_amount": null,
+    "new_amount": {
+     "amount": "249.00",
+     "currency": "MXN"
+    },
+    "due": "2026-09-12",
+    "explain": {
+     "summary": "La prueba de Max termina el 2026-09-12; después se cobrarán 249.00 MXN.",
+     "steps": [
+      {
+       "label": "trial_ends",
+       "formula": null,
+       "value": "2026-09-12"
+      },
+      {
+       "label": "days_left",
+       "formula": "trial_ends − today",
+       "value": "5"
+      },
+      {
+       "label": "threshold",
+       "formula": null,
+       "value": "≤ 7 days"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   {
+    "id": "org-price_increase-f74c8ae5b423b860",
+    "kind": "price_increase",
+    "severity": "warn",
+    "commitment_id": "cmt-496bf21c8592",
+    "title": "Subió el precio: Netflix",
+    "body": "Netflix pasó de 199.00 a 219.00 MXN (10.05%).",
+    "old_amount": {
+     "amount": "199.00",
+     "currency": "MXN"
+    },
+    "new_amount": {
+     "amount": "219.00",
+     "currency": "MXN"
+    },
+    "due": null,
+    "explain": {
+     "summary": "Netflix pasó de 199.00 a 219.00 MXN (10.05%).",
+     "steps": [
+      {
+       "label": "previous_price",
+       "formula": null,
+       "value": "199.00 MXN"
+      },
+      {
+       "label": "new_price",
+       "formula": "observed 2026-08-15",
+       "value": "219.00 MXN"
+      },
+      {
+       "label": "delta",
+       "formula": "new − previous",
+       "value": "20.00 MXN"
+      },
+      "…(3 more)"
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   {
+    "id": "org-upcoming-320e0dafd025c50b",
+    "kind": "upcoming",
+    "severity": "info",
+    "commitment_id": "cmt-73ead647e8fd",
+    "title": "Próximo cargo: Spotify",
+    "body": "Spotify se cobra el 2026-09-08 por 129.00 MXN.",
+    "old_amount": null,
+    "new_amount": {
+     "amount": "129.00",
+     "currency": "MXN"
+    },
+    "due": "2026-09-08",
+    "explain": {
+     "summary": "Spotify se cobra el 2026-09-08 por 129.00 MXN.",
+     "steps": [
+      {
+       "label": "next_due",
+       "formula": null,
+       "value": "2026-09-08"
+      },
+      {
+       "label": "days_until",
+       "formula": "next_due − today",
+       "value": "1"
+      },
+      {
+       "label": "threshold",
+       "formula": null,
+       "value": "≤ 7 days"
+      }
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "…(3 more)"
+  ]
+ },
+ "GET /organizer/demo-mx/calendar?from=2026-08-01&to=2026-09-30": {
+  "status": 200,
+  "body": {
+   "days": [
+    {
+     "date": "2026-08-08",
+     "items": [
+      {
+       "kind": "commitment",
+       "date": "2026-08-08",
+       "id": "cmt-73ead647e8fd",
+       "name": "Spotify",
+       "amount": {
+        "amount": "129.00",
+        "currency": "MXN"
+       },
+       "status": "paid",
+       "txn_id": "org-demo-spotify-2026-08-08",
+       "commitment_kind": "subscription"
+      }
+     ],
+     "total_out": {
+      "amount": "129.00",
+      "currency": "MXN"
+     },
+     "total_in": {
+      "amount": "0.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "date": "2026-08-12",
+     "items": [
+      {
+       "kind": "commitment",
+       "date": "2026-08-12",
+       "id": "cmt-87b70f807a2c",
+       "name": "Telcel",
+       "amount": {
+        "amount": "399.00",
+        "currency": "MXN"
+       },
+       "status": "paid",
+       "txn_id": "org-demo-telcel-2026-08-12",
+       "commitment_kind": "bill"
+      }
+     ],
+     "total_out": {
+      "amount": "399.00",
+      "currency": "MXN"
+     },
+     "total_in": {
+      "amount": "0.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "date": "2026-08-15",
+     "items": [
+      {
+       "kind": "commitment",
+       "date": "2026-08-15",
+       "id": "cmt-1e796158e530",
+       "name": "Crédito auto",
+       "amount": {
+        "amount": "4918.77",
+        "currency": "MXN"
+       },
+       "status": "paid",
+       "txn_id": "org-demo-auto-2026-08-18",
+       "commitment_kind": "loan_payment"
+      },
+      {
+       "kind": "commitment",
+       "date": "2026-08-15",
+       "id": "cmt-496bf21c8592",
+       "name": "Netflix",
+       "amount": {
+        "amount": "219.00",
+        "currency": "MXN"
+       },
+       "status": "paid",
+       "txn_id": "org-demo-netflix-2026-08-15",
+       "commitment_kind": "subscription"
+      }
+     ],
+     "total_out": {
+      "amount": "5137.77",
+      "currency": "MXN"
+     },
+     "total_in": {
+      "amount": "0.00",
+      "currency": "MXN"
+     }
+    },
+    "…(10 more)"
+   ],
+   "explain": {
+    "summary": "Calendario: ocurrencias proyectadas, cortes y pagos de tarjeta, préstamos e ingresos. Una ocurrencia se marca pagada si hay un movimiento en ±3 días y ±10% del monto.",
+    "steps": [
+     {
+      "label": "range",
+      "formula": null,
+      "value": "2026-08-01 … 2026-09-30"
+     },
+     {
+      "label": "days_with_items",
+      "formula": null,
+      "value": "13"
+     },
+     {
+      "label": "items",
+      "formula": null,
+      "value": "20"
+     },
+     "…(1 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /organizer/demo-mx/forecast?days=90": {
+  "status": 200,
+  "body": {
+   "start_balance": {
+    "amount": "256457.25",
+    "currency": "MXN"
+   },
+   "series": [
+    {
+     "date": "2026-09-07",
+     "balance": {
+      "amount": "256457.25",
+      "currency": "MXN"
+     },
+     "in": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "out": {
+      "amount": "0.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "date": "2026-09-08",
+     "balance": {
+      "amount": "256328.25",
+      "currency": "MXN"
+     },
+     "in": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "out": {
+      "amount": "129.00",
+      "currency": "MXN"
+     }
+    },
+    {
+     "date": "2026-09-09",
+     "balance": {
+      "amount": "256328.25",
+      "currency": "MXN"
+     },
+     "in": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "out": {
+      "amount": "0.00",
+      "currency": "MXN"
+     }
+    },
+    "…(88 more)"
+   ],
+   "low_point": {
+    "date": "2026-09-15",
+    "balance": {
+     "amount": "250542.48",
+     "currency": "MXN"
+    }
+   },
+   "safe_to_spend": {
+    "amount": {
+     "amount": "248632.20",
+     "currency": "MXN"
+    },
+    "until": "2026-09-20",
+    "explain": {
+     "summary": "Libre para gastar = saldo líquido − compromisos pendientes hasta el próximo ingreso − colchón.",
+     "steps": [
+      {
+       "label": "liquid_balance",
+       "formula": "Σ Assets:Bank:* + Assets:Cash",
+       "value": "256457.25"
+      },
+      {
+       "label": "until",
+       "formula": "next projected income",
+       "value": "2026-09-20"
+      },
+      {
+       "label": "committed_until",
+       "formula": "2026-09-08 Spotify 129.00 + 2026-09-12 Max 249.00 + 2026-09-12 Telcel 399.00 + 2026-09-15 Crédito auto 4918.77 + 2026-09-15 Netflix 219.00 + 2026-09-20 Icloud 49.00",
+       "value": "5963.77"
+      },
+      "…(2 more)"
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "buffer": {
+    "amount": "1861.28",
+    "currency": "MXN"
+   },
+   "explain": {
+    "summary": "Pronóstico: saldo líquido de hoy, más los ingresos proyectados y menos los compromisos proyectados, día por día. No hay modelo ni estimación estadística.",
+    "steps": [
+     {
+      "label": "start_balance",
+      "formula": "Σ Assets:Bank:* + Assets:Cash",
+      "value": "256457.25"
+     },
+     {
+      "label": "horizon_days",
+      "formula": null,
+      "value": "90"
+     },
+     {
+      "label": "commitments_projected",
+      "formula": null,
+      "value": "10"
+     },
+     "…(1 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "POST /organizer/demo-mx/quickadd": {
+  "status": 200,
+  "body": {
+   "preview": {
+    "kind": "subscription",
+    "name": "Netflix",
+    "merchant_patterns": [
+     "NETFLIX"
+    ],
+    "amount": {
+     "amount": "219.00",
+     "currency": "MXN"
+    },
+    "amount_variable": false,
+    "cadence": "monthly",
+    "interval_days": null,
+    "anchor_day": 15,
+    "weekday": null,
+    "next_due": "2026-09-15",
+    "account": "Assets:Bank",
+    "label_id": null,
+    "essential": "wants",
+    "status": "active",
+    "trial_ends": null,
+    "started": "2026-09-07",
+    "ended": null,
+    "auto_pay": false,
+    "cancel_notes": null,
+    "linked_loan_id": null,
+    "linked_card_id": null,
+    "source": "manual",
+    "confidence": 1.0,
+    "last_seen": null,
+    "notes": null,
+    "category_hint": "streaming",
+    "explain": {
+     "summary": "Texto interpretado con reglas ES/EN (sin modelo): monto, cadencia, día, moneda y prueba.",
+     "steps": [
+      {
+       "label": "input",
+       "formula": null,
+       "value": "netflix 219 mensual día 15"
+      },
+      {
+       "label": "anchor_day",
+       "formula": "día N / el N / on the Nth",
+       "value": "15"
+      },
+      {
+       "label": "cadence",
+       "formula": "keyword 'mensual'",
+       "value": "monthly"
+      },
+      "…(5 more)"
+     ],
+     "citations": [],
+     "rule_versions": [],
+     "confidence": null
+    }
+   },
+   "saved": false,
+   "auto_label": null,
+   "explain": {
+    "summary": "Texto interpretado con reglas ES/EN (sin modelo): monto, cadencia, día, moneda y prueba.",
+    "steps": [
+     {
+      "label": "input",
+      "formula": null,
+      "value": "netflix 219 mensual día 15"
+     },
+     {
+      "label": "anchor_day",
+      "formula": "día N / el N / on the Nth",
+      "value": "15"
+     },
+     {
+      "label": "cadence",
+      "formula": "keyword 'mensual'",
+      "value": "monthly"
+     },
+     "…(5 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /organizer/demo-mx/plan?period=2026-09": {
+  "status": 200,
+  "body": {
+   "period": "2026-09",
+   "groups": [
+    {
+     "group": "needs",
+     "planned": {
+      "amount": "21220.33",
+      "currency": "MXN"
+     },
+     "actual": {
+      "amount": "24000.00",
+      "currency": "MXN"
+     },
+     "left": {
+      "amount": "-2779.67",
+      "currency": "MXN"
+     },
+     "items": [
+      {
+       "label_id": "lbl-5956bbbd8c5f",
+       "commitment_id": null,
+       "name": "Internet/Teléfono",
+       "account": "Expenses:Housing:Internet",
+       "planned": {
+        "amount": "399.00",
+        "currency": "MXN"
+       },
+       "actual": {
+        "amount": "0.00",
+        "currency": "MXN"
+       },
+       "left": {
+        "amount": "399.00",
+        "currency": "MXN"
+       },
+       "pct": "0.0000"
+      },
+      {
+       "label_id": null,
+       "commitment_id": "cmt-928c9bbe7ab3",
+       "name": "Renta",
+       "account": "Assets:Bank",
+       "planned": {
+        "amount": "12000.00",
+        "currency": "MXN"
+       },
+       "actual": {
+        "amount": "12000.00",
+        "currency": "MXN"
+       },
+       "left": {
+        "amount": "0.00",
+        "currency": "MXN"
+       },
+       "pct": "1.0000"
+      },
+      {
+       "label_id": "lbl-17d50714435c",
+       "commitment_id": null,
+       "name": "Renta/Hipoteca",
+       "account": "Expenses:Housing:RentMortgage",
+       "planned": {
+        "amount": "8000.00",
+        "currency": "MXN"
+       },
+       "actual": {
+        "amount": "12000.00",
+        "currency": "MXN"
+       },
+       "left": {
+        "amount": "-4000.00",
+        "currency": "MXN"
+       },
+       "pct": "1.5000"
+      },
+      "…(3 more)"
+     ]
+    },
+    {
+     "group": "wants",
+     "planned": {
+      "amount": "7277.75",
+      "currency": "MXN"
+     },
+     "actual": {
+      "amount": "1298.00",
+      "currency": "MXN"
+     },
+     "left": {
+      "amount": "5979.75",
+      "currency": "MXN"
+     },
+     "items": [
+      {
+       "label_id": "lbl-a1eb95cc5481",
+       "commitment_id": null,
+       "name": "Entretenimiento",
+       "account": "Expenses:Personal:Entertainment",
+       "planned": {
+        "amount": "1067.00",
+        "currency": "MXN"
+       },
+       "actual": {
+        "amount": "649.00",
+        "currency": "MXN"
+       },
+       "left": {
+        "amount": "418.00",
+        "currency": "MXN"
+       },
+       "pct": "0.6082"
+      },
+      {
+       "label_id": null,
+       "commitment_id": "cmt-e31426a16d8c",
+       "name": "Icloud",
+       "account": "Assets:Bank",
+       "planned": {
+        "amount": "49.00",
+        "currency": "MXN"
+       },
+       "actual": {
+        "amount": "0.00",
+        "currency": "MXN"
+       },
+       "left": {
+        "amount": "49.00",
+        "currency": "MXN"
+       },
+       "pct": "0.0000"
+      },
+      {
+       "label_id": null,
+       "commitment_id": "cmt-878d4212b9d5",
+       "name": "Max",
+       "account": "Assets:Bank:BBVA",
+       "planned": {
+        "amount": "249.00",
+        "currency": "MXN"
+       },
+       "actual": {
+        "amount": "0.00",
+        "currency": "MXN"
+       },
+       "left": {
+        "amount": "249.00",
+        "currency": "MXN"
+       },
+       "pct": "0.0000"
+      },
+      "…(4 more)"
+     ]
+    },
+    {
+     "group": "savings",
+     "planned": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "actual": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "left": {
+      "amount": "0.00",
+      "currency": "MXN"
+     },
+     "items": []
+    },
+    "…(1 more)"
+   ],
+   "income_expected": {
+    "amount": "63000.00",
+    "currency": "MXN"
+   },
+   "income_actual": {
+    "amount": "45000.00",
+    "currency": "MXN"
+   },
+   "savings_rate": "0.4378",
+   "uncategorized": [],
+   "explain": {
+    "summary": "Plan por sobres: Necesidades / Gustos / Ahorro / Deuda, planeado vs. real del período.",
+    "steps": [
+     {
+      "label": "period",
+      "formula": null,
+      "value": "2026-09"
+     },
+     {
+      "label": "income_expected",
+      "formula": "Σ monthly_equivalent(income commitments)",
+      "value": "63000.00"
+     },
+     {
+      "label": "income_actual",
+      "formula": "Σ Income:* postings in the period",
+      "value": "45000.00"
+     },
+     "…(2 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /organizer/demo-mx/rules": {
+  "status": 200,
+  "body": []
+ },
+ "GET /organizer/demo-mx/setup/status": {
+  "status": 200,
+  "body": {
+   "has_bank_lines": true,
+   "has_commitments": true,
+   "has_income": true,
+   "has_plan": true,
+   "counts": {
+    "bank_lines": 40,
+    "commitments": 10,
+    "income_commitments": 2,
+    "budgets": 6,
+    "open_candidates": 5
+   },
+   "progress": "4/4",
+   "explain": {
+    "summary": "Configuración en 3 pasos: movimientos bancarios → compromisos detectados → plan.",
+    "steps": [
+     {
+      "label": "bank_lines",
+      "formula": null,
+      "value": "40"
+     },
+     {
+      "label": "commitments",
+      "formula": null,
+      "value": "10"
+     },
+     {
+      "label": "income_commitments",
+      "formula": null,
+      "value": "2"
+     },
+     "…(2 more)"
+    ],
+    "citations": [],
+    "rule_versions": [],
+    "confidence": null
+   }
+  }
+ },
+ "GET /organizer/demo-mx/detect": {
+  "status": 200,
+  "body": {
+   "candidates": [
+    {
+     "id": "cand-330b8990bc5b",
+     "merchant": "AMAZON PRIME",
+     "preview": {
+      "id": "",
+      "ws_id": "demo-mx",
+      "kind": "subscription",
+      "name": "Amazon Prime",
+      "merchant_patterns": [
+       "AMAZON PRIME"
+      ],
+      "amount": {
+       "amount": "899.00",
+       "currency": "MXN"
+      },
+      "amount_variable": false,
+      "cadence": "annual",
+      "interval_days": null,
+      "anchor_day": 8,
+      "weekday": null,
+      "next_due": "2027-08-08",
+      "account": "Assets:Bank",
+      "label_id": null,
+      "essential": "wants",
+      "status": "active",
+      "trial_ends": null,
+      "started": "2025-08-08",
+      "ended": null,
+      "auto_pay": false,
+      "cancel_notes": null,
+      "linked_loan_id": null,
+      "linked_card_id": null,
+      "source": "detected",
+      "confidence": 0.78,
+      "last_seen": "2026-08-08",
+      "notes": null,
+      "category_hint": "streaming",
+      "reviewed_at": null,
+      "explain": {
+       "summary": "AMAZON PRIME: 2 cargos, intervalos 365 días (mediana 365) → annual.",
+       "steps": [
+        {
+         "label": "intervals_days",
+         "formula": null,
+         "value": "[365]"
+        },
+        {
+         "label": "median_interval",
+         "formula": "median(intervals)",
+         "value": "365"
+        },
+        {
+         "label": "cadence",
+         "formula": "band 365d",
+         "value": "annual"
+        },
+        "…(7 more)"
+       ],
+       "citations": [],
+       "rule_versions": [],
+       "confidence": 0.78
+      }
+     },
+     "evidence": [
+      {
+       "date": "2025-08-08",
+       "amount": {
+        "amount": "899.00",
+        "currency": "MXN"
+       },
+       "description": "AMAZON PRIME*2X4Y5 MX",
+       "source": "bank"
+      },
+      {
+       "date": "2026-08-08",
+       "amount": {
+        "amount": "899.00",
+        "currency": "MXN"
+       },
+       "description": "AMAZON PRIME*2X4Y5 MX",
+       "source": "bank"
+      }
+     ],
+     "confidence": 0.78,
+     "status": "open"
+    },
+    {
+     "id": "cand-094ef1c98c24",
+     "merchant": "CLIENTE ALFA",
+     "preview": {
+      "id": "",
+      "ws_id": "demo-mx",
+      "kind": "income",
+      "name": "Cliente Alfa",
+      "merchant_patterns": [
+       "CLIENTE ALFA"
+      ],
+      "amount": {
+       "amount": "25000.00",
+       "currency": "MXN"
+      },
+      "amount_variable": false,
+      "cadence": "bimonthly",
+      "interval_days": null,
+      "anchor_day": 6,
+      "weekday": null,
+      "next_due": "2026-10-06",
+      "account": "Assets:Bank",
+      "label_id": null,
+      "essential": "needs",
+      "status": "active",
+      "trial_ends": null,
+      "started": "2026-06-06",
+      "ended": null,
+      "auto_pay": false,
+      "cancel_notes": null,
+      "linked_loan_id": null,
+      "linked_card_id": null,
+      "source": "detected",
+      "confidence": 0.77,
+      "last_seen": "2026-08-06",
+      "notes": null,
+      "category_hint": null,
+      "reviewed_at": null,
+      "explain": {
+       "summary": "CLIENTE ALFA: 2 cargos, intervalos 61 días (mediana 61) → bimonthly.",
+       "steps": [
+        {
+         "label": "intervals_days",
+         "formula": null,
+         "value": "[61]"
+        },
+        {
+         "label": "median_interval",
+         "formula": "median(intervals)",
+         "value": "61"
+        },
+        {
+         "label": "cadence",
+         "formula": "band 61d",
+         "value": "bimonthly"
+        },
+        "…(7 more)"
+       ],
+       "citations": [],
+       "rule_versions": [],
+       "confidence": 0.77
+      }
+     },
+     "evidence": [
+      {
+       "date": "2026-06-06",
+       "amount": {
+        "amount": "22950.00",
+        "currency": "MXN"
+       },
+       "description": "SPEI RECIBIDO CLIENTE ALFA",
+       "source": "bank"
+      },
+      {
+       "date": "2026-08-06",
+       "amount": {
+        "amount": "25000.00",
+        "currency": "MXN"
+       },
+       "description": "Spei Recibido Cliente Alfa",
+       "source": "ledger"
+      }
+     ],
+     "confidence": 0.77,
+     "status": "open"
+    },
+    {
+     "id": "cand-c96a4b82e786",
+     "merchant": "PROVEEDOR GAMMA",
+     "preview": {
+      "id": "",
+      "ws_id": "demo-mx",
+      "kind": "other",
+      "name": "Proveedor Gamma",
+      "merchant_patterns": [
+       "PROVEEDOR GAMMA"
+      ],
+      "amount": {
+       "amount": "5000.00",
+       "currency": "MXN"
+      },
+      "amount_variable": false,
+      "cadence": "custom",
+      "interval_days": 23,
+      "anchor_day": 15,
+      "weekday": null,
+      "next_due": "2026-09-22",
+      "account": "Assets:Bank",
+      "label_id": null,
+      "essential": "wants",
+      "status": "active",
+      "trial_ends": null,
+      "started": "2026-07-15",
+      "ended": null,
+      "auto_pay": false,
+      "cancel_notes": null,
+      "linked_loan_id": null,
+      "linked_card_id": null,
+      "source": "detected",
+      "confidence": 0.77,
+      "last_seen": "2026-08-07",
+      "notes": null,
+      "category_hint": null,
+      "reviewed_at": null,
+      "explain": {
+       "summary": "PROVEEDOR GAMMA: 2 cargos, intervalos 23 días (mediana 23) → custom.",
+       "steps": [
+        {
+         "label": "intervals_days",
+         "formula": null,
+         "value": "[23]"
+        },
+        {
+         "label": "median_interval",
+         "formula": "median(intervals)",
+         "value": "23"
+        },
+        {
+         "label": "cadence",
+         "formula": "custom every 23d",
+         "value": "custom"
+        },
+        "…(7 more)"
+       ],
+       "citations": [],
+       "rule_versions": [],
+       "confidence": 0.77
+      }
+     },
+     "evidence": [
+      {
+       "date": "2026-07-15",
+       "amount": {
+        "amount": "4640.00",
+        "currency": "MXN"
+       },
+       "description": "COMPRA PROVEEDOR GAMMA",
+       "source": "bank"
+      },
+      {
+       "date": "2026-08-07",
+       "amount": {
+        "amount": "5000.00",
+        "currency": "MXN"
+       },
+       "description": "Pago Proveedor Gamma",
+       "source": "ledger"
+      }
+     ],
+     "confidence": 0.77,
+     "status": "open"
+    },
+    "…(2 more)"
+   ],
+   "count": 5
+  }
+ }
+}

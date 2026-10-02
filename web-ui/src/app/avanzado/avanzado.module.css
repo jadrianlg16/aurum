@@ -1,0 +1,62 @@
+/* Avanzado (/avanzado/) — tokens only; one column at 320px, cards reflow above that. */
+.heading {
+  font-size: var(--fs-lg);
+  margin: 0 0 var(--sp-3);
+}
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+}
+.grid li {
+  display: flex;
+}
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-height: 44px;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+}
+.card:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-2);
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  font-weight: 600;
+}
+.title svg {
+  color: var(--ink-3);
+  flex: none;
+}
+.desc {
+  color: var(--ink-2);
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+.menu .heading,
+.menu p {
+  margin: 0;
+}
+.menu p {
+  color: var(--ink-2);
+}

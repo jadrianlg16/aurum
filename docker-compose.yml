@@ -1,0 +1,95 @@
+name: aurum
+
+# Two containers: api (FastAPI + all Python modules + MCP over HTTP) and web-ui (static Next.js export
+# behind nginx, proxies /api → api). Published ports bind to ${AURUM_BIND:-127.0.0.1} — the UI on 5024
+# and the MCP endpoint on 5042 are reachable from this machine only unless you set AURUM_BIND=0.0.0.0,
+# which makes the API auto-generate a bearer token (see .env.example). Ollama runs on the host.
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    environment:
+      AURUM_DATA_DIR: /data
+      AURUM_API_HOST: 0.0.0.0
+      AURUM_API_PORT: "5041"
+      AURUM_MCP_HOST: 0.0.0.0
+      AURUM_MCP_PORT: "5042"
+      AURUM_API_URL: http://127.0.0.1:5041
+      AURUM_BIND: ${AURUM_BIND:-127.0.0.1}
+      AURUM_REQUIRE_TOKEN: ${AURUM_REQUIRE_TOKEN:-0}
+      AURUM_ALLOWED_HOSTS: ${AURUM_ALLOWED_HOSTS:-}
+      AURUM_ALLOWED_ORIGINS: ${AURUM_ALLOWED_ORIGINS:-}
+      AURUM_FORWARDED_ALLOW_IPS: ${AURUM_FORWARDED_ALLOW_IPS:-*}
+      AURUM_MCP_TOKEN: ${AURUM_MCP_TOKEN:-}
+      AURUM_LLM_PROVIDER: ${AURUM_LLM_PROVIDER:-ollama}
+      AURUM_LLM_MODEL: ${AURUM_LLM_MODEL:-llama3.1:8b}
+      AURUM_EMBED_MODEL: ${AURUM_EMBED_MODEL:-nomic-embed-text}
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      AURUM_CLOUD_OPT_IN: ${AURUM_CLOUD_OPT_IN:-0}
+      AURUM_OCR_URL: ${AURUM_OCR_URL:-}
+      AURUM_OCR_BACKEND: ${AURUM_OCR_BACKEND:-auto}
+      AURUM_OCR_LANGS: ${AURUM_OCR_LANGS:-spa+eng}
+      AURUM_SEED_DEMO: ${AURUM_SEED_DEMO:-1}
+      AURUM_API_TOKEN: ${AURUM_API_TOKEN:-}
+      AURUM_DEMO_MODE: ${AURUM_DEMO_MODE:-0}
+      AURUM_MAX_UPLOAD_MB: ${AURUM_MAX_UPLOAD_MB:-25}
+      AURUM_RATE_LIMIT_PER_MIN: ${AURUM_RATE_LIMIT_PER_MIN:-600}
+      AURUM_FETCH_MAX_MB: ${AURUM_FETCH_MAX_MB:-10}
+      AURUM_ALLOW_PRIVATE_FETCH: ${AURUM_ALLOW_PRIVATE_FETCH:-0}
+      AURUM_ZIP_MAX_MEMBERS: ${AURUM_ZIP_MAX_MEMBERS:-500}
+      AURUM_ZIP_MAX_MEMBER_MB: ${AURUM_ZIP_MAX_MEMBER_MB:-10}
+      AURUM_ZIP_MAX_TOTAL_MB: ${AURUM_ZIP_MAX_TOTAL_MB:-100}
+      AURUM_LEDGER_CACHE: ${AURUM_LEDGER_CACHE:-1}
+      AURUM_CHOWN_DATA: ${AURUM_CHOWN_DATA:-0}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      AURUM_TELEGRAM_WS_MAP: ${AURUM_TELEGRAM_WS_MAP:-}
+      AURUM_TELEGRAM_SECRET: ${AURUM_TELEGRAM_SECRET:-}
+      FASTMCP_CHECK_FOR_UPDATES: "off"  # fastmcp Settings.check_for_updates is Literal[stable|prerelease|off]; "0" crashes aurum-mcp at import
+      TZ: ${TZ:-America/Mexico_City}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ${AURUM_DATA_DIR_HOST:-./data}:/data
+    expose: ["5041"]
+    ports:
+      - "${AURUM_BIND:-127.0.0.1}:${AURUM_MCP_HOST_PORT:-5042}:5042"
+    # Privilege drop: the entrypoint starts as root only to chown /data, then setpriv's to
+    # uid 10001 with an empty capability set (SETPCAP lets setpriv clear the bounding set too).
+    # cap_drop ALL alone would break the drop itself.
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    cap_add: [CHOWN, SETUID, SETGID, SETPCAP, FOWNER, DAC_OVERRIDE]
+    tmpfs: [/tmp]
+    logging: *logging
+
+  web-ui:
+    build:
+      context: ./web-ui
+    restart: unless-stopped
+    environment:
+      API_URL: http://api:5041
+      WEB_PORT: "8080"
+      AURUM_MAX_UPLOAD_MB: ${AURUM_MAX_UPLOAD_MB:-25}
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${AURUM_BIND:-127.0.0.1}:${AURUM_PORT:-5024}:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/healthz >/dev/null 2>&1 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+    logging: *logging

@@ -1,0 +1,14 @@
+rule: mx.resico.retention_pm
+version: "2026.1"
+source: "LISR art. 113-J. (verify): rate and base not read in the primary statute."
+cases:
+  - name: persona moral withholds 1.25%
+    inputs: {amount: "20000.00", receptor_is_persona_moral: true}
+    expect: {amount: "250.00", currency: "MXN"}
+    explain_contains: "(verify)"
+  - name: persona fisica client withholds nothing
+    inputs: {amount: "20000.00", receptor_is_persona_moral: false}
+    expect: {amount: "0.00", currency: "MXN"}
+  - name: rounding to cents, half up
+    inputs: {amount: "1234.56", receptor_is_persona_moral: true}
+    expect: {amount: "15.43", currency: "MXN"}

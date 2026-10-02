@@ -1,0 +1,70 @@
+; Chart of accounts — US LLC (single- or multi-member), cash basis, Texas.
+; Applied with aurum.business.chart.apply_business_template(ws, "us_llc", currency="USD").
+;
+; Same grouping contract as the MX template so /api/business/{ws}/kpis works unchanged:
+; Expenses:COGS:*, Expenses:Payroll:*, Expenses:Opex:*.
+
+option "operating_currency" "USD"
+
+; --- Assets ---------------------------------------------------------------
+2000-01-01 open Assets:Bank:Checking
+2000-01-01 open Assets:Bank:Savings
+2000-01-01 open Assets:Cash
+2000-01-01 open Assets:Receivable:Clients
+2000-01-01 open Assets:Inventory
+2000-01-01 open Assets:FixedAssets:Equipment
+2000-01-01 open Assets:FixedAssets:Vehicles
+2000-01-01 open Assets:FixedAssets:AccumulatedDepreciation
+2000-01-01 open Assets:Prepaid
+
+; --- Liabilities ----------------------------------------------------------
+2000-01-01 open Liabilities:Payable:Suppliers
+2000-01-01 open Liabilities:CreditCard:Business
+2000-01-01 open Liabilities:Loans:Bank
+2000-01-01 open Liabilities:Payroll:Net
+2000-01-01 open Liabilities:Payroll:FederalWithholding
+2000-01-01 open Liabilities:Payroll:FICA-Employee
+2000-01-01 open Liabilities:Payroll:FICA-Employer
+2000-01-01 open Liabilities:Payroll:FUTA
+2000-01-01 open Liabilities:Payroll:SUTA
+2000-01-01 open Liabilities:Taxes:SalesTax
+2000-01-01 open Liabilities:Taxes:Franchise
+
+; --- Equity ---------------------------------------------------------------
+2000-01-01 open Equity:Opening-Balances
+2000-01-01 open Equity:Contributions
+2000-01-01 open Equity:Distributions
+2000-01-01 open Equity:RetainedEarnings
+
+; --- Income ---------------------------------------------------------------
+2000-01-01 open Income:Sales:Products
+2000-01-01 open Income:Sales:Services
+2000-01-01 open Income:Other
+2000-01-01 open Income:Interest
+
+; --- Cost of goods sold ---------------------------------------------------
+2000-01-01 open Expenses:COGS:Materials
+2000-01-01 open Expenses:COGS:Subcontractors
+2000-01-01 open Expenses:COGS:Freight
+
+; --- Payroll cost ---------------------------------------------------------
+2000-01-01 open Expenses:Payroll:Wages
+2000-01-01 open Expenses:Payroll:FICA-Employer
+2000-01-01 open Expenses:Payroll:FUTA
+2000-01-01 open Expenses:Payroll:SUTA
+2000-01-01 open Expenses:Payroll:Benefits
+
+; --- Operating expenses ---------------------------------------------------
+2000-01-01 open Expenses:Opex:Rent
+2000-01-01 open Expenses:Opex:Utilities
+2000-01-01 open Expenses:Opex:Software
+2000-01-01 open Expenses:Opex:Marketing
+2000-01-01 open Expenses:Opex:Professional
+2000-01-01 open Expenses:Opex:Travel
+2000-01-01 open Expenses:Opex:Meals
+2000-01-01 open Expenses:Opex:Office
+2000-01-01 open Expenses:Opex:Insurance
+2000-01-01 open Expenses:Opex:Depreciation
+2000-01-01 open Expenses:Opex:BankFees
+2000-01-01 open Expenses:Opex:Other
+2000-01-01 open Expenses:Financial:Interest
